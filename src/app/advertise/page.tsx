@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import MonetizationPanel from '@/components/MonetizationPanel';
 
 const AD_POSITIONS = [
     {
@@ -350,6 +351,8 @@ export default function AdvertisePage() {
                     ))}
                 </div>
             </div>
+
+            <MonetizationPanel booking />
 
             {/* Booking Form Section */}
             <div id="book-slot" className="pt-6">

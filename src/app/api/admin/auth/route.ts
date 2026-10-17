@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
         const password = String(body.password || '').trim();
         const expected = getAdminPasscode();
 
-        if (password !== expected) {
+        if (!expected || password !== expected) {
             return NextResponse.json({ error: 'Invalid admin passcode' }, { status: 401 });
         }
 
