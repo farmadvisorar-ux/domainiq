@@ -182,3 +182,26 @@ valuations are algorithmic estimates for informational purposes, not formal
 appraisals or guarantees of sale price.
 
 <!-- Deployment trigger: 2026-10-17T01:33:16.9123076-05:00 -->
+
+## Owner-managed affiliate links and advertising
+
+Set `ADMIN_PASSWORD` to a strong private password and ensure `DATABASE_URL` is
+configured. There is no default admin password. Sign in at `/admin/login`, then
+open `/admin/monetization` (also linked in the footer).
+
+- Add, edit, or remove affiliate names, descriptions, and exact HTTPS tracking
+  URLs. These appear on the homepage and in valuation report partner placements.
+- Configure two homepage advertising boxes with a price/duration and a hosted
+  checkout URL from your payment provider. They also appear on `/advertise`.
+- Create checkout links in your own payment provider account. Include instructions
+  there for advertisers to supply their business name, contact email, destination
+  URL, creative, and requested box. Set the actual checkout amount/duration to
+  match the label entered here; the label alone does not change the provider price.
+- Check payment and availability manually, enter the approved sponsor details,
+  then enable “Publish approved sponsor.” Disable it when the placement expires.
+  No webhook, automatic reservation, refund, or expiration automation is included.
+
+Settings persist in Postgres (`monetization_settings`, created on first use).
+Database errors prevent saving rather than reporting a temporary in-memory save.
+Legacy advertising inquiry forms and the four older ad slots remain separate;
+these two owner-managed boxes do not automatically publish legacy inquiries.

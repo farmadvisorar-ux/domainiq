@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import DomainCheckerForm from '@/components/DomainCheckerForm';
-import AdSlot from '@/components/AdSlot';
+import MonetizationPanel from '@/components/MonetizationPanel';
 
 const PILLARS = [
     {
@@ -224,7 +224,7 @@ export default function HomePage() {
                 </div>
             </section>
 
-            <AdSlot slotId={1} variant="billboard" className="mx-auto max-w-4xl my-8" />
+            <MonetizationPanel />
 
             {/* Bottom Call to Action */}
             <section className="card p-8 sm:p-12 text-center space-y-6 relative overflow-hidden border-brand-500/30">

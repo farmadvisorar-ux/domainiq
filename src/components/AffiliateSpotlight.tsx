@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
-import { AFFILIATE_PARTNERS, getAffiliatePartner, type AffiliatePartner } from '@/config/affiliates';
+import { useState, useEffect } from 'react';
+import type { AffiliatePartner } from '@/config/affiliates';
+import type { MonetizationSettings } from '@/lib/monetization-schema';
 
 interface Props {
     domain: string;
@@ -62,22 +63,19 @@ export default function AffiliateSpotlight({
     variant = 'inline',
     className = '',
 }: Props) {
-    const [mounted, setMounted] = useState(false);
-    const [clientOffset, setClientOffset] = useState(0);
-
+    const [settings, setSettings] = useState<MonetizationSettings | null>(null);
     useEffect(() => {
-        setMounted(true);
-        // Randomize partner offset per visit/render so offers dynamically rotate across visits
-        setClientOffset(Math.floor(Math.random() * AFFILIATE_PARTNERS.length));
+        fetch('/api/monetization').then((r) => r.ok ? r.json() : null).then(setSettings).catch(() => {});
     }, []);
-
-    const partner = useMemo(() => {
-        if (partnerId) {
-            return AFFILIATE_PARTNERS.find((p) => p.id === partnerId) ?? AFFILIATE_PARTNERS[0]!;
-        }
-        const effectiveOffset = mounted ? slotIndex + clientOffset : slotIndex;
-        return getAffiliatePartner(domain || 'domain.com', effectiveOffset) ?? AFFILIATE_PARTNERS[0]!;
-    }, [domain, slotIndex, partnerId, mounted, clientOffset]);
+    const links = settings?.affiliates ?? [];
+    const configured = links.find((item) => item.name === partnerId) ?? links[slotIndex % links.length];
+    if (!configured) return null;
+    const partner: AffiliatePartner = {
+        id: configured.name, name: configured.name, category: 'marketplace',
+        badge: 'Affiliate partner', headline: () => configured.name,
+        description: () => configured.description, ctaText: 'Visit partner →',
+        affiliateUrl: configured.url, icon: '↗', theme: 'brand',
+    };
 
     const theme = (partner && THEME_STYLES[partner.theme]) ? THEME_STYLES[partner.theme] : THEME_STYLES.brand;
     const safeDomain = domain || 'domain.com';
@@ -160,7 +158,7 @@ export default function AffiliateSpotlight({
                             {partner.ctaText}
                         </a>
                         <span className="text-[11px] text-slate-500 font-mono">
-                            Verified secure partner · Fast checkout
+                            Affiliate link · We may earn a commission
                         </span>
                     </div>
                 </div>

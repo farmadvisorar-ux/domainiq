@@ -106,6 +106,7 @@ export default function Footer() {
             <div className="border-t border-slate-900 py-6 text-center text-xs text-slate-500 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
                 <span>© {new Date().getFullYear()} DomainIQ Inc. Algorithmic estimates for informational decision intelligence, not guaranteed appraisal warrants.</span>
                 <span className="text-slate-700">•</span>
+                <Link href="/admin/monetization" className="text-brand-300">Affiliate &amp; Ad Settings</Link>
                 <Link href="/admin" className="text-slate-400 hover:text-brand-300 font-mono transition-colors">
                     Admin Terminal
                 </Link>
