@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 const MESSAGES: Record<string, { title: string; body: string }> = {
-    success: { title: 'Email verified 🎉', body: 'Your email is confirmed. You now have full access to DomainIQ.' },
+    success: { title: 'Email verified 🎉', body: 'Your email is confirmed. You now have full access to DomainVoodoo.' },
     invalid: { title: 'Link expired or already used', body: 'Request a new verification email from your dashboard.' },
     missing: { title: 'Missing verification token', body: 'Use the link from your verification email.' },
 };

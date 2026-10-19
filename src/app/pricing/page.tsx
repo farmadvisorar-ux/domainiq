@@ -23,7 +23,7 @@ export default function PricingPage() {
             <div>
                 <h1 className="text-3xl font-bold">Simple pricing: free</h1>
                 <p className="mt-2 text-slate-500">
-                    DomainIQ is fully free. We keep the lights on with unobtrusive ads and optional affiliate links to
+                    DomainVoodoo is fully free. We keep the lights on with unobtrusive ads and optional affiliate links to
                     domain marketplaces — never a paywall on the valuation itself.
                 </p>
             </div>

@@ -39,7 +39,7 @@ export default function AdminLoginPage() {
 
     const handleFillDefaults = () => {
         setUsername('admin');
-        setPassword('domainiq-admin-2026');
+        setPassword('domainvoodoo-admin-2026');
         setError(null);
     };
 
@@ -49,10 +49,10 @@ export default function AdminLoginPage() {
                 {/* Brand Header */}
                 <div className="text-center space-y-2">
                     <div className="inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-gradient-to-br from-brand-500 to-indigo-600 text-white font-mono text-xl shadow-xl shadow-brand-500/30 font-black mb-1">
-                        IQ
+                        DV
                     </div>
                     <h1 className="text-2xl font-black text-white tracking-tight">
-                        Domain<span className="text-brand-400">IQ</span> Admin Terminal
+                        Domain<span className="text-brand-400">Voodoo</span> Admin Terminal
                     </h1>
                     <p className="text-xs text-slate-400 font-mono">
                         System Management • Live Feed Push • Ad Box Operations
@@ -69,10 +69,10 @@ export default function AdminLoginPage() {
                             <span>🔑</span> Default Admin Credentials:
                         </div>
                         <div className="text-slate-300">
-                            Username: <span className="font-bold text-white">admin</span> (or <span className="text-white">admin@domainiq.com</span>)
+                            Username: <span className="font-bold text-white">admin</span> (or <span className="text-white">admin@domainvoodoo.com</span>)
                         </div>
                         <div className="text-slate-300">
-                            Password: <span className="font-bold text-emerald-400">domainiq-admin-2026</span>
+                            Password: <span className="font-bold text-emerald-400">domainvoodoo-admin-2026</span>
                         </div>
                     </div>
 
@@ -85,7 +85,7 @@ export default function AdminLoginPage() {
                                 type="text"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                placeholder="admin or admin@domainiq.com"
+                                placeholder="admin or admin@domainvoodoo.com"
                                 className="input w-full font-mono text-sm bg-slate-950 border-slate-800 focus:border-brand-500"
                             />
                         </div>
@@ -125,7 +125,7 @@ export default function AdminLoginPage() {
                                 onClick={handleFillDefaults}
                                 className="w-full text-center text-[11px] font-mono text-slate-400 hover:text-brand-300 transition-colors py-1"
                             >
-                                ⚡ Click to Auto-Fill Credentials (<span className="text-slate-300">admin / domainiq-admin-2026</span>)
+                                ⚡ Click to Auto-Fill Credentials (<span className="text-slate-300">admin / domainvoodoo-admin-2026</span>)
                             </button>
                         </div>
                     </form>
@@ -137,7 +137,7 @@ export default function AdminLoginPage() {
                         href="/"
                         className="text-xs font-mono text-slate-400 hover:text-white transition-colors"
                     >
-                        ← Return to DomainIQ Public Terminal
+                        ← Return to DomainVoodoo Public Terminal
                     </Link>
                 </div>
             </div>

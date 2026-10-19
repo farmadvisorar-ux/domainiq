@@ -8,7 +8,7 @@ export default function ExtensionPage() {
                     Browser Extension
                 </span>
                 <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-                    DomainIQ for Chrome &amp; Edge
+                    DomainVoodoo for Chrome &amp; Edge
                 </h1>
                 <p className="mt-2 text-slate-500 max-w-xl mx-auto text-base">
                     Evaluate domain names on GoDaddy Auctions, Namecheap, Sedo, Dan, or any website with a single click.
@@ -67,10 +67,10 @@ export default function ExtensionPage() {
                         Click the <strong>&ldquo;Load unpacked&rdquo;</strong> button in the top-left toolbar.
                     </li>
                     <li className="leading-relaxed">
-                        Select the <code className="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-mono">extension/</code> directory from the DomainIQ project files.
+                        Select the <code className="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-mono">extension/</code> directory from the DomainVoodoo project files.
                     </li>
                     <li className="leading-relaxed">
-                        Pin the <strong>DomainIQ</strong> icon to your browser bar for instant 1-click valuations anywhere!
+                        Pin the <strong>DomainVoodoo</strong> icon to your browser bar for instant 1-click valuations anywhere!
                     </li>
                 </ol>
 

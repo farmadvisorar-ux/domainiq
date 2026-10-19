@@ -13,7 +13,7 @@ function charWidth(s: string): number {
 }
 
 function renderBadge(domain: string, priceLabel: string): string {
-    const leftLabel = 'DomainIQ';
+    const leftLabel = 'DomainVoodoo';
     const rightLabel = `${domain}  ${priceLabel}`;
     const leftWidth = charWidth(leftLabel) + 6;
     const rightWidth = charWidth(rightLabel) + 6;
@@ -52,9 +52,9 @@ function fallbackCardBadge(message: string): string {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="380" height="175" viewBox="0 0 380 175">
   <rect width="380" height="175" rx="14" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
   <rect x="18" y="16" width="68" height="20" rx="4" fill="#2563eb"/>
-  <text x="52" y="30" fill="#ffffff" font-family="system-ui,sans-serif" font-size="10" font-weight="800" text-anchor="middle">DOMAINIQ</text>
+  <text x="52" y="30" fill="#ffffff" font-family="system-ui,sans-serif" font-size="10" font-weight="800" text-anchor="middle">DOMAINVOODOO</text>
   <text x="190" y="95" fill="#94a3b8" font-family="system-ui,sans-serif" font-size="13" text-anchor="middle">${escapeXml(message)}</text>
-  <text x="362" y="156" fill="#64748b" font-family="system-ui,sans-serif" font-size="10" text-anchor="end">domainiq.com</text>
+  <text x="362" y="156" fill="#64748b" font-family="system-ui,sans-serif" font-size="10" text-anchor="end">domainvoodoo.com</text>
 </svg>`;
 }
 
@@ -93,7 +93,7 @@ function renderCardBadge(
   <g transform="translate(18, 16)">
     <!-- Brand Pill -->
     <rect width="68" height="20" rx="4" fill="#2563eb"/>
-    <text x="34" y="14" fill="#ffffff" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="800" text-anchor="middle" letter-spacing="0.5">DOMAINIQ</text>
+    <text x="34" y="14" fill="#ffffff" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="800" text-anchor="middle" letter-spacing="0.5">DOMAINVOODOO</text>
     
     <text x="76" y="14" fill="#94a3b8" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="600" letter-spacing="0.5">VERIFIED APPRAISAL</text>
     
@@ -118,7 +118,7 @@ function renderCardBadge(
     <text x="0" y="0" fill="#64748b" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="500">
       Liquidation Floor: <tspan fill="#cbd5e1" font-weight="700">${escapeXml(formattedFloor)}</tspan>
     </text>
-    <text x="344" y="0" fill="#64748b" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="600" text-anchor="end">domainiq.com</text>
+    <text x="344" y="0" fill="#64748b" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="600" text-anchor="end">domainvoodoo.com</text>
   </g>
 </svg>`;
 }

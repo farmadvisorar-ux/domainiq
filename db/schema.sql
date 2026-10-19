@@ -1,4 +1,4 @@
--- DomainIQ schema (Postgres). Idempotent: safe to run on every deploy.
+-- DomainVoodoo schema (Postgres). Idempotent: safe to run on every deploy.
 --
 -- Primary/foreign keys use SERIAL/INTEGER rather than BIGSERIAL/BIGINT on
 -- purpose: node-postgres returns int8 (bigint) columns as strings to avoid
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS ad_slots (
     image_url           TEXT,
     destination_url     TEXT NOT NULL,
     cta_text            TEXT NOT NULL DEFAULT 'Learn More →',
-    sponsor_name        TEXT NOT NULL DEFAULT 'DomainIQ Partner',
+    sponsor_name        TEXT NOT NULL DEFAULT 'DomainVoodoo Partner',
     badge               TEXT NOT NULL DEFAULT 'Featured Sponsor',
     is_active           BOOLEAN NOT NULL DEFAULT true,
     impressions         INTEGER NOT NULL DEFAULT 0,

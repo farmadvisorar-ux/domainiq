@@ -23,10 +23,10 @@ export default function ApiDocsPage() {
         }
     }
 
-    const curlExample = `curl -X GET "https://domainiq.com/api/v1/valuate?domain=cloudscale.ai" \\
+    const curlExample = `curl -X GET "https://domainvoodoo.com/api/v1/valuate?domain=cloudscale.ai" \\
   -H "Accept: application/json"`;
 
-    const jsExample = `const response = await fetch("https://domainiq.com/api/v1/valuate", {
+    const jsExample = `const response = await fetch("https://domainvoodoo.com/api/v1/valuate", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ domain: "cloudscale.ai" })
@@ -38,7 +38,7 @@ console.log("Liquidity Score:", data.data.liquidity.score);`;
 
     const pythonExample = `import requests
 
-url = "https://domainiq.com/api/v1/valuate"
+url = "https://domainvoodoo.com/api/v1/valuate"
 params = {"domain": "cloudscale.ai"}
 
 response = requests.get(url, params=params)
@@ -58,7 +58,7 @@ if response.status_code == 200:
                     Developer API v1
                 </span>
                 <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
-                    DomainIQ Developer Ecosystem
+                    DomainVoodoo Developer Ecosystem
                 </h1>
                 <p className="mt-2 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-base">
                     Programmatic access to algorithmic domain valuations, wholesale liquidation floors, UDRP trademark conflict scores, and liquidity velocity analytics.

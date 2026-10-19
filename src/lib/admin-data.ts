@@ -68,7 +68,7 @@ const DEFAULT_AD_SLOTS: AdSlotData[] = [
         title: 'Apex Escrow: Zero-Chargeback Domain Transactions',
         description: 'Licensed wire escrow & instant automated domain push across 85+ global registrars. Protect high-value deals.',
         image_url: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=400&q=80',
-        destination_url: 'https://www.escrow.com/?utm_source=domainiq&utm_medium=ad_box_1',
+        destination_url: 'https://www.escrow.com/?utm_source=domainvoodoo&utm_medium=ad_box_1',
         cta_text: 'Secure Transaction →',
         sponsor_name: 'Apex Escrow Services',
         badge: 'Premier Sponsor',
@@ -83,7 +83,7 @@ const DEFAULT_AD_SLOTS: AdSlotData[] = [
         title: 'Dan.com: 300% Higher Conversions with Lease-To-Own',
         description: 'Offer buyers frictionless 12 to 36 month installment checkout on custom domain landers. Keep full ownership until paid.',
         image_url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80',
-        destination_url: 'https://dan.com/?utm_source=domainiq&utm_medium=ad_box_2',
+        destination_url: 'https://dan.com/?utm_source=domainvoodoo&utm_medium=ad_box_2',
         cta_text: 'Create Landers Free →',
         sponsor_name: 'Dan Marketplace Network',
         badge: 'Featured Showcase',
@@ -98,7 +98,7 @@ const DEFAULT_AD_SLOTS: AdSlotData[] = [
         title: 'Namecheap: Low Renewal Rates & Free WHOIS Guard',
         description: 'The preferred domainer registrar for .ai, .com, and portfolio drops. Advanced DNS management & zero markups.',
         image_url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80',
-        destination_url: 'https://www.namecheap.com/?utm_source=domainiq&utm_medium=ad_box_3',
+        destination_url: 'https://www.namecheap.com/?utm_source=domainvoodoo&utm_medium=ad_box_3',
         cta_text: 'Transfer & Register →',
         sponsor_name: 'Namecheap Domains',
         badge: 'Recommended Registrar',
@@ -113,7 +113,7 @@ const DEFAULT_AD_SLOTS: AdSlotData[] = [
         title: 'Hostinger Cloud: Deploy Ultra-Fast NVMe Web Assets',
         description: 'Transform acquired domains into thriving digital businesses. 99.9% uptime, free email, and automated SSL certs.',
         image_url: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=400&q=80',
-        destination_url: 'https://www.hostinger.com/?utm_source=domainiq&utm_medium=ad_box_4',
+        destination_url: 'https://www.hostinger.com/?utm_source=domainvoodoo&utm_medium=ad_box_4',
         cta_text: 'Get 75% Off Cloud →',
         sponsor_name: 'Hostinger Cloud Infrastructure',
         badge: 'Official Cloud Partner',
@@ -136,7 +136,7 @@ const DEFAULT_PURCHASES: AdPurchaseData[] = [
         status: 'active',
         start_date: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
         expiry_date: new Date(Date.now() + 16 * 24 * 60 * 60 * 1000).toISOString(),
-        destination_url: 'https://www.escrow.com/?utm_source=domainiq&utm_medium=ad_box_1',
+        destination_url: 'https://www.escrow.com/?utm_source=domainvoodoo&utm_medium=ad_box_1',
         notes: 'Monthly sponsorship banner on Header Billboard. Paid via Stripe wire.',
         created_at: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
     },
@@ -150,7 +150,7 @@ const DEFAULT_PURCHASES: AdPurchaseData[] = [
         status: 'active',
         start_date: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString(),
         expiry_date: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000).toISOString(),
-        destination_url: 'https://dan.com/?utm_source=domainiq&utm_medium=ad_box_2',
+        destination_url: 'https://dan.com/?utm_source=domainvoodoo&utm_medium=ad_box_2',
         notes: 'Mid-report valuation spotlight integration.',
         created_at: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString(),
     },
@@ -164,7 +164,7 @@ const DEFAULT_PURCHASES: AdPurchaseData[] = [
         status: 'active',
         start_date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
         expiry_date: new Date(Date.now() + 25 * 24 * 60 * 60 * 1000).toISOString(),
-        destination_url: 'https://www.namecheap.com/?utm_source=domainiq&utm_medium=ad_box_3',
+        destination_url: 'https://www.namecheap.com/?utm_source=domainvoodoo&utm_medium=ad_box_3',
         notes: 'Intelligence tile placement across calculator and SEO pillar pages.',
         created_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
     },
@@ -178,7 +178,7 @@ const DEFAULT_PURCHASES: AdPurchaseData[] = [
         status: 'pending',
         start_date: new Date().toISOString(),
         expiry_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-        destination_url: 'https://www.hostinger.com/?utm_source=domainiq&utm_medium=ad_box_4',
+        destination_url: 'https://www.hostinger.com/?utm_source=domainvoodoo&utm_medium=ad_box_4',
         notes: 'Inquiry submitted for next month footer slot. Pending confirmation.',
         created_at: new Date().toISOString(),
     },
@@ -190,38 +190,38 @@ const MOCK_USERS: AdminUser[] = SEED_USERS;
 // In-Memory state for live updates if DB is unconfigured or offline
 declare global {
     // eslint-disable-next-line no-var
-    var __domainiqAdSlots: AdSlotData[] | undefined;
+    var __domainvoodooAdSlots: AdSlotData[] | undefined;
     // eslint-disable-next-line no-var
-    var __domainiqPurchases: AdPurchaseData[] | undefined;
+    var __domainvoodooPurchases: AdPurchaseData[] | undefined;
     // eslint-disable-next-line no-var
-    var __domainiqMockUsers: AdminUser[] | undefined;
+    var __domainvoodooMockUsers: AdminUser[] | undefined;
 }
 
 function getMemorySlots(): AdSlotData[] {
-    if (!globalThis.__domainiqAdSlots) {
-        globalThis.__domainiqAdSlots = JSON.parse(JSON.stringify(DEFAULT_AD_SLOTS));
+    if (!globalThis.__domainvoodooAdSlots) {
+        globalThis.__domainvoodooAdSlots = JSON.parse(JSON.stringify(DEFAULT_AD_SLOTS));
     }
-    return globalThis.__domainiqAdSlots!;
+    return globalThis.__domainvoodooAdSlots!;
 }
 
 function getMemoryPurchases(): AdPurchaseData[] {
-    if (!globalThis.__domainiqPurchases) {
-        globalThis.__domainiqPurchases = JSON.parse(JSON.stringify(DEFAULT_PURCHASES));
+    if (!globalThis.__domainvoodooPurchases) {
+        globalThis.__domainvoodooPurchases = JSON.parse(JSON.stringify(DEFAULT_PURCHASES));
     }
-    return globalThis.__domainiqPurchases!;
+    return globalThis.__domainvoodooPurchases!;
 }
 
 function getMemoryUsers(): AdminUser[] {
-    if (!globalThis.__domainiqMockUsers || globalThis.__domainiqMockUsers.length < 643) {
-        globalThis.__domainiqMockUsers = JSON.parse(JSON.stringify(SEED_USERS));
+    if (!globalThis.__domainvoodooMockUsers || globalThis.__domainvoodooMockUsers.length < 643) {
+        globalThis.__domainvoodooMockUsers = JSON.parse(JSON.stringify(SEED_USERS));
     }
     // All added emails are strictly free plan
-    for (const u of globalThis.__domainiqMockUsers!) {
+    for (const u of globalThis.__domainvoodooMockUsers!) {
         if (u.plan !== 'admin') {
             u.plan = 'free';
         }
     }
-    return globalThis.__domainiqMockUsers!;
+    return globalThis.__domainvoodooMockUsers!;
 }
 
 /**
@@ -242,7 +242,7 @@ async function ensureTables(): Promise<void> {
                 image_url TEXT,
                 destination_url TEXT NOT NULL,
                 cta_text TEXT NOT NULL DEFAULT 'Learn More →',
-                sponsor_name TEXT NOT NULL DEFAULT 'DomainIQ Partner',
+                sponsor_name TEXT NOT NULL DEFAULT 'DomainVoodoo Partner',
                 badge TEXT NOT NULL DEFAULT 'Featured Sponsor',
                 is_active BOOLEAN NOT NULL DEFAULT true,
                 impressions INTEGER NOT NULL DEFAULT 0,
@@ -319,7 +319,7 @@ async function ensureTables(): Promise<void> {
                         u.id,
                         u.name || null,
                         u.email,
-                        '$2a$10$DomainIQDemoHashForUserSecurity2026................',
+                        '$2a$10$DomainVoodooDemoHashForUserSecurity2026................',
                         u.plan,
                         u.email_verified_at ? new Date(u.email_verified_at) : null,
                         new Date(u.created_at),
@@ -503,7 +503,7 @@ export async function recordAdClick(slotId: number): Promise<string> {
         }
     }
 
-    return target?.destination_url ?? 'https://domainiq.app';
+    return target?.destination_url ?? 'https://domainvoodoo.app';
 }
 
 /**
@@ -752,9 +752,9 @@ export async function triggerWebhookPush(webhookUrl: string): Promise<{ success:
         const feed = await getLivePushFeed();
         const response = await fetch(webhookUrl, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'User-Agent': 'DomainIQ-Admin-Webhook/1.0' },
+            headers: { 'Content-Type': 'application/json', 'User-Agent': 'DomainVoodoo-Admin-Webhook/1.0' },
             body: JSON.stringify({
-                event: 'domainiq.live_sync',
+                event: 'domainvoodoo.live_sync',
                 pushedAt: new Date().toISOString(),
                 data: feed,
             }),

@@ -28,7 +28,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const domain = decodeURIComponent(params.domain);
     return {
-        title: `${domain} valuation — DomainIQ`,
+        title: `${domain} valuation — DomainVoodoo`,
         description: `Free, explainable estimate of what ${domain} is worth, based on comparable sales and multi-factor scoring.`,
     };
 }
@@ -158,7 +158,7 @@ export default async function ValuationPage({ params }: Props) {
     // Emergency fail-safe 2: if still null, evaluate standard benchmark asset so UI NEVER displays an error
     if (!result) {
         try {
-            result = await evaluateDomain('domainiq.com', {
+            result = await evaluateDomain('domainvoodoo.com', {
                 lookupAge: false,
                 lookupArchive: false,
                 checkTrademark: false,

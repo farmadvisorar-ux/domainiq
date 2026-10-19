@@ -34,13 +34,13 @@ function renderIssue(subject: string, bodyHtml: string, unsubscribeUrl: string):
     return `
     <div style="font-family: system-ui, -apple-system, sans-serif; max-width: 600px; margin: 0 auto;">
       <div style="padding: 16px 0; border-bottom: 1px solid #e2e8f0;">
-        <strong style="font-size: 18px;">DomainIQ</strong>
+        <strong style="font-size: 18px;">DomainVoodoo</strong>
       </div>
       <div style="padding: 24px 0; color: #1e293b; line-height: 1.6;">
         ${bodyHtml}
       </div>
       <div style="padding: 16px 0; border-top: 1px solid #e2e8f0; color: #94a3b8; font-size: 12px;">
-        You're receiving this because you subscribed to the DomainIQ newsletter.
+        You're receiving this because you subscribed to the DomainVoodoo newsletter.
         <a href="${unsubscribeUrl}" style="color: #94a3b8;">Unsubscribe</a>
       </div>
     </div>
@@ -71,7 +71,7 @@ async function main() {
 
     const bodyHtml = readFileSync(file, 'utf-8');
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const from = process.env.EMAIL_FROM || 'DomainIQ <onboarding@resend.dev>';
+    const from = process.env.EMAIL_FROM || 'DomainVoodoo <onboarding@resend.dev>';
 
     const sql = neon(process.env.DATABASE_URL);
     const subscribers = await sql(

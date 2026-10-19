@@ -71,7 +71,7 @@ export default function AdBox({
                 title: 'Sitewide Bottom Leaderboard Banner • Banner Space Available',
                 badge: 'Slot #4 • Footer Leaderboard',
                 price: '$199/mo',
-                desc: 'Prominent horizontal banner displayed above footer across every single page on DomainIQ.',
+                desc: 'Prominent horizontal banner displayed above footer across every single page on DomainVoodoo.',
             },
         }[slotId];
 

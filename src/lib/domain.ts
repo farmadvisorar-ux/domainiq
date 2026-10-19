@@ -24,7 +24,7 @@ export function normalizeDomain(input: string): string {
 
     // 3. Handle degenerate or empty inputs
     if (!clean || clean === 'com' || clean === 'net' || clean === 'org' || clean === 'ai' || clean === 'io' || clean === 'co') {
-        clean = 'domainiq.com';
+        clean = 'domainvoodoo.com';
     }
 
     // 4. If no dot (bare keyword), append .com
@@ -40,7 +40,7 @@ export function normalizeDomain(input: string): string {
         .join('.');
 
     if (!clean || !clean.includes('.')) {
-        clean = 'domainiq.com';
+        clean = 'domainvoodoo.com';
     }
 
     return clean;

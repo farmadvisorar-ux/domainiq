@@ -116,7 +116,7 @@ export interface ValuationResult {
 }
 
 /**
- * DomainIQ Consensus Valuation Engine v3.0 (CVM-4)
+ * DomainVoodoo Consensus Valuation Engine v3.0 (CVM-4)
  * A world-class quad-model institutional triangulation engine that synthesizes:
  * 1. Structural Scarcity & Asset Class Archetype Floor
  * 2. Time-Decayed KNN Comps Regression (Present-Value Normalized)
@@ -129,7 +129,7 @@ export async function evaluateDomain(
 ): Promise<ValuationResult> {
     let domain = normalizeDomain(input);
     if (!domain || !isValidDomain(domain)) {
-        domain = 'domainiq.com';
+        domain = 'domainvoodoo.com';
     }
 
 

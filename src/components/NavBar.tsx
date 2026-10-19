@@ -14,10 +14,10 @@ export default async function NavBar() {
                     <div className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 via-indigo-600 to-brand-700 text-white shadow-md shadow-brand-500/30 group-hover:shadow-brand-400/50 transition-all duration-300">
                         {/* Glow effect */}
                         <div className="absolute inset-0 rounded-xl bg-brand-400 opacity-0 blur-sm group-hover:opacity-40 transition-opacity" />
-                        <span className="relative font-mono font-black text-xs tracking-wider">IQ</span>
+                        <span className="relative font-mono font-black text-xs tracking-wider">DV</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                        <span className="text-white group-hover:text-brand-300 transition-colors">Domain<span className="text-brand-400">IQ</span></span>
+                        <span className="text-white group-hover:text-brand-300 transition-colors">Domain<span className="text-brand-400">Voodoo</span></span>
                         <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-400 border border-brand-500/20 font-semibold tracking-wider">
                             v2.5
                         </span>

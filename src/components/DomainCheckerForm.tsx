@@ -30,7 +30,7 @@ export default function DomainCheckerForm({
 
     useEffect(() => {
         try {
-            const stored = localStorage.getItem('domainiq_recent_searches');
+            const stored = localStorage.getItem('domainvoodoo_recent_searches');
             if (stored) {
                 setRecents(JSON.parse(stored).slice(0, 4));
             }
@@ -51,7 +51,7 @@ export default function DomainCheckerForm({
         try {
             const updated = [clean, ...recents.filter((r) => r !== clean)].slice(0, 5);
             setRecents(updated);
-            localStorage.setItem('domainiq_recent_searches', JSON.stringify(updated));
+            localStorage.setItem('domainvoodoo_recent_searches', JSON.stringify(updated));
         } catch {
             // ignore
         }

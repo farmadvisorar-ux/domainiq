@@ -22,7 +22,7 @@ export async function performValuation(domainInput: string): Promise<ValuationRe
     let clean = normalizeDomain(domainInput);
 
     if (!clean || !isValidDomain(clean)) {
-        clean = 'domainiq.com';
+        clean = 'domainvoodoo.com';
     }
 
 
@@ -95,7 +95,7 @@ export async function performValuation(domainInput: string): Promise<ValuationRe
         } catch (innerErr) {
             console.error('Core engine emergency fallback error:', innerErr);
             try {
-                const emergencyResult = await evaluateDomain('domainiq.com', {
+                const emergencyResult = await evaluateDomain('domainvoodoo.com', {
                     lookupAge: false,
                     lookupArchive: false,
                     checkTrademark: false,

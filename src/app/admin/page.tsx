@@ -287,7 +287,7 @@ export default function AdminDashboardPage() {
                     title: p.banner_title || `${p.company} — Verified Partner`,
                     description:
                         p.banner_description ||
-                        `Official Partner of DomainIQ. Visit ${p.company} to explore premium digital asset solutions.`,
+                        `Official Partner of DomainVoodoo. Visit ${p.company} to explore premium digital asset solutions.`,
                     destination_url: p.destination_url,
                     image_url: p.banner_image_url || null,
                     badge: 'Sponsored Partner',
@@ -376,10 +376,10 @@ export default function AdminDashboardPage() {
                 <div className="w-full max-w-md space-y-6">
                     <div className="text-center space-y-2">
                         <div className="inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-gradient-to-br from-brand-500 to-indigo-600 text-white font-mono text-xl shadow-xl shadow-brand-500/30 font-black mb-1">
-                            IQ
+                            DV
                         </div>
                         <h1 className="text-2xl font-black text-white tracking-tight">
-                            Domain<span className="text-brand-400">IQ</span> Admin Terminal
+                            Domain<span className="text-brand-400">Voodoo</span> Admin Terminal
                         </h1>
                         <p className="text-xs text-slate-400 font-mono">
                             Passcode Required to Access Console
@@ -393,10 +393,10 @@ export default function AdminDashboardPage() {
                                 <span>🔑</span> Admin Login Credentials:
                             </div>
                             <div className="text-slate-300">
-                                Username: <span className="font-bold text-white">admin</span> (or <span className="text-white">admin@domainiq.com</span>)
+                                Username: <span className="font-bold text-white">admin</span> (or <span className="text-white">admin@domainvoodoo.com</span>)
                             </div>
                             <div className="text-slate-300">
-                                Password: <span className="font-bold text-emerald-400">domainiq-admin-2026</span>
+                                Password: <span className="font-bold text-emerald-400">domainvoodoo-admin-2026</span>
                             </div>
                         </div>
 
@@ -443,17 +443,17 @@ export default function AdminDashboardPage() {
 
                             <button
                                 type="button"
-                                onClick={() => setPasscode('domainiq-admin-2026')}
+                                onClick={() => setPasscode('domainvoodoo-admin-2026')}
                                 className="w-full text-center text-[11px] font-mono text-slate-400 hover:text-brand-300 transition-colors pt-2"
                             >
-                                ⚡ Click to Fill Password (<span className="text-slate-300">domainiq-admin-2026</span>)
+                                ⚡ Click to Fill Password (<span className="text-slate-300">domainvoodoo-admin-2026</span>)
                             </button>
                         </form>
                     </div>
 
                     <div className="text-center">
                         <Link href="/" className="text-xs font-mono text-slate-400 hover:text-white transition-colors">
-                            ← Return to DomainIQ Public Site
+                            ← Return to DomainVoodoo Public Site
                         </Link>
                     </div>
                 </div>
@@ -465,7 +465,7 @@ export default function AdminDashboardPage() {
         return (
             <div className="min-h-[70vh] flex flex-col items-center justify-center gap-4">
                 <div className="h-10 w-10 rounded-full border-2 border-brand-500 border-t-transparent animate-spin" />
-                <p className="text-xs font-mono text-slate-400">Loading DomainIQ Admin Engine...</p>
+                <p className="text-xs font-mono text-slate-400">Loading DomainVoodoo Admin Engine...</p>
             </div>
         );
     }
@@ -533,12 +533,12 @@ export default function AdminDashboardPage() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
                 <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-brand-500 to-indigo-600 flex items-center justify-center font-mono font-black text-white text-base shadow-lg shadow-brand-500/20">
-                        IQ
+                        DV
                     </div>
                     <div>
                         <div className="flex items-center gap-2">
                             <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-                                Domain<span className="text-brand-400">IQ</span> Admin Terminal
+                                Domain<span className="text-brand-400">Voodoo</span> Admin Terminal
                             </h1>
                             <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-brand-950 text-brand-300 border border-brand-800">
                                 Live Push v2.4
@@ -695,10 +695,10 @@ export default function AdminDashboardPage() {
                         </div>
 
                         <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs text-brand-300 flex items-center justify-between gap-2 overflow-x-auto">
-                            <code>GET /api/admin/feed?key=domainiq-admin-2026</code>
+                            <code>GET /api/admin/feed?key=domainvoodoo-admin-2026</code>
                             <button
                                 onClick={() => {
-                                    navigator.clipboard.writeText(`${window.location.origin}/api/admin/feed?key=domainiq-admin-2026`);
+                                    navigator.clipboard.writeText(`${window.location.origin}/api/admin/feed?key=domainvoodoo-admin-2026`);
                                     showToast('Copied full Live Push GET URL to clipboard!');
                                 }}
                                 className="shrink-0 px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] transition-colors"
@@ -881,7 +881,7 @@ export default function AdminDashboardPage() {
                                 4 Strategic Advertisement Boxes
                             </h2>
                             <p className="text-xs text-slate-400 font-mono">
-                                Edit live headlines, copy, target links, and push updates live instantly across DomainIQ.
+                                Edit live headlines, copy, target links, and push updates live instantly across DomainVoodoo.
                             </p>
                         </div>
                     </div>
@@ -1492,8 +1492,8 @@ export default function AdminDashboardPage() {
 
                             <div className="flex items-center gap-2 shrink-0">
                                 <a
-                                    href="/api/admin/feed?key=domainiq-admin-2026&format=csv"
-                                    download="domainiq_643_users.csv"
+                                    href="/api/admin/feed?key=domainvoodoo-admin-2026&format=csv"
+                                    download="domainvoodoo_643_users.csv"
                                     className="px-3.5 py-2 rounded-xl text-xs font-mono font-bold bg-slate-900 hover:bg-slate-800 text-emerald-400 border border-emerald-900/60 hover:border-emerald-700 transition-all flex items-center gap-1.5 shadow-sm"
                                 >
                                     <span>📥</span>
@@ -1900,7 +1900,7 @@ export default function AdminDashboardPage() {
                             Live Link Push to GET Hub &amp; Webhooks
                         </h2>
                         <p className="text-xs text-slate-400 font-mono">
-                            Seamless real-time synchronization between DomainIQ and external automation systems, CRMs, or analytics engines.
+                            Seamless real-time synchronization between DomainVoodoo and external automation systems, CRMs, or analytics engines.
                         </p>
                     </div>
 
@@ -1919,11 +1919,11 @@ export default function AdminDashboardPage() {
 
                         <div className="space-y-2">
                             <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs text-brand-300 flex items-center justify-between gap-3 overflow-x-auto">
-                                <code>GET /api/admin/feed?key=domainiq-admin-2026</code>
+                                <code>GET /api/admin/feed?key=domainvoodoo-admin-2026</code>
                                 <div className="flex items-center gap-2 shrink-0">
                                     <button
                                         onClick={() => {
-                                            navigator.clipboard.writeText(`${window.location.origin}/api/admin/feed?key=domainiq-admin-2026`);
+                                            navigator.clipboard.writeText(`${window.location.origin}/api/admin/feed?key=domainvoodoo-admin-2026`);
                                             showToast('Copied JSON GET URL to clipboard!');
                                         }}
                                         className="btn-secondary px-3 py-1 text-[11px]"
@@ -1931,7 +1931,7 @@ export default function AdminDashboardPage() {
                                         Copy URL
                                     </button>
                                     <a
-                                        href="/api/admin/feed?key=domainiq-admin-2026"
+                                        href="/api/admin/feed?key=domainvoodoo-admin-2026"
                                         target="_blank"
                                         className="btn-primary px-3 py-1 text-[11px]"
                                     >
@@ -1941,11 +1941,11 @@ export default function AdminDashboardPage() {
                             </div>
 
                             <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs text-cyan-300 flex items-center justify-between gap-3 overflow-x-auto">
-                                <code>GET /api/admin/feed?key=domainiq-admin-2026&amp;format=csv</code>
+                                <code>GET /api/admin/feed?key=domainvoodoo-admin-2026&amp;format=csv</code>
                                 <div className="flex items-center gap-2 shrink-0">
                                     <a
-                                        href="/api/admin/feed?key=domainiq-admin-2026&format=csv"
-                                        download="domainiq_signups.csv"
+                                        href="/api/admin/feed?key=domainvoodoo-admin-2026&format=csv"
+                                        download="domainvoodoo_signups.csv"
                                         className="px-3 py-1 rounded bg-cyan-950 hover:bg-cyan-900 text-cyan-200 border border-cyan-800 text-[11px] transition-colors"
                                     >
                                         Export CSV ↓

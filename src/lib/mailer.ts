@@ -19,7 +19,7 @@ export function getDevOutbox(): SentEmail[] {
 
 export async function sendEmail(to: string, subject: string, html: string): Promise<void> {
     const apiKey = process.env.RESEND_API_KEY;
-    const from = process.env.EMAIL_FROM || 'DomainIQ <onboarding@resend.dev>';
+    const from = process.env.EMAIL_FROM || 'DomainVoodoo <onboarding@resend.dev>';
 
     if (!apiKey) {
         console.log(`[mailer] (dev mode, no RESEND_API_KEY) would send "${subject}" to ${to}`);
@@ -45,13 +45,13 @@ export async function sendEmail(to: string, subject: string, html: string): Prom
 }
 
 export function verifyEmailHtml(link: string): string {
-    return `<p>Welcome to DomainIQ! Confirm your email to unlock unlimited free valuations, saved watchlists and portfolio tracking.</p>
+    return `<p>Welcome to DomainVoodoo! Confirm your email to unlock unlimited free valuations, saved watchlists and portfolio tracking.</p>
     <p><a href="${link}">Verify your email</a></p>
     <p>If you didn't create this account, you can ignore this message.</p>`;
 }
 
 export function resetPasswordHtml(link: string): string {
-    return `<p>We received a request to reset your DomainIQ password.</p>
+    return `<p>We received a request to reset your DomainVoodoo password.</p>
     <p><a href="${link}">Choose a new password</a></p>
     <p>This link expires in 1 hour. If you didn't request this, you can ignore this message.</p>`;
 }

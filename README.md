@@ -1,4 +1,4 @@
-# DomainIQ
+# DomainVoodoo
 
 A free, transparent domain-name valuation platform. Instant, fully explained
 estimates — multi-factor scoring across length, word composition,
@@ -117,9 +117,7 @@ src/data/wordlist.txt  # ~63k-word English dictionary (from Debian's wamerican p
 
 ## Deploying to Vercel
 
-1. Push this repo to GitHub (already done if you're reading this from the
-   repo — `domainiq/` is a subdirectory of a larger repo, so when importing
-   in Vercel set **Root Directory** to `domainiq`).
+1. Push this repo to GitHub (set **Root Directory** to `domainiq` if importing from the mono-repository).
 2. In the [Vercel dashboard](https://vercel.com/new), "Add New Project" and
    import the repo. Vercel auto-detects Next.js (`npm run build`).
 3. Provision a Postgres database — the **Neon** integration from the Vercel
@@ -128,7 +126,7 @@ src/data/wordlist.txt  # ~63k-word English dictionary (from Debian's wamerican p
 4. In Project Settings → Environment Variables, add:
    - `DATABASE_URL` — the Postgres connection string from step 3
    - `AUTH_SECRET` — a long random string (`openssl rand -base64 32`)
-   - `NEXT_PUBLIC_BASE_URL` — your production URL, e.g. `https://domainiq.vercel.app`
+   - `NEXT_PUBLIC_BASE_URL` — your production URL, e.g. `https://domainvoodoo.vercel.app`
    - `RESEND_API_KEY` / `EMAIL_FROM` — optional, for real email delivery
      (see below)
    - `USPTO_API_KEY` — optional, enables live trademark search (see below)

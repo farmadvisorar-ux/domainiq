@@ -13,8 +13,8 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const domain = decodeURIComponent(params.domain);
     return {
-        title: `Official Appraisal Certificate for ${domain} — DomainIQ`,
-        description: `Official printable valuation certificate and due diligence brief for ${domain}, issued by DomainIQ.`,
+        title: `Official Appraisal Certificate for ${domain} — DomainVoodoo`,
+        description: `Official printable valuation certificate and due diligence brief for ${domain}, issued by DomainVoodoo.`,
     };
 }
 
@@ -93,13 +93,13 @@ export default async function CertificatePage({ params }: Props) {
             <div className="relative border-8 border-double border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-8 sm:p-12 shadow-xl rounded-sm print:border-slate-800 print:shadow-none print:m-0 print:p-8">
                 {/* Watermark Seal */}
                 <div className="absolute right-8 top-8 opacity-10 pointer-events-none select-none text-8xl font-black text-slate-400">
-                    DIQ
+                    DV
                 </div>
 
                 {/* Certificate Header */}
                 <div className="text-center pb-6 border-b-2 border-slate-200 dark:border-slate-800">
                     <div className="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-brand-600 text-white font-extrabold text-sm mb-2 shadow-sm">
-                        IQ
+                        DV
                     </div>
                     <h1 className="text-2xl sm:text-3xl font-serif font-black tracking-wider text-slate-900 dark:text-slate-100 uppercase">
                         Certificate of Valuation
@@ -108,7 +108,7 @@ export default async function CertificatePage({ params }: Props) {
                         Independent Algorithmic Domain Appraisal &amp; Due Diligence Audit
                     </p>
                     <p className="text-[11px] text-slate-400 mt-0.5">
-                        Issued by DomainIQ Algorithmic Intelligence Engine · prstuvw.xyz
+                        Issued by DomainVoodoo Algorithmic Intelligence Engine · prstuvw.xyz
                     </p>
                 </div>
 
@@ -237,7 +237,7 @@ export default async function CertificatePage({ params }: Props) {
                     </p>
                     <div className="text-center sm:text-right">
                         <div className="font-serif font-bold text-slate-700 dark:text-slate-300 tracking-wider">
-                            DOMAINIQ AUDIT BOARD
+                            DOMAINVOODOO AUDIT BOARD
                         </div>
                         <span className="font-mono text-[10px] text-slate-400">
                             SHA-256 Hash Verified

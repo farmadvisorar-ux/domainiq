@@ -49,7 +49,7 @@ export default function HowItWorksPage() {
     return (
         <div className="mx-auto max-w-3xl space-y-10">
             <div className="text-center">
-                <h1 className="text-3xl font-bold">How DomainIQ calculates a valuation</h1>
+                <h1 className="text-3xl font-bold">How DomainVoodoo calculates a valuation</h1>
                 <p className="mt-2 text-slate-500">
                     No trade secrets, no black box. Every factor below is shown on every valuation report, along with the
                     exact score it received.
@@ -107,7 +107,7 @@ export default function HowItWorksPage() {
                     prices. Some train a machine-learning model on that data rather than using authored rules.
                 </p>
                 <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-                    DomainIQ's methodology follows the same general shape (length + extension + keyword demand +
+                    DomainVoodoo's methodology follows the same general shape (length + extension + keyword demand +
                     comparable sales) but runs entirely on a small, transparent, hand-curated dataset with no paid
                     data feed behind it. Expect it to track well for domains that closely resemble something in that
                     dataset, and to be directionally reasonable — not precisely matched to any specific paid tool —

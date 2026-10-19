@@ -4,11 +4,11 @@ import { cookies } from 'next/headers';
 import crypto from 'node:crypto';
 import { getPool } from './db';
 
-const SESSION_COOKIE = 'domainiq_session';
+const SESSION_COOKIE = 'domainvoodoo_session';
 const SESSION_TTL_SECONDS = 60 * 60 * 24 * 30; // 30 days
 
 function getSecret(): Uint8Array {
-    const secret = process.env.AUTH_SECRET || 'domainiq-default-secret-salt-2026-auth-32chars!';
+    const secret = process.env.AUTH_SECRET || 'domainvoodoo-default-secret-salt-2026-auth-32chars!';
     return new TextEncoder().encode(secret);
 }
 
@@ -145,7 +145,7 @@ export async function getSession(): Promise<SessionUser | null> {
             // Fallback session if row lookup timed out
             return {
                 id: userId,
-                email: String(payload.email || 'user@domainiq.com'),
+                email: String(payload.email || 'user@domainvoodoo.com'),
                 plan: 'free',
                 emailVerified: true,
             };

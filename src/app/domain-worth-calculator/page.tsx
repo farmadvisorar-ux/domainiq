@@ -37,13 +37,13 @@ const ALL_FAQS = [
     {
         question: 'How accurate is an online domain name worth calculator?',
         answer:
-            'Modern automated valuation calculators like DomainIQ achieve high statistical precision (typically within 10-25% of verified market clearance) by combining multivariate comparable sales regression, TLD liquidity coefficients, dictionary frequency, and search CPC data. Unlike human brokers who charge 15-20% commissions or flat retainers, algorithmic models provide objective, unbiased benchmarks.',
+            'Modern automated valuation calculators like DomainVoodoo achieve high statistical precision (typically within 10-25% of verified market clearance) by combining multivariate comparable sales regression, TLD liquidity coefficients, dictionary frequency, and search CPC data. Unlike human brokers who charge 15-20% commissions or flat retainers, algorithmic models provide objective, unbiased benchmarks.',
         category: 'Foundational Valuation',
     },
     {
-        question: 'Why does GoDaddy GoValue differ from DomainIQ?',
+        question: 'Why does GoDaddy GoValue differ from DomainVoodoo?',
         answer:
-            'GoDaddy GoValue relies heavily on internal registrar renewals and private marketplace transactions, often producing generic valuations without explainable factor breakdowns. DomainIQ uses an institutional Consensus Valuation Matrix (CVM-4) that triangulates fundamental structural scarcity, present-value time-decayed sales comps, and capitalized Customer Acquisition Cost (CAC) marketing savings with an itemized financial audit ledger.',
+            'GoDaddy GoValue relies heavily on internal registrar renewals and private marketplace transactions, often producing generic valuations without explainable factor breakdowns. DomainVoodoo uses an institutional Consensus Valuation Matrix (CVM-4) that triangulates fundamental structural scarcity, present-value time-decayed sales comps, and capitalized Customer Acquisition Cost (CAC) marketing savings with an itemized financial audit ledger.',
         category: 'Foundational Valuation',
     },
     {
@@ -93,13 +93,13 @@ const ALL_FAQS = [
     {
         question: 'Why do GoDaddy GoValue and EstiBot show completely different valuations for the same domain?',
         answer:
-            'GoDaddy GoValue and EstiBot run fundamentally divergent algorithms. GoDaddy optimizes for secondary market transaction clearance within its registrar aftermarket and Dan/Afternic network, often inflating brandable multi-word prices. EstiBot uses a conservative formula developed around Google Keyword Planner search volume and strict CPC multipliers, heavily discounting non-dictionary or coined brandable names. Triangulating comps across both with a consensus engine like DomainIQ gives the true unbiased median.',
+            'GoDaddy GoValue and EstiBot run fundamentally divergent algorithms. GoDaddy optimizes for secondary market transaction clearance within its registrar aftermarket and Dan/Afternic network, often inflating brandable multi-word prices. EstiBot uses a conservative formula developed around Google Keyword Planner search volume and strict CPC multipliers, heavily discounting non-dictionary or coined brandable names. Triangulating comps across both with a consensus engine like DomainVoodoo gives the true unbiased median.',
         category: 'Comparative Appraisal & Accuracy',
     },
     {
         question: 'Can an algorithmic domain appraisal report be used for legal, tax, or corporate balance sheet filings?',
         answer:
-            'Yes, provided it includes an itemized financial audit ledger, comparable market clearance citations, and a unique verification identifier. Many startups and corporate legal departments use DomainIQ Printable Appraisal Certificates as documentation for IRS Section 197 intangible asset capitalization, intellectual property asset transfers, and M&A due diligence packages.',
+            'Yes, provided it includes an itemized financial audit ledger, comparable market clearance citations, and a unique verification identifier. Many startups and corporate legal departments use DomainVoodoo Printable Appraisal Certificates as documentation for IRS Section 197 intangible asset capitalization, intellectual property asset transfers, and M&A due diligence packages.',
         category: 'Comparative Appraisal & Accuracy',
     },
     {
@@ -170,7 +170,7 @@ export default function DomainWorthCalculatorPage() {
                 },
                 publisher: {
                     '@type': 'Organization',
-                    name: 'DomainIQ',
+                    name: 'DomainVoodoo',
                     url: 'https://prstuvw.xyz',
                 },
                 mainEntityOfPage: 'https://prstuvw.xyz/domain-worth-calculator#framework',
@@ -188,7 +188,7 @@ export default function DomainWorthCalculatorPage() {
                 },
                 publisher: {
                     '@type': 'Organization',
-                    name: 'DomainIQ',
+                    name: 'DomainVoodoo',
                     url: 'https://prstuvw.xyz',
                 },
                 mainEntityOfPage: 'https://prstuvw.xyz/domain-worth-calculator#extensions',
@@ -197,7 +197,7 @@ export default function DomainWorthCalculatorPage() {
                 '@type': 'Article',
                 headline: 'The Definitive Domain Appraisal Guide: How to Accurately Value Any Domain Name in 2026',
                 description:
-                    'Comparative audit of GoDaddy GoValue vs EstiBot vs DomainIQ CVM-4, the institutional pricing formula, 5 silent value killers, and buyer-seller negotiation playbooks.',
+                    'Comparative audit of GoDaddy GoValue vs EstiBot vs DomainVoodoo CVM-4, the institutional pricing formula, 5 silent value killers, and buyer-seller negotiation playbooks.',
                 datePublished: '2026-05-10T08:00:00Z',
                 dateModified: '2026-10-13T05:45:00Z',
                 author: {
@@ -206,7 +206,7 @@ export default function DomainWorthCalculatorPage() {
                 },
                 publisher: {
                     '@type': 'Organization',
-                    name: 'DomainIQ',
+                    name: 'DomainVoodoo',
                     url: 'https://prstuvw.xyz',
                 },
                 mainEntityOfPage: 'https://prstuvw.xyz/domain-worth-calculator#appraisal-guide',
@@ -224,7 +224,7 @@ export default function DomainWorthCalculatorPage() {
                 },
                 publisher: {
                     '@type': 'Organization',
-                    name: 'DomainIQ',
+                    name: 'DomainVoodoo',
                     url: 'https://prstuvw.xyz',
                 },
                 mainEntityOfPage: 'https://prstuvw.xyz/domain-worth-calculator#selling-guide',
@@ -242,7 +242,7 @@ export default function DomainWorthCalculatorPage() {
             },
             {
                 '@type': 'SoftwareApplication',
-                name: 'DomainIQ Instant Domain Appraisal Engine',
+                name: 'DomainVoodoo Instant Domain Appraisal Engine',
                 operatingSystem: 'All',
                 applicationCategory: 'FinanceApplication',
                 offers: {
@@ -267,7 +267,7 @@ export default function DomainWorthCalculatorPage() {
                     <div className="flex items-center gap-2">
                         <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-ping" />
                         <span className="text-xs font-mono font-bold tracking-wider text-slate-300 uppercase">
-                            DomainIQ Valuation Knowledge Hub (2026 Edition)
+                            DomainVoodoo Valuation Knowledge Hub (2026 Edition)
                         </span>
                     </div>
                     <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
@@ -612,7 +612,7 @@ export default function DomainWorthCalculatorPage() {
 
                         <div className="grid sm:grid-cols-2 gap-4">
                             <div className="card p-5 bg-slate-900/80 border border-brand-500/30">
-                                <h3 className="font-bold text-brand-300 text-base mb-2">Automated Appraisal Engine (DomainIQ)</h3>
+                                <h3 className="font-bold text-brand-300 text-base mb-2">Automated Appraisal Engine (DomainVoodoo)</h3>
                                 <ul className="space-y-2 text-xs sm:text-sm text-slate-300">
                                     <li>⚡ <strong>Instant:</strong> Sub-second results backed by 14.8M+ comps.</li>
                                     <li>🎯 <strong>Unbiased:</strong> Zero conflict of interest; no commission incentives.</li>
@@ -1144,7 +1144,7 @@ export default function DomainWorthCalculatorPage() {
                         </h3>
                         <ol className="grid sm:grid-cols-2 gap-2 text-xs sm:text-sm text-slate-300">
                             <li><a href="#why-appraisals-disagree" className="hover:text-brand-300 transition">1. The Appraisal Dilemma: Why GoDaddy, EstiBot, and Brokers Disagree</a></li>
-                            <li><a href="#head-to-head-tools" className="hover:text-brand-300 transition">2. Head-to-Head Comparison: DomainIQ vs. GoDaddy vs. EstiBot</a></li>
+                            <li><a href="#head-to-head-tools" className="hover:text-brand-300 transition">2. Head-to-Head Comparison: DomainVoodoo vs. GoDaddy vs. EstiBot</a></li>
                             <li><a href="#four-valuation-methods" className="hover:text-brand-300 transition">3. The 4 Accepted Mathematical Valuation Methodologies</a></li>
                             <li><a href="#exact-formula" className="hover:text-brand-300 transition">4. The Exact Domain Valuation Formula &amp; Worked Examples</a></li>
                             <li><a href="#silent-value-killers" className="hover:text-brand-300 transition">5. The 5 Silent Value Killers: Red Flags That Erase Value</a></li>
@@ -1196,7 +1196,7 @@ export default function DomainWorthCalculatorPage() {
                     {/* Section 2: Head-to-Head Comparison */}
                     <section id="head-to-head-tools" className="space-y-4">
                         <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
-                            <span className="text-brand-400">2.</span> Head-to-Head Comparison: DomainIQ vs. GoDaddy vs. EstiBot
+                            <span className="text-brand-400">2.</span> Head-to-Head Comparison: DomainVoodoo vs. GoDaddy vs. EstiBot
                         </h3>
                         <p className="text-slate-300 leading-relaxed">
                             To choose the right evaluation mechanism for your portfolio or corporate acquisition, review how the dominant automated systems compare against institutional criteria:
@@ -1207,7 +1207,7 @@ export default function DomainWorthCalculatorPage() {
                                 <thead className="bg-slate-900 text-brand-300 font-mono uppercase text-xs">
                                     <tr>
                                         <th className="p-3 border border-slate-800">Feature / Metric</th>
-                                        <th className="p-3 border border-slate-800 text-emerald-400">DomainIQ (CVM-4)</th>
+                                        <th className="p-3 border border-slate-800 text-emerald-400">DomainVoodoo (CVM-4)</th>
                                         <th className="p-3 border border-slate-800 text-slate-300">GoDaddy GoValue</th>
                                         <th className="p-3 border border-slate-800 text-slate-300">EstiBot</th>
                                         <th className="p-3 border border-slate-800 text-slate-300">Manual Broker</th>
@@ -1464,7 +1464,7 @@ export default function DomainWorthCalculatorPage() {
                             <div className="card p-4 bg-slate-900/60 border border-slate-800 flex items-start gap-3">
                                 <span className="flex h-6 w-6 rounded-full bg-brand-950 border border-brand-800 text-brand-300 items-center justify-center font-mono font-bold text-xs shrink-0 mt-0.5">1</span>
                                 <div>
-                                    <h4 className="font-bold text-white text-sm">Run Consensus Triangulation on DomainIQ</h4>
+                                    <h4 className="font-bold text-white text-sm">Run Consensus Triangulation on DomainVoodoo</h4>
                                     <p className="text-xs text-slate-300 mt-0.5">
                                         Check the wholesale liquidation floor, retail fair market estimate, and structural archetype using the live calculator at the top of this page.
                                     </p>
@@ -1555,7 +1555,7 @@ export default function DomainWorthCalculatorPage() {
                                         💰 <strong>Present Capitalized CAC Savings:</strong> Demonstrate to the buyer that acquiring the domain saves them $5,000–$25,000 annually in recurring Google and Meta advertising costs.
                                     </li>
                                     <li>
-                                        📜 <strong>Attach a Verified Appraisal Certificate:</strong> Share a formal DomainIQ Appraisal Certificate showing the multi-model consensus and itemized financial ledger.
+                                        📜 <strong>Attach a Verified Appraisal Certificate:</strong> Share a formal DomainVoodoo Appraisal Certificate showing the multi-model consensus and itemized financial ledger.
                                     </li>
                                     <li>
                                         ⚡ <strong>Enable Lease-to-Own (LTO) Terms:</strong> If a startup buyer balks at a $15,000 lump sum, offer $500/month over 36 months, capturing full price while making it budget-friendly.

@@ -20,8 +20,8 @@ export default function ShareButton({ domain, priceLabel }: { domain: string; pr
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [open]);
 
-    const url = typeof window !== 'undefined' ? window.location.href : `https://domainiq.vercel.app/valuation/${domain}`;
-    const text = `${domain} is valued at ${priceLabel} by DomainIQ — free, explainable domain valuations:`;
+    const url = typeof window !== 'undefined' ? window.location.href : `https://domainvoodoo.vercel.app/valuation/${domain}`;
+    const text = `${domain} is valued at ${priceLabel} by DomainVoodoo — free, explainable domain valuations:`;
 
     async function handleShareClick() {
         if (canNativeShare) {

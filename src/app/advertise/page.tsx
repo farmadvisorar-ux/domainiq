@@ -45,7 +45,7 @@ const AD_POSITIONS = [
         slotId: 4,
         name: 'Sitewide Bottom Banner',
         badge: 'Broad Exposure',
-        location: 'Above Footer Across Every Page on DomainIQ',
+        location: 'Above Footer Across Every Page on DomainVoodoo',
         format: 'Clean horizontal banner with sponsor badge and direct link',
         monthlyViews: '35,000+',
         priceUsd: 199,
@@ -153,7 +153,7 @@ function AdvertiseForm() {
                         + Book Another Placement
                     </button>
                     <Link href="/" className="btn-primary text-xs font-mono font-bold uppercase tracking-wider px-6 py-2">
-                        ← Return to DomainIQ Home
+                        ← Return to DomainVoodoo Home
                     </Link>
                 </div>
             </div>
@@ -435,7 +435,7 @@ export default function AdvertisePage() {
                     Targeted Digital Real Estate Media
                 </div>
                 <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-                    Advertise on Domain<span className="text-brand-400">IQ</span>
+                    Advertise on Domain<span className="text-brand-400">Voodoo</span>
                 </h1>
                 <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
                     Put your brand directly in front of 50,000+ domain portfolio investors, venture-backed founders, brokers, and institutional digital asset acquirers every month.

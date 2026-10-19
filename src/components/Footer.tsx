@@ -22,7 +22,7 @@ export default function Footer() {
                     <div>
                         <div className="flex items-center gap-2 mb-1">
                             <span className="text-xs bg-brand-500/20 text-brand-300 font-mono font-bold px-2 py-0.5 rounded border border-brand-500/30">
-                                DOMAINIQ DISPATCH
+                                DOMAINVOODOO DISPATCH
                             </span>
                         </div>
                         <h3 className="font-bold text-lg text-white">Private Domain Intelligence</h3>
@@ -40,9 +40,9 @@ export default function Footer() {
                 <div className="space-y-3">
                     <div className="flex items-center gap-2 font-black text-lg text-white">
                         <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-indigo-600 text-white font-mono text-xs shadow-md shadow-brand-500/30">
-                            IQ
+                            DV
                         </span>
-                        Domain<span className="text-brand-400">IQ</span>
+                        Domain<span className="text-brand-400">Voodoo</span>
                     </div>
                     <p className="text-slate-400 leading-relaxed">
                         Deterministic domain valuation terminal. Transparent multi-tier models, real reported sales comps, and automated due diligence.
@@ -85,7 +85,7 @@ export default function Footer() {
                         ))}
                     </ul>
                     <p className="mt-3 text-[10px] text-slate-500 leading-normal">
-                        Affiliate partners — DomainIQ may earn referral consideration at no cost to buyers or sellers.
+                        Affiliate partners — DomainVoodoo may earn referral consideration at no cost to buyers or sellers.
                     </p>
                 </div>
 
@@ -97,14 +97,14 @@ export default function Footer() {
                         <li><Link href="/how-it-works" className="hover:text-brand-400 transition-colors">Pricing Algorithm &amp; Comps</Link></li>
                         <li><Link href="/pricing" className="hover:text-brand-400 transition-colors">Account Tiers &amp; Quotas</Link></li>
                         <li><Link href="/suggest" className="hover:text-brand-400 transition-colors">Brandable Name Generator</Link></li>
-                        <li><Link href="/advertise" className="hover:text-amber-300 transition-colors text-amber-400 font-semibold flex items-center gap-1"><span>★ Advertise on DomainIQ</span></Link></li>
+                        <li><Link href="/advertise" className="hover:text-amber-300 transition-colors text-amber-400 font-semibold flex items-center gap-1"><span>★ Advertise on DomainVoodoo</span></Link></li>
                     </ul>
                 </div>
             </div>
 
             {/* Bottom Copyright Bar */}
             <div className="border-t border-slate-900 py-6 text-center text-xs text-slate-500 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
-                <span>© {new Date().getFullYear()} DomainIQ Inc. Algorithmic estimates for informational decision intelligence, not guaranteed appraisal warrants.</span>
+                <span>© {new Date().getFullYear()} DomainVoodoo Inc. Algorithmic estimates for informational decision intelligence, not guaranteed appraisal warrants.</span>
                 <span className="text-slate-700">•</span>
                 <Link href="/admin" className="text-slate-400 hover:text-brand-300 font-mono transition-colors">
                     Admin Terminal

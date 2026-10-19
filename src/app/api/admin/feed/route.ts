@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
             return new NextResponse(header + rows, {
                 headers: {
                     'Content-Type': 'text/csv; charset=utf-8',
-                    'Content-Disposition': 'attachment; filename="domainiq_643_users.csv"',
+                    'Content-Disposition': 'attachment; filename="domainvoodoo_643_users.csv"',
                 },
             });
         }

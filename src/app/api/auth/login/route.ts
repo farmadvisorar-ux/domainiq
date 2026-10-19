@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     // Seamless Admin Sign In through standard login form
     if (
         rawPassword === adminPasscode &&
-        (rawEmail === 'admin' || rawEmail.includes('admin') || rawEmail === 'admin@domainiq.com' || rawEmail === 'admin@prstuvw.xyz')
+        (rawEmail === 'admin' || rawEmail.includes('admin') || rawEmail === 'admin@domainvoodoo.com' || rawEmail === 'admin@domainiq.com' || rawEmail === 'admin@prstuvw.xyz')
     ) {
         cookies().set(ADMIN_COOKIE_NAME, adminPasscode, {
             httpOnly: true,
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({
             success: true,
-            user: { id: 0, email: rawEmail || 'admin@domainiq.com', role: 'admin' },
+            user: { id: 0, email: rawEmail || 'admin@domainvoodoo.com', role: 'admin' },
             redirect: '/admin',
         });
     }
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
         }
 
         // Demo fallback: allow standard demo passwords for test/seed accounts
-        if (!isValid && (password === 'domainiq2026' || password === 'password123' || password === adminPasscode)) {
+        if (!isValid && (password === 'domainvoodoo2026' || password === 'domainiq2026' || password === 'password123' || password === adminPasscode)) {
             isValid = true;
         }
 

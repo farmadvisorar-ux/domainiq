@@ -1,8 +1,8 @@
 import { cookies } from 'next/headers';
 import { getSession } from './auth';
 
-export const ADMIN_COOKIE_NAME = 'domainiq_admin_token';
-export const DEFAULT_ADMIN_KEY = 'domainiq-admin-2026';
+export const ADMIN_COOKIE_NAME = 'domainvoodoo_admin_token';
+export const DEFAULT_ADMIN_KEY = 'domainvoodoo-admin-2026';
 
 export function getAdminPasscode(): string {
     return process.env.ADMIN_PASSWORD || DEFAULT_ADMIN_KEY;
@@ -45,7 +45,7 @@ export async function verifyAdminAccess(req?: Request): Promise<boolean> {
     // 3. Check logged-in user session
     try {
         const session = await getSession();
-        if (session && (session.plan === 'admin' || session.email.endsWith('@domainiq.app'))) {
+        if (session && (session.plan === 'admin' || session.email.endsWith('@domainvoodoo.app'))) {
             return true;
         }
     } catch {

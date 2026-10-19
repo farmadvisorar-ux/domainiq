@@ -156,7 +156,7 @@ export default function BulkPage() {
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement('a');
         link.setAttribute('href', encodedUri);
-        link.setAttribute('download', `domainiq-portfolio-valuation-${new Date().toISOString().split('T')[0]}.csv`);
+        link.setAttribute('download', `domainvoodoo-portfolio-valuation-${new Date().toISOString().split('T')[0]}.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

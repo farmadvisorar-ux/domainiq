@@ -25,7 +25,7 @@ export default function ValuationLedger({ ledger, consensusFmvUsd, domain }: Pro
 
     function handleCopy() {
         const text = [
-            `DOMAINIQ AUDITED VALUATION LEDGER FOR ${domain.toUpperCase()}`,
+            `DOMAINVOODOO AUDITED VALUATION LEDGER FOR ${domain.toUpperCase()}`,
             `Consensus Fair Market Value: $${consensusFmvUsd.toLocaleString()}`,
             '----------------------------------------',
             ...(ledger || []).map((item) => {
@@ -35,7 +35,7 @@ export default function ValuationLedger({ ledger, consensusFmvUsd, domain }: Pro
             '----------------------------------------',
 
             `Net Certified FMV: $${consensusFmvUsd.toLocaleString()}`,
-            `Source: DomainIQ Institutional Valuation Terminal (https://domainiq.app/valuation/${domain})`
+            `Source: DomainVoodoo Institutional Valuation Terminal (https://domainvoodoo.app/valuation/${domain})`
         ].join('\n');
 
         navigator.clipboard.writeText(text);

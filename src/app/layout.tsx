@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import MarketTicker from '@/components/MarketTicker';
 
 export const metadata: Metadata = {
-    title: 'DomainIQ — Institutional-Grade Domain Valuation Engine',
+    title: 'DomainVoodoo — Institutional-Grade Domain Valuation Engine',
     description:
         'Instant, transparent domain appraisals powered by 14.8M+ verified sales comps, multi-channel pricing matrices, and automated UDRP due diligence.',
     icons: {
