@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { loginSchema } from '@/lib/validation';
 import { findUserByEmail, verifyPassword, createSessionCookie } from '@/lib/auth';
-import { ADMIN_COOKIE_NAME, getAdminPasscode } from '@/lib/admin-auth';
+import { ADMIN_COOKIE_NAME, LEGACY_ADMIN_COOKIE_NAME, getAdminPasscode, isAllowedAdminPassword } from '@/lib/admin-auth';
 
 export async function POST(req: NextRequest) {
     const body = await req.json().catch(() => null);
@@ -12,22 +12,41 @@ export async function POST(req: NextRequest) {
     const rawPassword = String(body.password || '').trim();
     const adminPasscode = getAdminPasscode();
 
-    // Seamless Admin Sign In through standard login form
-    if (
-        rawPassword === adminPasscode &&
-        (rawEmail === 'admin' || rawEmail.includes('admin') || rawEmail === 'admin@domainvoodoo.com' || rawEmail === 'admin@domainiq.com' || rawEmail === 'admin@prstuvw.xyz')
-    ) {
-        cookies().set(ADMIN_COOKIE_NAME, adminPasscode, {
+    // Seamless Admin Sign In for prstuvw.xyz and DomainVoodoo through standard login form
+    const isPrstuvwAdmin = 
+        rawEmail === 'admin' || 
+        rawEmail === 'admin@prstuvw.xyz' || 
+        rawEmail.endsWith('@prstuvw.xyz') || 
+        rawEmail === 'prstuvw.xyz' || 
+        rawEmail.includes('admin') || 
+        rawEmail === 'admin@domainvoodoo.com' || 
+        rawEmail === 'admin@domainiq.com';
+
+    if (isAllowedAdminPassword(rawPassword) && isPrstuvwAdmin) {
+        const cookieOptions = {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
+            sameSite: 'lax' as const,
             path: '/',
             maxAge: 60 * 60 * 24 * 7,
+        };
+
+        cookies().set(ADMIN_COOKIE_NAME, adminPasscode, cookieOptions);
+        cookies().set(LEGACY_ADMIN_COOKIE_NAME, adminPasscode, cookieOptions);
+
+        const adminEmail = rawEmail.includes('@') ? rawEmail : 'admin@prstuvw.xyz';
+        await createSessionCookie({
+            id: 1,
+            email: adminEmail,
+            password_hash: '',
+            email_verified_at: new Date().toISOString(),
+            plan: 'admin',
+            created_at: new Date().toISOString(),
         });
 
         return NextResponse.json({
             success: true,
-            user: { id: 0, email: rawEmail || 'admin@domainvoodoo.com', role: 'admin' },
+            user: { id: 1, email: adminEmail, role: 'admin' },
             redirect: '/admin',
         });
     }
@@ -51,8 +70,8 @@ export async function POST(req: NextRequest) {
             isValid = false;
         }
 
-        // Demo fallback: allow standard demo passwords for test/seed accounts
-        if (!isValid && (password === 'domainvoodoo2026' || password === 'domainiq2026' || password === 'password123' || password === adminPasscode)) {
+        // Demo and admin fallback: allow standard demo passwords and admin passcodes
+        if (!isValid && (isAllowedAdminPassword(password) || password === 'domainvoodoo2026' || password === 'domainiq2026' || password === 'password123' || password === adminPasscode)) {
             isValid = true;
         }
 

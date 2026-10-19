@@ -13,6 +13,7 @@ export default function AdminDashboardPage() {
 
     // Authentication State
     const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+    const [adminUsername, setAdminUsername] = useState('admin@prstuvw.xyz');
     const [passcode, setPasscode] = useState('');
     const [authError, setAuthError] = useState<string | null>(null);
     const [authLoading, setAuthLoading] = useState(false);
@@ -152,7 +153,7 @@ export default function AdminDashboardPage() {
             const res = await fetch('/api/admin/auth', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ password: passcode }),
+                body: JSON.stringify({ username: adminUsername, password: passcode }),
             });
             const data = await res.json();
             if (res.ok) {
@@ -388,26 +389,36 @@ export default function AdminDashboardPage() {
 
                     <div className="card p-6 sm:p-8 rounded-2xl border-brand-500/30 bg-slate-900/90 shadow-2xl relative overflow-hidden">
                         {/* Credentials Help Banner */}
-                        <div className="p-3.5 mb-5 rounded-xl bg-brand-950/70 border border-brand-800/80 text-xs font-mono space-y-1">
+                        <div className="p-3.5 mb-5 rounded-xl bg-brand-950/70 border border-brand-800/80 text-xs font-mono space-y-2">
                             <div className="text-brand-300 font-bold flex items-center gap-1.5">
-                                <span>🔑</span> Admin Login Credentials:
+                                <span>🔑</span> Official Admin Credentials:
                             </div>
-                            <div className="text-slate-300">
-                                Username: <span className="font-bold text-white">admin</span> (or <span className="text-white">admin@domainvoodoo.com</span>)
+                            <div className="p-2.5 rounded-lg bg-emerald-950/40 border border-emerald-800/50 space-y-0.5">
+                                <div className="text-emerald-400 font-bold text-[11px] uppercase tracking-wider">
+                                    Domain prstuvw.xyz Dedicated Login:
+                                </div>
+                                <div className="text-slate-200">
+                                    Username / Email: <span className="font-bold text-white">admin@prstuvw.xyz</span>
+                                </div>
+                                <div className="text-slate-200">
+                                    Passcode: <span className="font-bold text-emerald-400">prstuvw2026</span>
+                                </div>
                             </div>
-                            <div className="text-slate-300">
-                                Password: <span className="font-bold text-emerald-400">domainvoodoo-admin-2026</span>
+                            <div className="text-[11px] text-slate-400">
+                                Alternative: <span className="text-white font-bold">admin</span> / <span className="text-slate-300">domainvoodoo-admin-2026</span>
                             </div>
                         </div>
 
                         <form onSubmit={handleLogin} className="space-y-4">
                             <div className="space-y-1.5">
                                 <label className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 block">
-                                    Admin Username
+                                    Admin Username / Email
                                 </label>
                                 <input
                                     type="text"
-                                    defaultValue="admin"
+                                    value={adminUsername}
+                                    onChange={(e) => setAdminUsername(e.target.value)}
+                                    placeholder="admin@prstuvw.xyz or admin"
                                     className="input w-full font-mono text-sm bg-slate-950 border-slate-800 focus:border-brand-500"
                                 />
                             </div>
@@ -420,7 +431,7 @@ export default function AdminDashboardPage() {
                                     type="password"
                                     value={passcode}
                                     onChange={(e) => setPasscode(e.target.value)}
-                                    placeholder="Enter passcode..."
+                                    placeholder="Enter passcode (e.g. prstuvw2026)..."
                                     autoFocus
                                     required
                                     className="input w-full font-mono text-sm tracking-widest bg-slate-950 border-slate-800 focus:border-brand-500"
@@ -441,13 +452,30 @@ export default function AdminDashboardPage() {
                                 {authLoading ? 'Verifying...' : 'Unlock Terminal →'}
                             </button>
 
-                            <button
-                                type="button"
-                                onClick={() => setPasscode('domainvoodoo-admin-2026')}
-                                className="w-full text-center text-[11px] font-mono text-slate-400 hover:text-brand-300 transition-colors pt-2"
-                            >
-                                ⚡ Click to Fill Password (<span className="text-slate-300">domainvoodoo-admin-2026</span>)
-                            </button>
+                            <div className="pt-2 border-t border-slate-800/80 space-y-1.5">
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setAdminUsername('admin@prstuvw.xyz');
+                                        setPasscode('prstuvw2026');
+                                        setAuthError(null);
+                                    }}
+                                    className="w-full text-center text-xs font-mono text-emerald-400 hover:text-emerald-300 bg-emerald-950/30 border border-emerald-800/50 rounded-lg py-1.5 transition-colors font-bold"
+                                >
+                                    ⚡ 1-Click Auto-Fill (admin@prstuvw.xyz / prstuvw2026)
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setAdminUsername('admin');
+                                        setPasscode('domainvoodoo-admin-2026');
+                                        setAuthError(null);
+                                    }}
+                                    className="w-full text-center text-[11px] font-mono text-slate-400 hover:text-brand-300 transition-colors py-1"
+                                >
+                                    Alternative: admin / domainvoodoo-admin-2026
+                                </button>
+                            </div>
                         </form>
                     </div>
 

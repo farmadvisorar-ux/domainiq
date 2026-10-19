@@ -57,6 +57,9 @@ function LoginInner() {
             <p className="mt-2 text-center text-sm text-slate-500">
                 No account? <Link href="/signup" className="font-medium text-brand-600 hover:underline">Sign up free</Link>
             </p>
+            <p className="mt-3 text-center text-xs text-slate-500 font-mono">
+                Admin Console? <Link href="/admin/login" className="text-emerald-400 hover:underline">Sign in at /admin/login</Link>
+            </p>
         </div>
     );
 }
