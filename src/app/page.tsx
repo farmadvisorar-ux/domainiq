@@ -89,9 +89,25 @@ export default function HomePage() {
                     Stop relying on opaque black boxes. Get an instant, fully explainable valuation backed by real comparable sales, multi-channel pricing spreads, and automated legal due diligence.
                 </p>
 
-                {/* Search Bar Console */}
-                <div className="mx-auto max-w-2xl pt-2">
-                    <DomainCheckerForm />
+                {/* Search Bar Console with Halloween Accents */}
+                <div className="mx-auto max-w-2xl pt-2 relative">
+                    {/* Spooky Header Subtitle */}
+                    <div className="flex items-center justify-center gap-2 text-xs font-mono text-orange-400/90 font-bold mb-2.5">
+                        <span className="animate-pulse">🦇</span>
+                        <span>Brew a Real-Time Valuation in the Voodoo Cauldron</span>
+                        <span className="animate-pulse">🧙‍♀️</span>
+                    </div>
+
+                    <div className="relative">
+                        {/* Corner Perched Ghosts & Pumpkins */}
+                        <div className="absolute -top-3.5 -left-3.5 text-2xl sm:text-3xl select-none z-20 animate-bounce pointer-events-none" style={{ animationDuration: '3s' }}>
+                            👻
+                        </div>
+                        <div className="absolute -top-3.5 -right-3.5 text-2xl sm:text-3xl select-none z-20 pointer-events-none filter drop-shadow-[0_0_12px_rgba(255,140,0,0.9)] animate-pulse">
+                            🎃
+                        </div>
+                        <DomainCheckerForm />
+                    </div>
                 </div>
 
                 {/* SEO & LLM Authoritative Guide Pillar Callout */}
