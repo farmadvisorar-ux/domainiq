@@ -55,7 +55,9 @@ const PILLARS = [
 
 const CURATED_SHOWCASE = [
     { domain: 'insurance.com', fmv: '$35,600,000', floor: '$4,272,000', rating: 'Ultra-Liquid', tier: 'AAA+' },
+    { domain: 'ghost.ai', fmv: '$350,000', floor: '$78,000', rating: '🎃 Spooky Tech', tier: 'AAA' },
     { domain: 'voice.com', fmv: '$30,000,000', floor: '$3,600,000', rating: 'Ultra-Liquid', tier: 'AAA+' },
+    { domain: 'haunted.com', fmv: '$85,000', floor: '$18,500', rating: '🎃 Prime Brand', tier: 'AA' },
     { domain: 'ai.com', fmv: '$11,000,000', floor: '$1,320,000', rating: 'Ultra-Liquid', tier: 'AAA+' },
     { domain: 'cloudscale.ai', fmv: '$42,500', floor: '$9,200', rating: 'High Liquidity', tier: 'A' },
 ];
@@ -65,20 +67,20 @@ export default function HomePage() {
         <div className="space-y-20 py-4 sm:py-8">
             {/* Hero Section */}
             <section className="text-center space-y-6 relative">
-                {/* Ambient Glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-brand-600/15 blur-[120px] pointer-events-none rounded-full" />
+                {/* Ambient Halloween Glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-gradient-to-r from-orange-600/15 via-purple-600/15 to-brand-600/15 blur-[120px] pointer-events-none rounded-full" />
 
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-950/80 border border-brand-800/60 text-brand-300 text-xs font-mono font-semibold shadow-inner">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-orange-500/40 text-orange-300 text-xs font-mono font-semibold shadow-lg shadow-orange-500/10">
                     <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
                     </span>
-                    <span>100% Free · No Email Capture · Institutional Engine</span>
+                    <span>🎃 Halloween Edition · 100% Free · Spooky Accurate Appraisals</span>
                 </div>
 
                 <h1 className="mx-auto max-w-4xl text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">
                     What is your domain{' '}
-                    <span className="bg-gradient-to-r from-brand-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-purple-400 bg-clip-text text-transparent">
                         actually worth?
                     </span>
                 </h1>

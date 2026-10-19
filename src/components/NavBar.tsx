@@ -9,17 +9,23 @@ export default async function NavBar() {
     return (
         <header className="relative border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-40 transition-colors">
             <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5">
-                {/* Logo & Brand Mark */}
+                {/* Logo & Brand Mark with Halloween Spooky Accents */}
                 <Link href="/" className="flex items-center gap-2.5 font-extrabold text-lg tracking-tight group">
-                    <div className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 via-indigo-600 to-brand-700 text-white shadow-md shadow-brand-500/30 group-hover:shadow-brand-400/50 transition-all duration-300">
+                    <div className="relative flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 via-brand-600 to-purple-700 text-white shadow-md shadow-orange-500/20 group-hover:shadow-orange-500/50 transition-all duration-300">
                         {/* Glow effect */}
-                        <div className="absolute inset-0 rounded-xl bg-brand-400 opacity-0 blur-sm group-hover:opacity-40 transition-opacity" />
+                        <div className="absolute inset-0 rounded-xl bg-orange-400 opacity-0 blur-sm group-hover:opacity-40 transition-opacity" />
                         <span className="relative font-mono font-black text-xs tracking-wider">DV</span>
+                        {/* Perched Mini Pumpkin */}
+                        <span className="absolute -top-2.5 -right-2 text-[13px] select-none filter drop-shadow-[0_0_6px_rgba(255,140,0,0.9)] animate-bounce" style={{ animationDuration: '3s' }}>
+                            🎃
+                        </span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                        <span className="text-white group-hover:text-brand-300 transition-colors">Domain<span className="text-brand-400">Voodoo</span></span>
-                        <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-400 border border-brand-500/20 font-semibold tracking-wider">
-                            v2.5
+                        <span className="text-white group-hover:text-orange-300 transition-colors">Domain<span className="text-orange-400">Voodoo</span></span>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-orange-950/70 text-orange-400 border border-orange-500/40 font-semibold tracking-wider flex items-center gap-1 shadow-sm shadow-orange-500/20">
+                            <span>🎃</span>
+                            <span className="hidden sm:inline">Spooky Edition</span>
+                            <span className="sm:hidden">v2.5</span>
                         </span>
                     </div>
                 </Link>

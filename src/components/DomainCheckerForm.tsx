@@ -6,12 +6,12 @@ import { useRouter } from 'next/navigation';
 import { normalizeDomain } from '@/lib/domain';
 
 const PRESETS = [
+    { label: '🎃 Spooky Tech', domain: 'ghost.ai' },
     { label: '🏛️ Mega Comp', domain: 'insurance.com' },
-    { label: '🎙️ Category Killer', domain: 'voice.com' },
+    { label: '🧙 Voodoo Brand', domain: 'voodoo.com' },
     { label: '🔥 AI Tech', domain: 'neural.ai' },
     { label: '💎 Rare 3L', domain: 'sky.com' },
     { label: '⚡ Fintech', domain: 'quickpay.io' },
-    { label: '🚀 Enterprise', domain: 'cloudscale.net' },
 ];
 
 export default function DomainCheckerForm({
@@ -72,17 +72,20 @@ export default function DomainCheckerForm({
     return (
         <div className="w-full space-y-3">
             <form onSubmit={handleSubmit} className="w-full relative">
-                <div className="relative flex flex-col gap-2.5 sm:flex-row items-center p-1.5 rounded-2xl bg-slate-900/90 border border-slate-700/80 shadow-2xl shadow-brand-950/50 backdrop-blur-xl focus-within:border-brand-500/80 focus-within:ring-4 focus-within:ring-brand-500/20 transition-all duration-300">
-                    {/* Left Icon */}
+                <div className="relative flex flex-col gap-2.5 sm:flex-row items-center p-1.5 rounded-2xl bg-slate-900/90 border border-slate-700/80 shadow-2xl shadow-orange-950/30 backdrop-blur-xl focus-within:border-orange-500/80 focus-within:ring-4 focus-within:ring-orange-500/20 transition-all duration-300">
+                    {/* Left Icon with Halloween pumpkin flair */}
                     <div className="hidden sm:flex items-center pl-3.5 text-slate-400">
-                        <span className="font-mono text-xs font-bold text-brand-400">IQ &gt;</span>
+                        <span className="font-mono text-xs font-bold text-orange-400 flex items-center gap-1.5">
+                            <span className="filter drop-shadow-[0_0_6px_rgba(255,140,0,0.8)]">🎃</span>
+                            <span>DV &gt;</span>
+                        </span>
                     </div>
 
                     <input
                         className={`w-full bg-transparent px-3 py-3 text-white placeholder:text-slate-500 focus:outline-none font-mono text-base sm:text-lg tracking-tight ${
                             size === 'lg' ? 'py-3.5' : ''
                         }`}
-                        placeholder="yourdomain.com (e.g. cloudscale.ai)"
+                        placeholder="yourdomain.com (e.g. ghost.ai, cloudscale.net)"
                         value={value}
                         onChange={(e) => {
                             setValue(e.target.value);
@@ -101,7 +104,7 @@ export default function DomainCheckerForm({
                                 {cleanInput.length} chars
                             </span>
                             {detectedTld && (
-                                <span className="px-2 py-0.5 rounded bg-brand-950 text-brand-300 border border-brand-800 font-bold uppercase">
+                                <span className="px-2 py-0.5 rounded bg-orange-950/80 text-orange-300 border border-orange-800/80 font-bold uppercase">
                                     .{detectedTld}
                                 </span>
                             )}
@@ -111,11 +114,11 @@ export default function DomainCheckerForm({
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        className={`btn-primary whitespace-nowrap w-full sm:w-auto shrink-0 shadow-lg ${
+                        className={`whitespace-nowrap w-full sm:w-auto shrink-0 shadow-lg rounded-xl font-semibold text-white px-6 py-2.5 transition-all duration-300 bg-gradient-to-r from-orange-600 via-brand-600 to-purple-600 hover:shadow-orange-500/35 hover:scale-[1.02] active:scale-[0.98] ${
                             size === 'lg' ? 'text-base py-3.5 px-7' : '!py-2.5 !px-5'
                         }`}
                     >
-                        <span>Appraise Domain</span>
+                        <span>Appraise Domain 🧙‍♂️</span>
                         <span className="ml-2 font-mono text-xs opacity-75 hidden sm:inline">↵</span>
                     </button>
                 </div>
