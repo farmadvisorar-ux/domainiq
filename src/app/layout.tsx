@@ -4,6 +4,7 @@ import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
 import MarketTicker from '@/components/MarketTicker';
 import HalloweenEffects from '@/components/HalloweenEffects';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
     title: 'DomainVoodoo — Institutional-Grade Domain Valuation Engine',
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <NavBar />
                 <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:py-12 relative z-10">{children}</main>
                 <Footer />
+                <SpeedInsights />
             </body>
         </html>
     );
