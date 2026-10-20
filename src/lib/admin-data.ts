@@ -516,10 +516,14 @@ export async function updateAdSlot(slotId: number, data: Partial<AdSlotData>): P
  * Record an ad click and return the target destination URL
  */
 export async function recordAdClick(slotId: number): Promise<string> {
+    const slot = await getAdSlotById(slotId);
     const memorySlots = getMemorySlots();
     const target = memorySlots.find((s) => s.id === slotId);
     if (target) {
         target.clicks += 1;
+    }
+    if (slot) {
+        slot.clicks += 1;
     }
 
     if (process.env.DATABASE_URL) {
@@ -531,7 +535,7 @@ export async function recordAdClick(slotId: number): Promise<string> {
         }
     }
 
-    let dest = target?.destination_url || 'https://domainvoodoo.app';
+    let dest = slot?.destination_url || target?.destination_url || 'https://domainvoodoo.app';
     if (!dest.startsWith('http://') && !dest.startsWith('https://')) {
         dest = 'https://' + dest;
     }
