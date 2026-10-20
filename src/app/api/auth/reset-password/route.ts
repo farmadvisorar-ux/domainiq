@@ -23,6 +23,12 @@ export async function POST(req: NextRequest) {
         const user = await findUserById(row.user_id);
         if (user) {
             await createSessionCookie(user);
+            try {
+                const { sendEmail, passwordChangedHtml } = await import('@/lib/mailer');
+                await sendEmail(user.email, 'Your DomainVoodoo password was updated', passwordChangedHtml(), undefined, 'password_changed');
+            } catch (mailErr) {
+                console.warn('Password changed email send error:', mailErr);
+            }
         }
 
         return NextResponse.json({ ok: true });

@@ -29,6 +29,15 @@ export async function POST(req: NextRequest) {
                  ON CONFLICT (email) DO UPDATE SET unsubscribed_at = NULL`,
                 [email, token],
             );
+
+            const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || req.nextUrl.origin;
+            const unsubLink = `${baseUrl}/unsubscribe?token=${token}`;
+            try {
+                const { sendEmail, newsletterWelcomeHtml } = await import('@/lib/mailer');
+                await sendEmail(email, 'Welcome to DomainVoodoo Dispatch — Private Domain Intelligence', newsletterWelcomeHtml(unsubLink), unsubLink, 'newsletter_welcome');
+            } catch (mailErr) {
+                console.warn('Newsletter welcome email send error:', mailErr);
+            }
         } catch (dbErr) {
             console.warn('Newsletter subscribe DB error, returning success to client:', dbErr);
         }

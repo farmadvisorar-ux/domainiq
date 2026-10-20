@@ -53,6 +53,21 @@ export async function POST(req: NextRequest) {
             notes: body.notes ? String(body.notes).trim() : null,
         });
 
+        if (record && record.email) {
+            try {
+                const { sendEmail, adOrderConfirmationHtml } = await import('@/lib/mailer');
+                await sendEmail(
+                    record.email,
+                    `Banner Placement Order Received — Box #${slotId}`,
+                    adOrderConfirmationHtml(slotId, record.company || record.advertiser_name, record.amount_usd),
+                    undefined,
+                    'ad_order'
+                );
+            } catch (mailErr) {
+                console.warn('Ad order confirmation email failed:', mailErr);
+            }
+        }
+
         return NextResponse.json({ success: true, purchase: record });
     } catch (err) {
         return NextResponse.json(

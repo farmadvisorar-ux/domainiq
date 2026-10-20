@@ -5,8 +5,29 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { AdSlotData, AdPurchaseData, AdminUser, AdminStats } from '@/lib/admin-data';
 
-type AdminTab = 'overview' | 'ads' | 'purchases' | 'users' | 'feed';
+type AdminTab = 'overview' | 'ads' | 'purchases' | 'users' | 'feed' | 'emails';
 type PurchaseStatus = 'active' | 'pending' | 'expired' | 'canceled';
+
+interface SentEmailRecord {
+    id: string;
+    to: string;
+    subject: string;
+    html: string;
+    sentAt: string;
+    delivered: boolean;
+    provider: 'resend' | 'smtp' | 'dev';
+    error?: string;
+    actionLink?: string;
+    type: 'signup_verification' | 'password_reset' | 'password_changed' | 'newsletter_welcome' | 'ad_order' | 'test' | 'other';
+}
+
+interface MailerConfig {
+    resendConfigured: boolean;
+    fromAddress: string;
+    isResendSandbox: boolean;
+    smtpConfigured: boolean;
+    smtpHost: string | null;
+}
 
 export default function AdminDashboardPage() {
     const router = useRouter();
@@ -80,6 +101,22 @@ export default function AdminDashboardPage() {
     const [pushingWebhook, setPushingWebhook] = useState(false);
     const [pushResult, setPushResult] = useState<{ success?: boolean; status?: number; message?: string } | null>(null);
 
+    // Email Engine & Outbox State
+    const [emailLogs, setEmailLogs] = useState<SentEmailRecord[]>([]);
+    const [mailerConfig, setMailerConfig] = useState<MailerConfig | null>(null);
+    const [testEmailRecipient, setTestEmailRecipient] = useState('');
+    const [testingEmail, setTestingEmail] = useState(false);
+    const [testEmailResult, setTestEmailResult] = useState<{
+        success?: boolean;
+        provider?: string;
+        error?: string;
+        details?: string;
+        actionLink?: string;
+        to?: string;
+    } | null>(null);
+    const [emailFilter, setEmailFilter] = useState<'all' | 'delivered' | 'failed'>('all');
+    const [emailSearch, setEmailSearch] = useState('');
+
     // Toast helper
     const showToast = (text: string, type: 'success' | 'error' = 'success') => {
         setActionMsg({ text, type });
@@ -103,11 +140,12 @@ export default function AdminDashboardPage() {
     const loadData = useCallback(async () => {
         setRefreshing(true);
         try {
-            const [statsRes, slotsRes, purchasesRes, usersRes] = await Promise.all([
+            const [statsRes, slotsRes, purchasesRes, usersRes, emailsRes] = await Promise.all([
                 fetch('/api/admin/stats'),
                 fetch('/api/admin/ads'),
                 fetch('/api/admin/purchases'),
                 fetch('/api/admin/users'),
+                fetch('/api/admin/emails'),
             ]);
 
             if (statsRes.ok) {
@@ -125,6 +163,11 @@ export default function AdminDashboardPage() {
             if (usersRes.ok) {
                 const u = await usersRes.json();
                 setUsers(u.users || []);
+            }
+            if (emailsRes.ok) {
+                const em = await emailsRes.json();
+                setEmailLogs(em.emails || []);
+                setMailerConfig(em.mailerConfig || null);
             }
         } catch (err) {
             console.error('Failed to load admin data:', err);
@@ -367,6 +410,45 @@ export default function AdminDashboardPage() {
             showToast('Failed to dispatch webhook push', 'error');
         } finally {
             setPushingWebhook(false);
+        }
+    };
+
+    // Dispatch Test Auto-Responder
+    const handleSendTestEmail = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const to = testEmailRecipient.trim();
+        if (!to || !to.includes('@')) {
+            showToast('Please enter a valid recipient email address', 'error');
+            return;
+        }
+        setTestingEmail(true);
+        setTestEmailResult(null);
+        try {
+            const res = await fetch('/api/admin/emails', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ to }),
+            });
+            const data = await res.json();
+            setTestEmailResult(data);
+            if (data.success) {
+                showToast(`✓ Auto-responder delivered via ${data.provider?.toUpperCase()}!`);
+            } else {
+                showToast(
+                    `Delivery rejected by ${data.provider || 'mailer'}: ${data.error || 'Check outbox details'}`,
+                    'error',
+                );
+            }
+            // Refresh outbox
+            const emRes = await fetch('/api/admin/emails');
+            if (emRes.ok) {
+                const emData = await emRes.json();
+                setEmailLogs(emData.emails || []);
+            }
+        } catch {
+            showToast('Network error dispatching test email', 'error');
+        } finally {
+            setTestingEmail(false);
         }
     };
 
@@ -621,6 +703,7 @@ export default function AdminDashboardPage() {
                     { id: 'purchases', label: '💰 Ad Buyers & Orders', count: purchases.length },
                     { id: 'users', label: '👥 User Signups', count: users.length },
                     { id: 'feed', label: '🚀 Live Link Push to GET', count: null },
+                    { id: 'emails', label: '📧 Auto-Responders & Outbox', count: emailLogs.length },
                 ].map((tab) => (
                     <button
                         key={tab.id}
@@ -2055,6 +2138,348 @@ export default function AdminDashboardPage() {
                     </div>
                 </div>
             )}
+
+            {/* ========================================================================= */}
+            {/* TAB 6: AUTO-RESPONDERS & OUTBOX */}
+            {/* ========================================================================= */}
+            {activeTab === 'emails' && (() => {
+                const deliveredCount = emailLogs.filter((e) => e.delivered).length;
+                const failedCount = emailLogs.filter((e) => !e.delivered).length;
+
+                const filteredEmails = emailLogs.filter((email) => {
+                    const matchesFilter =
+                        emailFilter === 'all'
+                            ? true
+                            : emailFilter === 'delivered'
+                            ? email.delivered
+                            : !email.delivered;
+                    const q = emailSearch.trim().toLowerCase();
+                    const matchesSearch =
+                        !q ||
+                        email.to.toLowerCase().includes(q) ||
+                        email.subject.toLowerCase().includes(q) ||
+                        email.type.toLowerCase().includes(q) ||
+                        (email.error && email.error.toLowerCase().includes(q));
+                    return matchesFilter && matchesSearch;
+                });
+
+                return (
+                    <div className="space-y-6">
+                        {/* Header */}
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div>
+                                <div className="flex items-center gap-2">
+                                    <h2 className="text-lg font-black text-white tracking-tight">
+                                        Auto-Responder Delivery Engine &amp; Outbox
+                                    </h2>
+                                    <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-brand-950 text-brand-300 border border-brand-800">
+                                        Live Diagnostics
+                                    </span>
+                                </div>
+                                <p className="text-xs text-slate-400 font-mono">
+                                    Real-time monitoring of account confirmations, password resets, welcome emails, and direct action link recovery.
+                                </p>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                                <span className="text-xs font-mono text-slate-400">
+                                    Total Dispatches: <strong className="text-white">{emailLogs.length}</strong>
+                                </span>
+                                <span className="text-xs font-mono text-emerald-400">
+                                    ({deliveredCount} Delivered / {failedCount} Issues)
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Mailer Engine Status Card */}
+                        <div className="card p-5 sm:p-6 rounded-2xl border-brand-500/30 bg-slate-900/80 space-y-4">
+                            <div className="flex items-center justify-between gap-3 flex-wrap">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-brand-950 text-brand-300 border border-brand-800">
+                                        Delivery Engine Diagnostics
+                                    </span>
+                                    <span className="text-xs text-slate-400 font-mono">Active Provider Configuration</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className={`text-[11px] font-mono font-bold px-2.5 py-1 rounded-lg border ${
+                                        mailerConfig?.resendConfigured
+                                            ? 'bg-emerald-950/60 border-emerald-800 text-emerald-300'
+                                            : 'bg-amber-950/60 border-amber-800 text-amber-300'
+                                    }`}>
+                                        Resend: {mailerConfig?.resendConfigured ? '✓ Connected' : 'Not Set'}
+                                    </span>
+                                    <span className={`text-[11px] font-mono font-bold px-2.5 py-1 rounded-lg border ${
+                                        mailerConfig?.smtpConfigured
+                                            ? 'bg-emerald-950/60 border-emerald-800 text-emerald-300'
+                                            : 'bg-slate-950 border-slate-800 text-slate-500'
+                                    }`}>
+                                        SMTP: {mailerConfig?.smtpConfigured ? `✓ Connected (${mailerConfig.smtpHost})` : 'Optional / Standby'}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* From address display */}
+                            <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono">
+                                <div className="text-slate-400">
+                                    Sender Envelope: <code className="text-brand-300">{mailerConfig?.fromAddress || 'DomainVoodoo <onboarding@resend.dev>'}</code>
+                                </div>
+                                <div className="text-slate-500 text-[11px]">
+                                    Fallback Mode: In-Memory / PostgreSQL Sent Outbox Active
+                                </div>
+                            </div>
+
+                            {/* Resend Sandbox Warning Box if using onboarding@resend.dev */}
+                            {mailerConfig?.isResendSandbox && (
+                                <div className="p-4 rounded-xl bg-amber-950/40 border border-amber-700/60 text-amber-200 text-xs space-y-2.5">
+                                    <div className="flex items-center gap-2 font-bold text-amber-300 text-sm">
+                                        <span>⚠️</span> Resend Sandbox Policy Notice: Why Outside Inboxes Don&apos;t Receive Emails Yet
+                                    </div>
+                                    <p className="leading-relaxed text-amber-200/90 text-xs font-mono">
+                                        Resend enforces a strict anti-spam policy when sending from <code className="bg-amber-900/60 px-1 py-0.5 rounded text-white">onboarding@resend.dev</code>: <strong>it will ONLY deliver to the single email address registered as your Resend account owner</strong> (e.g. your primary signup email). When outside users sign up with their personal Gmail, Yahoo, AOL, or test emails, Resend silently blocks delivery with a validation error.
+                                    </p>
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 pt-1 text-[11px] font-mono">
+                                        <div className="p-2.5 rounded-lg bg-slate-950/70 border border-amber-800/50 space-y-1">
+                                            <div className="font-bold text-emerald-400">Solution 1: Free SMTP (Instant)</div>
+                                            <p className="text-slate-300 text-[10px] leading-relaxed">
+                                                Add standard SMTP to Vercel (e.g. Gmail App Password, Brevo, SendGrid, Amazon SES): <code className="text-amber-300">SMTP_HOST</code>, <code className="text-amber-300">SMTP_PORT</code>, <code className="text-amber-300">SMTP_USER</code>, <code className="text-amber-300">SMTP_PASS</code>. Delivers to 100% of inboxes with 0 domain verification.
+                                            </p>
+                                        </div>
+                                        <div className="p-2.5 rounded-lg bg-slate-950/70 border border-amber-800/50 space-y-1">
+                                            <div className="font-bold text-cyan-400">Solution 2: Verify Custom Domain</div>
+                                            <p className="text-slate-300 text-[10px] leading-relaxed">
+                                                In Resend Dashboard (<a href="https://resend.com/domains" target="_blank" rel="noreferrer" className="underline text-cyan-300">resend.com/domains</a>), add <code className="text-cyan-300">prstuvw.xyz</code>, add the DNS TXT/MX records, and set <code className="text-cyan-300">EMAIL_FROM=DomainVoodoo &lt;support@prstuvw.xyz&gt;</code> in Vercel.
+                                            </p>
+                                        </div>
+                                        <div className="p-2.5 rounded-lg bg-slate-950/70 border border-amber-800/50 space-y-1">
+                                            <div className="font-bold text-brand-300">Solution 3: 1-Click Outbox (Right Now!)</div>
+                                            <p className="text-slate-300 text-[10px] leading-relaxed">
+                                                No setup required! Every verification link and password reset link is captured in the Outbox table below. Click <strong className="text-white">[🔗 Copy Link]</strong> on any user to instantly activate their account or reset password!
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Live Test Auto-Responder Dispatcher */}
+                        <div className="card p-5 sm:p-6 rounded-2xl border-indigo-500/30 bg-slate-900/80 space-y-4">
+                            <div className="flex items-center gap-2">
+                                <span className="text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800">
+                                    ⚡ Send Test Auto-Responder
+                                </span>
+                                <span className="text-xs text-slate-400 font-mono">Test delivery to any recipient in real-time</span>
+                            </div>
+
+                            <form onSubmit={handleSendTestEmail} className="flex flex-col sm:flex-row gap-2">
+                                <input
+                                    type="email"
+                                    placeholder="Enter email address (e.g. farmadvisorar@gmail.com, your personal email)..."
+                                    value={testEmailRecipient}
+                                    onChange={(e) => setTestEmailRecipient(e.target.value)}
+                                    className="input flex-1 text-xs font-mono bg-slate-950 border-slate-800"
+                                    required
+                                />
+                                <button
+                                    type="submit"
+                                    disabled={testingEmail || !testEmailRecipient}
+                                    className="btn-primary px-5 py-2 text-xs font-mono font-bold uppercase tracking-wider shrink-0 disabled:opacity-50"
+                                >
+                                    {testingEmail ? 'Dispatching...' : 'Dispatch Test Auto-Responder →'}
+                                </button>
+                            </form>
+
+                            {testEmailResult && (
+                                <div className={`p-3.5 rounded-xl border text-xs font-mono ${
+                                    testEmailResult.success
+                                        ? 'bg-emerald-950/60 border-emerald-800 text-emerald-300'
+                                        : 'bg-rose-950/60 border-rose-800 text-rose-300'
+                                }`}>
+                                    <div className="flex items-center justify-between font-bold flex-wrap gap-2">
+                                        <span>
+                                            {testEmailResult.success ? '✓ Delivery Successful' : '⚠ Delivery Issue'}
+                                        </span>
+                                        <span className="text-[11px] opacity-80 uppercase tracking-wider">
+                                            Provider: {testEmailResult.provider}
+                                        </span>
+                                    </div>
+                                    {testEmailResult.error && (
+                                        <div className="mt-1.5 text-[11px] text-rose-200">
+                                            {testEmailResult.error}
+                                        </div>
+                                    )}
+                                    {testEmailResult.details && (
+                                        <div className="mt-1 text-[10px] text-slate-400">
+                                            Details: {testEmailResult.details}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Sent Auto-Responders & Action Link Recovery Outbox */}
+                        <div className="card p-5 sm:p-6 rounded-2xl border-slate-800 bg-slate-900/80 space-y-4">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div>
+                                    <h3 className="text-sm font-bold text-white font-mono">
+                                        Sent Auto-Responders &amp; Action Links Outbox
+                                    </h3>
+                                    <p className="text-[11px] text-slate-400 font-mono">
+                                        Log of all triggered emails. Grab confirmation or password reset URLs directly if email delivery is delayed.
+                                    </p>
+                                </div>
+
+                                {/* Filters & Search */}
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <input
+                                        type="text"
+                                        placeholder="Filter by email or subject..."
+                                        value={emailSearch}
+                                        onChange={(e) => setEmailSearch(e.target.value)}
+                                        className="input text-xs font-mono bg-slate-950 border-slate-800 py-1.5 px-3 w-48 sm:w-60"
+                                    />
+                                    <div className="flex rounded-lg bg-slate-950 border border-slate-800 p-0.5 text-xs font-mono">
+                                        {(['all', 'delivered', 'failed'] as const).map((filter) => (
+                                            <button
+                                                key={filter}
+                                                onClick={() => setEmailFilter(filter)}
+                                                className={`px-2.5 py-1 rounded-md capitalize transition-colors ${
+                                                    emailFilter === filter
+                                                        ? 'bg-brand-600 text-white font-bold'
+                                                        : 'text-slate-400 hover:text-slate-200'
+                                                }`}
+                                            >
+                                                {filter === 'all' ? `All (${emailLogs.length})` : filter === 'delivered' ? `Delivered (${deliveredCount})` : `Issues (${failedCount})`}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Table */}
+                            <div className="overflow-x-auto">
+                                {filteredEmails.length === 0 ? (
+                                    <div className="p-8 text-center text-xs font-mono text-slate-500 border border-dashed border-slate-800 rounded-xl">
+                                        No auto-responder emails found matching current filter.
+                                    </div>
+                                ) : (
+                                    <table className="w-full text-left font-mono text-xs">
+                                        <thead>
+                                            <tr className="border-b border-slate-800 text-[11px] text-slate-400 uppercase tracking-wider">
+                                                <th className="py-2.5 px-3">Status</th>
+                                                <th className="py-2.5 px-3">Recipient &amp; Event</th>
+                                                <th className="py-2.5 px-3">Subject</th>
+                                                <th className="py-2.5 px-3">Provider</th>
+                                                <th className="py-2.5 px-3">Action Link / Direct URL</th>
+                                                <th className="py-2.5 px-3 text-right">Sent Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-800/60">
+                                            {filteredEmails.map((item) => {
+                                                const typeBadgeColor =
+                                                    item.type === 'signup_verification'
+                                                        ? 'bg-indigo-950/80 text-indigo-300 border-indigo-800'
+                                                        : item.type === 'password_reset'
+                                                        ? 'bg-amber-950/80 text-amber-300 border-amber-800'
+                                                        : item.type === 'password_changed'
+                                                        ? 'bg-cyan-950/80 text-cyan-300 border-cyan-800'
+                                                        : item.type === 'newsletter_welcome'
+                                                        ? 'bg-emerald-950/80 text-emerald-300 border-emerald-800'
+                                                        : item.type === 'ad_order'
+                                                        ? 'bg-purple-950/80 text-purple-300 border-purple-800'
+                                                        : 'bg-slate-800 text-slate-300 border-slate-700';
+
+                                                const typeLabel =
+                                                    item.type === 'signup_verification'
+                                                        ? 'Account Verification'
+                                                        : item.type === 'password_reset'
+                                                        ? 'Password Reset'
+                                                        : item.type === 'password_changed'
+                                                        ? 'Password Changed'
+                                                        : item.type === 'newsletter_welcome'
+                                                        ? 'Newsletter Welcome'
+                                                        : item.type === 'ad_order'
+                                                        ? 'Ad Sponsor Order'
+                                                        : item.type.toUpperCase();
+
+                                                return (
+                                                    <tr key={item.id} className="hover:bg-slate-800/30 transition-colors">
+                                                        <td className="py-3 px-3 whitespace-nowrap">
+                                                            {item.delivered ? (
+                                                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800">
+                                                                    ✓ Delivered
+                                                                </span>
+                                                            ) : (
+                                                                <div className="space-y-0.5">
+                                                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-950 text-rose-400 border border-rose-800">
+                                                                        ⚠ Issue / Rejection
+                                                                    </span>
+                                                                    {item.error && (
+                                                                        <div className="text-[10px] text-rose-300/80 max-w-[200px] truncate" title={item.error}>
+                                                                            {item.error}
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            )}
+                                                        </td>
+                                                        <td className="py-3 px-3">
+                                                            <div className="font-bold text-white">{item.to}</div>
+                                                            <span className={`inline-block mt-0.5 px-2 py-0.2 text-[10px] font-bold uppercase rounded border ${typeBadgeColor}`}>
+                                                                {typeLabel}
+                                                            </span>
+                                                        </td>
+                                                        <td className="py-3 px-3 text-slate-300 max-w-[220px] truncate" title={item.subject}>
+                                                            {item.subject}
+                                                        </td>
+                                                        <td className="py-3 px-3 whitespace-nowrap">
+                                                            <span className="text-[11px] uppercase tracking-wider text-slate-400 font-bold">
+                                                                {item.provider}
+                                                            </span>
+                                                        </td>
+                                                        <td className="py-3 px-3">
+                                                            {item.actionLink ? (
+                                                                <div className="flex items-center gap-1.5 flex-wrap">
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => {
+                                                                            navigator.clipboard.writeText(item.actionLink || '');
+                                                                            showToast('Copied direct Action Link to clipboard!');
+                                                                        }}
+                                                                        className="px-2.5 py-1 rounded bg-brand-950 hover:bg-brand-900 text-brand-300 border border-brand-800 text-[11px] font-bold transition-colors inline-flex items-center gap-1"
+                                                                    >
+                                                                        <span>🔗</span> Copy Link
+                                                                    </button>
+                                                                    <a
+                                                                        href={item.actionLink}
+                                                                        target="_blank"
+                                                                        rel="noreferrer"
+                                                                        className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] transition-colors"
+                                                                    >
+                                                                        Open ↗
+                                                                    </a>
+                                                                </div>
+                                                            ) : (
+                                                                <span className="text-slate-600 text-[11px]">N/A (Informational)</span>
+                                                            )}
+                                                        </td>
+                                                        <td className="py-3 px-3 text-right text-slate-400 whitespace-nowrap text-[11px]">
+                                                            {new Date(item.sentAt).toLocaleString([], {
+                                                                month: 'short',
+                                                                day: 'numeric',
+                                                                hour: '2-digit',
+                                                                minute: '2-digit',
+                                                            })}
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                );
+            })()}
         </div>
     );
 }

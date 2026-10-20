@@ -16,10 +16,12 @@
     "test": "tsx --test tests/valuation-engine.test.ts"
   },
   "dependencies": {
+    "@types/nodemailer": "^8.0.2",
     "@vercel/speed-insights": "^2.0.0",
     "bcryptjs": "^2.4.3",
     "jose": "^5.9.6",
     "next": "^14.2.18",
+    "nodemailer": "^10.1.7",
     "pg": "^8.13.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
                 const token = await createEmailToken(user.id, 'reset', 60 * 60 * 1000);
                 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || req.nextUrl.origin;
                 const link = `${baseUrl}/reset-password?token=${token}`;
-                await sendEmail(user.email, 'Reset your DomainVoodoo password', resetPasswordHtml(link));
+                await sendEmail(user.email, 'Reset your DomainVoodoo password', resetPasswordHtml(link), link, 'password_reset');
             } catch (err) {
                 console.warn('Reset email send failed:', err);
             }

@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
                 const token = await createEmailToken(user.id, 'verify', 24 * 60 * 60 * 1000);
                 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || req.nextUrl.origin;
                 const link = `${baseUrl}/api/auth/verify?token=${token}`;
-                await sendEmail(user.email, 'Verify your DomainVoodoo account', verifyEmailHtml(link));
+                await sendEmail(user.email, 'Verify your DomainVoodoo account', verifyEmailHtml(link), link, 'signup_verification');
             } catch (err) {
                 console.warn('Resend verification email failed:', err);
             }
