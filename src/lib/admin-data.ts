@@ -127,6 +127,24 @@ const DEFAULT_AD_SLOTS: AdSlotData[] = [
 // Initial seed buyers/purchases so admin has sample tracking immediately
 const DEFAULT_PURCHASES: AdPurchaseData[] = [
     {
+        id: 5,
+        slot_id: 1,
+        advertiser_name: 'Sedo Affiliate Program',
+        company: 'Sedo.com Marketplace',
+        email: 'affiliates@sedo.com',
+        amount_usd: 1497.0,
+        status: 'active',
+        start_date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+        expiry_date: new Date(Date.now() + 57 * 24 * 60 * 60 * 1000).toISOString(),
+        destination_url: 'https://sedo.com/?language=us&campaignId=336760',
+        banner_image_url: 'https://cdn.sedo.com/c7r/assets/static/images/banner/en/Sedo_Banner_72890_02.jpg',
+        banner_title: 'Sedo: The World\'s Leading Domain Marketplace',
+        banner_description: 'Buy, sell, and park domain names with over 2 million verified digital assets.',
+        cta_text: 'Explore Sedo.com →',
+        notes: 'Leaderboard banner (728x90) with campaignId=336760.',
+        created_at: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+    },
+    {
         id: 1,
         slot_id: 1,
         advertiser_name: 'David Vance',

@@ -90,7 +90,7 @@ export const AFFILIATE_PARTNERS: AffiliatePartner[] = [
         description: (domain) =>
             `Direct syndication to over 2 million active investors and enterprise buyers worldwide with multilingual broker transaction management.`,
         ctaText: 'Promote Domain on Sedo →',
-        affiliateUrl: 'https://sedo.com/?aff=YOUR_AFFILIATE_ID',
+        affiliateUrl: 'https://sedo.com/?language=us&campaignId=336760',
         icon: '🌍',
         theme: 'amber',
     },

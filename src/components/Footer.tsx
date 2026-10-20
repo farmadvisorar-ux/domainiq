@@ -3,7 +3,7 @@ import NewsletterSignup from './NewsletterSignup';
 import AdSlot from './AdSlot';
 
 const MARKETPLACES = [
-    { name: 'Sedo', href: 'https://sedo.com', blurb: 'Largest international domain marketplace' },
+    { name: 'Sedo', href: 'https://sedo.com/?language=us&campaignId=336760', blurb: 'Largest international domain marketplace' },
     { name: 'Afternic', href: 'https://afternic.com', blurb: "GoDaddy's premium global distribution network" },
     { name: 'Dan.com', href: 'https://dan.com', blurb: 'Zero-hassle escrow & lease-to-own checkout' },
 ];

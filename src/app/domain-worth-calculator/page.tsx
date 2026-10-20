@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import DomainCheckerForm from '@/components/DomainCheckerForm';
 import AdSlot from '@/components/AdSlot';
+import SedoBanner from '@/components/SedoBanner';
 
 export const metadata: Metadata = {
     title: 'How to Value & Sell a Domain Name for Maximum Profit (2026 Masterclass Guide)',
@@ -1971,6 +1972,8 @@ export default function DomainWorthCalculatorPage() {
                         ))}
                     </div>
                 </section>
+
+                <SedoBanner className="my-10" />
 
                 {/* Bottom Call to Action */}
                 <footer className="card p-8 bg-gradient-to-r from-brand-950 via-slate-900 to-indigo-950 border border-brand-500/40 text-center space-y-4">
