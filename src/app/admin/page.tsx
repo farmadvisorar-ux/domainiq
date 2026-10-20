@@ -956,6 +956,31 @@ export default function AdminDashboardPage() {
                                         </div>
                                     </div>
 
+                                    {/* Live Site Preview Link Bar */}
+                                    <div className="flex items-center justify-between p-2.5 rounded-xl bg-brand-950/40 border border-brand-800/50 mb-3 text-xs font-mono">
+                                        <span className="text-slate-300 text-[11px]">
+                                            Site Location: <strong className="text-brand-300">{
+                                                slot.id === 1 ? 'Homepage Hero (Above Fold)' :
+                                                slot.id === 2 ? 'Valuation Reports (Top 30%)' :
+                                                slot.id === 3 ? 'Calculators & Tools Tile' :
+                                                'Sitewide Footer Leaderboard'
+                                            }</strong>
+                                        </span>
+                                        <Link
+                                            href={
+                                                slot.id === 1 ? '/' :
+                                                slot.id === 2 ? '/valuation/crypto.com' :
+                                                slot.id === 3 ? '/domain-worth-calculator' :
+                                                '/#footer'
+                                            }
+                                            target="_blank"
+                                            className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-400 hover:text-emerald-300 hover:underline"
+                                        >
+                                            <span>👁️ View Live on Site</span>
+                                            <span>↗</span>
+                                        </Link>
+                                    </div>
+
                                     {/* Stats Strip */}
                                     <div className="grid grid-cols-3 gap-2 p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 text-center mb-4 text-xs font-mono">
                                         <div>

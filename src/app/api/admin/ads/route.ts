@@ -2,11 +2,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import { verifyAdminAccess } from '@/lib/admin-auth';
 import { getAdSlots, updateAdSlot } from '@/lib/admin-data';
 
-export async function GET(req: NextRequest) {
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+export async function GET(_req: NextRequest) {
     // Reading ad configuration is public or admin
     try {
         const slots = await getAdSlots();
-        return NextResponse.json({ slots });
+        return NextResponse.json(
+            { slots },
+            {
+                headers: {
+                    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+                    'Pragma': 'no-cache',
+                    'Expires': '0',
+                },
+            },
+        );
     } catch (err) {
         return NextResponse.json(
             { error: err instanceof Error ? err.message : 'Failed to fetch ad slots' },
@@ -39,7 +51,14 @@ export async function POST(req: NextRequest) {
             is_active: body.is_active !== undefined ? Boolean(body.is_active) : undefined,
         });
 
-        return NextResponse.json({ success: true, slot: updated });
+        return NextResponse.json(
+            { success: true, slot: updated },
+            {
+                headers: {
+                    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+                },
+            },
+        );
     } catch (err) {
         return NextResponse.json(
             { error: err instanceof Error ? err.message : 'Failed to update ad slot' },

@@ -409,17 +409,35 @@ export async function updateAdminUser(userId: number, updates: { name?: string; 
  * Fetch the 4 Advertisement Boxes
  */
 export async function getAdSlots(): Promise<AdSlotData[]> {
+    const memorySlots = getMemorySlots();
     if (process.env.DATABASE_URL) {
         try {
             await ensureTables();
             const pool = getPool();
             const { rows } = await pool.query<AdSlotData>('SELECT * FROM ad_slots ORDER BY id ASC');
-            if (rows && rows.length === 4) return rows;
-        } catch {
-            // Fall back to memory
+            if (rows && rows.length > 0) {
+                const map = new Map<number, AdSlotData>(memorySlots.map((s) => [s.id, s]));
+                for (const r of rows) {
+                    const existing = map.get(r.id) || DEFAULT_AD_SLOTS.find((s) => s.id === r.id);
+                    if (existing) {
+                        map.set(r.id, {
+                            ...existing,
+                            ...r,
+                            is_active: Boolean(r.is_active),
+                        });
+                    }
+                }
+                const merged = Array.from(map.values()).sort((a, b) => a.id - b.id);
+                for (let i = 0; i < merged.length; i++) {
+                    memorySlots[i] = merged[i]!;
+                }
+                return merged;
+            }
+        } catch (err) {
+            console.warn('getAdSlots DB fetch warning:', err);
         }
     }
-    return getMemorySlots();
+    return memorySlots;
 }
 
 /**
@@ -436,10 +454,20 @@ export async function getAdSlotById(slotId: number): Promise<AdSlotData | null> 
 export async function updateAdSlot(slotId: number, data: Partial<AdSlotData>): Promise<AdSlotData> {
     const memorySlots = getMemorySlots();
     const memIndex = memorySlots.findIndex((s) => s.id === slotId);
+
+    const sanitizedData = { ...data };
+    if (sanitizedData.destination_url) {
+        let dest = sanitizedData.destination_url.trim();
+        if (dest && !dest.startsWith('http://') && !dest.startsWith('https://')) {
+            dest = 'https://' + dest;
+        }
+        sanitizedData.destination_url = dest;
+    }
+
     if (memIndex !== -1) {
         memorySlots[memIndex] = {
             ...memorySlots[memIndex]!,
-            ...data,
+            ...sanitizedData,
             id: slotId,
             updated_at: new Date().toISOString(),
         };
@@ -503,7 +531,11 @@ export async function recordAdClick(slotId: number): Promise<string> {
         }
     }
 
-    return target?.destination_url ?? 'https://domainvoodoo.app';
+    let dest = target?.destination_url || 'https://domainvoodoo.app';
+    if (!dest.startsWith('http://') && !dest.startsWith('https://')) {
+        dest = 'https://' + dest;
+    }
+    return dest;
 }
 
 /**

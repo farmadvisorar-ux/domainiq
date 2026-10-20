@@ -9,7 +9,9 @@ const AD_POSITIONS = [
         slotId: 1,
         name: 'Top Billboard (Hero Placement)',
         badge: 'Maximum Impact',
-        location: 'Sitewide Homepage & Header Hero',
+        location: 'Homepage Header Hero (Above Fold)',
+        liveHref: '/',
+        liveLabel: 'Homepage Hero Placement',
         format: 'Full-width banner with logo, headline, blurb & high-contrast CTA button',
         monthlyViews: '45,000+',
         priceUsd: 499,
@@ -21,7 +23,9 @@ const AD_POSITIONS = [
         slotId: 2,
         name: 'Valuation Report Showcase',
         badge: 'Highest Intent',
-        location: 'Directly inside Domain Valuation & Appraisal Reports',
+        location: 'Directly inside Domain Appraisal Reports',
+        liveHref: '/valuation/crypto.com',
+        liveLabel: 'Appraisal Report Showcase',
         format: 'Native featured partner showcase box with verified trust badges',
         monthlyViews: '28,000+',
         priceUsd: 399,
@@ -33,7 +37,9 @@ const AD_POSITIONS = [
         slotId: 3,
         name: 'Algorithmic Guide & Calculator Tile',
         badge: 'High Conversion',
-        location: 'Within Masterclass Valuation Guides & Extension Calculators',
+        location: 'Within Domain Worth Calculators & Tools',
+        liveHref: '/domain-worth-calculator',
+        liveLabel: 'Tools & Calculator Tile',
         format: 'Targeted tools grid card tile with customized headline & live button',
         monthlyViews: '22,000+',
         priceUsd: 299,
@@ -45,7 +51,9 @@ const AD_POSITIONS = [
         slotId: 4,
         name: 'Sitewide Bottom Banner',
         badge: 'Broad Exposure',
-        location: 'Above Footer Across Every Page on DomainVoodoo',
+        location: 'Above Footer Across All 47 Pages',
+        liveHref: '/#footer',
+        liveLabel: 'Sitewide Footer Leaderboard',
         format: 'Clean horizontal banner with sponsor badge and direct link',
         monthlyViews: '35,000+',
         priceUsd: 199,
@@ -513,9 +521,20 @@ export default function AdvertisePage() {
                                         <span className="text-slate-400">Est. Impressions:</span>
                                         <span className="font-mono text-cyan-400 font-bold">{pos.monthlyViews} / mo</span>
                                     </div>
-                                    <div className="flex items-center justify-between py-1">
+                                    <div className="flex items-center justify-between py-1 border-b border-slate-800">
                                         <span className="text-slate-400">Best Fit:</span>
                                         <span className="text-right text-[11px] text-slate-300 max-w-[240px]">{pos.bestFor}</span>
+                                    </div>
+                                    <div className="flex items-center justify-between py-1.5 pt-2">
+                                        <span className="text-brand-300 font-mono text-[11px] font-bold">Live Placement:</span>
+                                        <Link
+                                            href={(pos as any).liveHref || '/'}
+                                            target="_blank"
+                                            className="text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300 hover:underline flex items-center gap-1"
+                                        >
+                                            <span>👁️ See Where Ad Displays</span>
+                                            <span>↗</span>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

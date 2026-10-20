@@ -110,6 +110,11 @@ export default function HomePage() {
                     </div>
                 </div>
 
+                {/* Primary Hero Billboard Ad Placement (Ad Box #1) */}
+                <div className="mx-auto max-w-4xl pt-4 text-left">
+                    <AdSlot slotId={1} variant="billboard" className="my-0" />
+                </div>
+
                 {/* SEO & LLM Authoritative Guide Pillar Callout */}
                 <div className="mx-auto max-w-2xl pt-2">
                     <Link

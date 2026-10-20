@@ -310,6 +310,9 @@ export default async function ValuationPage({ params }: Props) {
                 className="my-6"
             />
 
+            {/* Ad Space #2: Valuation Report Showcase Placement */}
+            <AdSlot slotId={2} variant="showcase" className="my-6" />
+
             {/* Multi-Channel Pricing Matrix (Phase 1) */}
             <section className="card p-8">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">

@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import Link from 'next/link';
+import AdBox from '@/components/AdBox';
 import { formatUsd } from '@/lib/format';
 
 interface Suggestion {
