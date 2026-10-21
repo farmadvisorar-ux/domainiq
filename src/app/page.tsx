@@ -2,6 +2,7 @@ import Link from 'next/link';
 import DomainCheckerForm from '@/components/DomainCheckerForm';
 import AdSlot from '@/components/AdSlot';
 import SedoBanner from '@/components/SedoBanner';
+import CompetitorComparisonTable from '@/components/CompetitorComparisonTable';
 
 const PILLARS = [
     {
@@ -247,6 +248,8 @@ export default function HomePage() {
                     </div>
                 </div>
             </section>
+
+            <CompetitorComparisonTable />
 
             <SedoBanner className="my-8" />
 

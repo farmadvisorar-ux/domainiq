@@ -3,6 +3,7 @@ import Link from 'next/link';
 import DomainCheckerForm from '@/components/DomainCheckerForm';
 import AdSlot from '@/components/AdSlot';
 import SedoBanner from '@/components/SedoBanner';
+import CompetitorComparisonTable from '@/components/CompetitorComparisonTable';
 
 export const metadata: Metadata = {
     title: 'How to Value & Sell a Domain Name for Maximum Profit (2026 Masterclass Guide)',
@@ -1972,6 +1973,8 @@ export default function DomainWorthCalculatorPage() {
                         ))}
                     </div>
                 </section>
+
+                <CompetitorComparisonTable />
 
                 <SedoBanner className="my-10" />
 

@@ -14,6 +14,12 @@ import AlternativeNames from '@/components/AlternativeNames';
 import EmbedBadge from '@/components/EmbedBadge';
 import AdSlot from '@/components/AdSlot';
 import SedoBanner from '@/components/SedoBanner';
+import BrandMockupStudio from '@/components/BrandMockupStudio';
+import InteractiveCompsChart from '@/components/InteractiveCompsChart';
+import KeywordArbitragePanel from '@/components/KeywordArbitragePanel';
+import WhoisTechnicalRadar from '@/components/WhoisTechnicalRadar';
+import RadioTestAudit from '@/components/RadioTestAudit';
+
 import PitchGenerator from '@/components/PitchGenerator';
 import LeaseCalculatorWidget from '@/components/LeaseCalculatorWidget';
 import TriangulationMatrix from '@/components/TriangulationMatrix';
@@ -580,6 +586,9 @@ export default async function ValuationPage({ params }: Props) {
                 />
             </section>
 
+            {/* Radio Test & Typing Ergonomics Audit */}
+            <RadioTestAudit rootLabel={result.rootLabel} domain={result.domain} />
+
             {/* Due Diligence & Risk Radar (Phase 2 Intelligence) */}
             <section className="card p-8">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5 mb-6">
@@ -866,6 +875,9 @@ export default async function ValuationPage({ params }: Props) {
                 />
             </section>
 
+            {/* Technical Due Diligence, RDAP & Infrastructure Health */}
+            <WhoisTechnicalRadar domain={result.domain} tld={result.tld} age={result.age} />
+
             {/* Cross-Extension Intelligence & Collision Radar (Phase 3) */}
             <section className="card p-8">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5 mb-6">
@@ -981,6 +993,14 @@ export default async function ValuationPage({ params }: Props) {
                 </div>
             </section>
 
+            {/* Visual Identity Lab: Real-World Brand Simulator */}
+            <BrandMockupStudio
+                domain={result.domain}
+                rootLabel={result.rootLabel}
+                verticalLabel={result.vertical.label}
+                estimatedValue={formatUsd(result.midUsd)}
+            />
+
             {/* B2B Outbound Lead Prospector & Pitch Generator (Phase 3) */}
             <section className="card p-8">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5 mb-6">
@@ -1081,6 +1101,15 @@ export default async function ValuationPage({ params }: Props) {
                     />
                 </div>
             </section>
+
+            {/* Interactive Sales Timeline & Scatter Matrix */}
+            {result.comps.length > 0 && (
+                <InteractiveCompsChart
+                    comps={result.comps}
+                    currentDomain={result.domain}
+                    currentFmv={result.midUsd}
+                />
+            )}
 
             {/* Comparable Sales Section (Phase 1 Overhaul) */}
             {result.comps.length > 0 && (
