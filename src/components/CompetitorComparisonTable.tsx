@@ -1,5 +1,7 @@
 'use client';
 
+import AltHuntBadge from '@/components/AltHuntBadge';
+
 export default function CompetitorComparisonTable() {
     const comparisonRows = [
         {
@@ -74,9 +76,12 @@ export default function CompetitorComparisonTable() {
             <div className="absolute top-0 right-0 w-80 h-80 bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="text-center max-w-2xl mx-auto space-y-2">
-                <span className="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-950 text-brand-300 border border-brand-800">
-                    Competitive Intelligence
-                </span>
+                <div className="flex items-center justify-center gap-3 flex-wrap">
+                    <span className="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-brand-950 text-brand-300 border border-brand-800">
+                        Competitive Intelligence
+                    </span>
+                    <AltHuntBadge />
+                </div>
                 <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                     How Domain<span className="text-brand-400">Voodoo</span> Outperforms Every Rival
                 </h2>

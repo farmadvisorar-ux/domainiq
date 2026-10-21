@@ -2,6 +2,7 @@ import Link from 'next/link';
 import DomainCheckerForm from '@/components/DomainCheckerForm';
 import AdSlot from '@/components/AdSlot';
 import SedoBanner from '@/components/SedoBanner';
+import AltHuntBadge from '@/components/AltHuntBadge';
 import CompetitorComparisonTable from '@/components/CompetitorComparisonTable';
 
 const PILLARS = [
@@ -78,6 +79,10 @@ export default function HomePage() {
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
                     </span>
                     <span>🎃 Halloween Edition · 100% Free · Spooky Accurate Appraisals</span>
+                </div>
+
+                <div className="flex items-center justify-center pt-1">
+                    <AltHuntBadge />
                 </div>
 
                 <h1 className="mx-auto max-w-4xl text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">

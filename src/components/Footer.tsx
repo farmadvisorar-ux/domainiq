@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import NewsletterSignup from './NewsletterSignup';
 import AdSlot from './AdSlot';
+import AltHuntBadge from './AltHuntBadge';
 
 const MARKETPLACES = [
     { name: 'Sedo', href: 'https://sedo.com/?language=us&campaignId=336760', blurb: 'Largest international domain marketplace' },
@@ -110,12 +111,15 @@ export default function Footer() {
             </div>
 
             {/* Bottom Copyright Bar */}
-            <div className="border-t border-slate-900 py-6 text-center text-xs text-slate-500 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+            <div className="border-t border-slate-900 py-6 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <AltHuntBadge />
+                <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
                 <span>© {new Date().getFullYear()} DomainVoodoo Inc. Algorithmic estimates for informational decision intelligence, not guaranteed appraisal warrants.</span>
                 <span className="text-slate-700">•</span>
                 <Link href="/admin" className="text-slate-400 hover:text-orange-300 font-mono transition-colors">
                     Admin Terminal
                 </Link>
+                </div>
             </div>
         </footer>
     );

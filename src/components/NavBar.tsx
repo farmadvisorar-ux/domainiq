@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getSession } from '@/lib/auth';
 import LogoutButton from './LogoutButton';
 import MobileNavMenu from './MobileNavMenu';
+import AltHuntBadge from './AltHuntBadge';
 
 export default async function NavBar() {
     const session = await getSession();
@@ -43,6 +44,11 @@ export default async function NavBar() {
                     <Link href="/pricing" className="hover:text-brand-400 transition-colors">Pricing</Link>
                     {session && <Link href="/dashboard" className="hover:text-brand-400 transition-colors">Dashboard</Link>}
                 </nav>
+
+                {/* AltHunt Badge */}
+                <div className="hidden xl:flex items-center">
+                    <AltHuntBadge />
+                </div>
 
                 {/* Right Action Buttons */}
                 <div className="flex items-center gap-2.5">
