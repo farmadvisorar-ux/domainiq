@@ -309,6 +309,14 @@ export default async function ValuationPage({ params }: Props) {
                 domain={result.domain}
             />
 
+            {/* Search Volume, CPC & Paid Search Arbitrage (Engine v3.2) */}
+            <KeywordArbitragePanel
+                economicArbitrage={result.economicArbitrage}
+                domain={result.domain}
+                rootLabel={result.rootLabel}
+                verticalLabel={result.vertical.label}
+            />
+
             {/* Strategic Partner Action Spotlight (Randomized Monetization / Registrar / Marketplace Offer) */}
             <AffiliateSpotlight
                 domain={result.domain}
