@@ -17,6 +17,9 @@ export const metadata: Metadata = {
         ],
         apple: [{ url: '/favicon.svg' }],
     },
+    verification: {
+        google: 'q4OP3WIz5UHhRuKd--ygEACvrk1lUbcQtRS9kRsww7k',
+    },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
