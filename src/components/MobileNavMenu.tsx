@@ -10,6 +10,8 @@ const LINKS = [
     { href: '/drops', label: 'Expiring Drop Radar' },
     { href: '/extension', label: 'Browser Extension' },
     { href: '/api-docs', label: 'Developer API v1' },
+    { href: '/articles', label: '📚 Research Articles & Whitepapers' },
+    { href: '/aeo', label: '🤖 AEO & Direct Answers Portal' },
     { href: '/domain-worth-calculator', label: '📖 Domain Worth Calculator Guide' },
     { href: '/suggest', label: 'Name Generator' },
     { href: '/how-it-works', label: 'Appraisal Methodology' },

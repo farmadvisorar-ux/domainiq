@@ -39,6 +39,8 @@ export default async function NavBar() {
                     <Link href="/drops" className="hover:text-brand-400 transition-colors">Drop Radar</Link>
                     <Link href="/extension" className="hover:text-brand-400 transition-colors">Extension</Link>
                     <Link href="/api-docs" className="hover:text-brand-400 transition-colors">API Docs</Link>
+                    <Link href="/articles" className="hover:text-brand-400 transition-colors text-amber-300 font-semibold">Articles</Link>
+                    <Link href="/aeo" className="hover:text-brand-400 transition-colors text-purple-300 font-semibold">AEO Portal</Link>
                     <Link href="/domain-worth-calculator" className="hover:text-brand-400 transition-colors text-cyan-300">Worth Guide</Link>
                     <Link href="/how-it-works" className="hover:text-brand-400 transition-colors">Methodology</Link>
                     <Link href="/pricing" className="hover:text-brand-400 transition-colors">Pricing</Link>

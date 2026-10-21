@@ -1,0 +1,97 @@
+import { MetadataRoute } from 'next';
+import { getAllArticles } from '@/data/articles';
+
+export default function sitemap(): MetadataRoute.Sitemap {
+    const baseUrl = 'https://prstuvw.xyz';
+    const articles = getAllArticles();
+
+    const staticRoutes: MetadataRoute.Sitemap = [
+        {
+            url: baseUrl,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 1.0,
+        },
+        {
+            url: `${baseUrl}/articles`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.95,
+        },
+        {
+            url: `${baseUrl}/aeo`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.95,
+        },
+        {
+            url: `${baseUrl}/domain-worth-calculator`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/compare`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.85,
+        },
+        {
+            url: `${baseUrl}/bulk`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.85,
+        },
+        {
+            url: `${baseUrl}/drops`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.8,
+        },
+        {
+            url: `${baseUrl}/suggest`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.75,
+        },
+        {
+            url: `${baseUrl}/how-it-works`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/extension`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/pricing`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.65,
+        },
+        {
+            url: `${baseUrl}/api-docs`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.65,
+        },
+        {
+            url: `${baseUrl}/advertise`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.5,
+        },
+    ];
+
+    const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => ({
+        url: `${baseUrl}/articles/${article.slug}`,
+        lastModified: new Date(article.publishDate),
+        changeFrequency: 'monthly',
+        priority: 0.9,
+    }));
+
+    return [...staticRoutes, ...articleRoutes];
+}

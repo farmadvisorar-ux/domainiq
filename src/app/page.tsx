@@ -256,6 +256,103 @@ export default function HomePage() {
 
             <CompetitorComparisonTable />
 
+            {/* SEO & AEO Knowledge Hub Showcase */}
+            <section className="space-y-6 pt-4">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-slate-800 pb-4">
+                    <div>
+                        <div className="flex items-center gap-2">
+                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase bg-brand-950 text-brand-300 border border-brand-800">
+                                Domain Intelligence &amp; Research Desk
+                            </span>
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-purple-950 text-purple-300 border border-purple-800">
+                                AEO Optimized
+                            </span>
+                        </div>
+                        <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight mt-1">
+                            Peer-Reviewed Domain Valuation Science
+                        </h2>
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <Link href="/aeo" className="text-xs font-mono text-purple-400 hover:text-purple-300 font-bold flex items-center gap-1">
+                            <span>🤖 AEO Portal</span>
+                            <span>→</span>
+                        </Link>
+                        <Link href="/articles" className="text-xs font-mono text-brand-400 hover:text-brand-300 font-bold flex items-center gap-1">
+                            <span>View All Articles</span>
+                            <span>→</span>
+                        </Link>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <Link
+                        href="/articles/how-domain-valuation-algorithms-work-2026"
+                        className="rounded-2xl border border-slate-800/80 bg-slate-900/50 hover:bg-slate-900/90 hover:border-brand-500/50 p-5 space-y-3 transition-all group flex flex-col justify-between"
+                    >
+                        <div className="space-y-2">
+                            <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
+                                <span className="text-brand-400 font-bold">MATHEMATICAL BLUEPRINT</span>
+                                <span>14 min read</span>
+                            </div>
+                            <h3 className="text-base font-bold text-white group-hover:text-brand-300 transition-colors leading-snug">
+                                How Domain Valuation Algorithms Work: The 2026 Econometric Model
+                            </h3>
+                            <p className="text-xs text-slate-400 line-clamp-2">
+                                Deconstructing comparable sales regression, capitalized CAC advertising savings, and TLD liquidity multipliers.
+                            </p>
+                        </div>
+                        <span className="text-xs font-mono font-bold text-brand-400 flex items-center gap-1 pt-2">
+                            <span>Read Whitepaper</span>
+                            <span className="group-hover:translate-x-1 transition-transform">→</span>
+                        </span>
+                    </Link>
+
+                    <Link
+                        href="/articles/godaddy-vs-estibot-vs-domainvoodoo-accuracy-benchmark"
+                        className="rounded-2xl border border-slate-800/80 bg-slate-900/50 hover:bg-slate-900/90 hover:border-brand-500/50 p-5 space-y-3 transition-all group flex flex-col justify-between"
+                    >
+                        <div className="space-y-2">
+                            <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
+                                <span className="text-emerald-400 font-bold">EMPIRICAL STUDY</span>
+                                <span>16 min read</span>
+                            </div>
+                            <h3 className="text-base font-bold text-white group-hover:text-brand-300 transition-colors leading-snug">
+                                GoDaddy GoValue vs EstiBot vs DomainVoodoo: Accuracy Benchmark
+                            </h3>
+                            <p className="text-xs text-slate-400 line-clamp-2">
+                                1,000 verified secondary sales tested: MAPE scores, registrar overvaluation bias, and consensus modeling.
+                            </p>
+                        </div>
+                        <span className="text-xs font-mono font-bold text-brand-400 flex items-center gap-1 pt-2">
+                            <span>Read Study</span>
+                            <span className="group-hover:translate-x-1 transition-transform">→</span>
+                        </span>
+                    </Link>
+
+                    <Link
+                        href="/articles/ai-domain-valuation-market-guide"
+                        className="rounded-2xl border border-slate-800/80 bg-slate-900/50 hover:bg-slate-900/90 hover:border-brand-500/50 p-5 space-y-3 transition-all group flex flex-col justify-between"
+                    >
+                        <div className="space-y-2">
+                            <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
+                                <span className="text-purple-400 font-bold">TECH THESIS</span>
+                                <span>13 min read</span>
+                            </div>
+                            <h3 className="text-base font-bold text-white group-hover:text-brand-300 transition-colors leading-snug">
+                                The .AI Domain Gold Rush: Valuation Multipliers &amp; Investment Thesis
+                            </h3>
+                            <p className="text-xs text-slate-400 line-clamp-2">
+                                Anguilla registry economics, VC startup demand, carrying costs, and 6-figure transaction benchmarks.
+                            </p>
+                        </div>
+                        <span className="text-xs font-mono font-bold text-brand-400 flex items-center gap-1 pt-2">
+                            <span>Read Thesis</span>
+                            <span className="group-hover:translate-x-1 transition-transform">→</span>
+                        </span>
+                    </Link>
+                </div>
+            </section>
+
             <SedoBanner className="my-8" />
 
             {/* Bottom Call to Action */}
