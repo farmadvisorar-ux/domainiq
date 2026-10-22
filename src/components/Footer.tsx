@@ -96,6 +96,7 @@ export default function Footer() {
                     <ul className="space-y-2 text-slate-400">
                         <li><Link href="/articles" className="hover:text-brand-400 transition-colors text-amber-300 font-semibold">📚 Research Articles &amp; Whitepapers</Link></li>
                         <li><Link href="/aeo" className="hover:text-brand-400 transition-colors text-purple-300 font-semibold">🤖 AEO &amp; Direct Answers Portal</Link></li>
+                        <li><Link href="/draftline" className="hover:text-brand-400 transition-colors text-amber-400 font-semibold">🏢 Draftline.com Enterprise Audit</Link></li>
                         <li><Link href="/domain-worth-calculator" className="hover:text-brand-400 transition-colors text-cyan-300 font-semibold">How Much Is My Domain Worth? (Guide)</Link></li>
                         <li><Link href="/how-it-works" className="hover:text-brand-400 transition-colors">Pricing Algorithm &amp; Comps</Link></li>
                         <li><Link href="/pricing" className="hover:text-brand-400 transition-colors">Account Tiers &amp; Quotas</Link></li>

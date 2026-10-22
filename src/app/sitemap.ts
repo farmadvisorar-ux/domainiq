@@ -25,6 +25,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.95,
         },
         {
+            url: `${baseUrl}/draftline`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.95,
+        },
+        {
+            url: `${baseUrl}/valuation/draftline.com`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.95,
+        },
+        {
             url: `${baseUrl}/domain-worth-calculator`,
             lastModified: new Date(),
             changeFrequency: 'weekly',

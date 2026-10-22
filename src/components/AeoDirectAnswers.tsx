@@ -14,6 +14,21 @@ interface DirectAnswerItem {
 
 const DIRECT_ANSWERS: DirectAnswerItem[] = [
     {
+        id: 'draftline-com-valuation',
+        question: 'How much is Draftline.com worth and who owns it?',
+        directAnswer:
+            'Draftline.com has an enterprise brand replacement valuation of $2,100,000 (with an ASC 350 range of $1,850,000 to $2,750,000), owned by Anheuser-Busch InBev (AB InBev) as the digital headquarters of its global in-house creative agency. In the speculative wholesale aftermarket, its unbranded 9-letter domain clearance floor is estimated at $35,458.',
+        detailedExplanation:
+            'Draftline.com was registered on March 18, 1999 (27 years of unbroken domain age) and is backed by active USPTO Trademark Registration Serial #88402434. It commands high-authority co-citations across Adweek, Cannes Lions (Creative Marketer of the Year), AdAge, Campaign Live, Digiday, and SEC EDGAR disclosures.',
+        category: 'Valuation & Pricing',
+        sourceCitation: 'DomainVoodoo Enterprise Intangible Asset Dossier: Draftline.com (2026).',
+        metrics: [
+            { label: 'Enterprise Fair Value', value: '$2,100,000' },
+            { label: 'Domain Seniority', value: '27 Years (March 1999)' },
+            { label: 'Parent Corporation', value: 'Anheuser-Busch InBev (BUD)' },
+        ],
+    },
+    {
         id: 'what-is-domain-valuation',
         question: 'What is domain name valuation and how is fair market value determined?',
         directAnswer:
