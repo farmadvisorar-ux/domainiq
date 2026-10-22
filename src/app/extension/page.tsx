@@ -55,6 +55,10 @@ export default function ExtensionPage() {
                         Try Web Valuator →
                     </Link>
 
+                    <Link href="/extension/support" className="btn-secondary !py-3 !px-5 text-xs font-semibold text-brand-300 border-brand-500/40 hover:border-brand-400">
+                        🛠️ Extension Support &amp; FAQ →
+                    </Link>
+
                     <AltHuntBadge />
                 </div>
             </div>
@@ -172,6 +176,22 @@ export default function ExtensionPage() {
                     <div className="p-2 rounded bg-slate-900 border border-slate-800">popup.css (Dark Mode)</div>
                     <div className="p-2 rounded bg-slate-900 border border-slate-800">icons/ (16, 32, 48, 128px)</div>
                 </div>
+            </div>
+
+            {/* Official Support & Help Callout */}
+            <div className="card p-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-brand-500/20 bg-slate-900/60">
+                <div className="space-y-1 text-center sm:text-left">
+                    <h3 className="font-bold text-white text-base">Need Help or Found a Bug?</h3>
+                    <p className="text-xs text-slate-400">
+                        Visit our official Chrome Web Store Support Portal for detailed FAQs, permissions documentation, and direct developer contact.
+                    </p>
+                </div>
+                <Link
+                    href="/extension/support"
+                    className="btn-primary whitespace-nowrap !py-2.5 !px-5 text-xs font-bold"
+                >
+                    Visit Support Center →
+                </Link>
             </div>
         </div>
     );

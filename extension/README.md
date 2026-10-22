@@ -21,3 +21,19 @@ Official browser extension for **DomainVoodoo** (`prstuvw.xyz`). Appraise domain
 3. Click the **"Load unpacked"** button.
 4. Select the `extension/` folder in this repository.
 5. Pin **DomainVoodoo** to your browser toolbar!
+
+
+---
+
+## Chrome Web Store & Edge Add-ons Listing Information
+
+- **Extension Name:** `DomainVoodoo — Instant Domain Valuation`
+- **Short Name:** `DomainVoodoo`
+- **Version:** `1.0.0`
+- **Support URL:** `https://prstuvw.xyz/extension/support`
+- **Homepage URL:** `https://prstuvw.xyz/extension`
+- **Contact Email:** `support@domainvoodoo.com`
+- **Permissions Justification:**
+  - `activeTab`: Used exclusively to retrieve the hostname of the page currently open when you click the extension icon to appraise it.
+  - `host_permissions` (`https://prstuvw.xyz/*`): Used to communicate with the DomainVoodoo algorithmic valuation REST API.
+- **Privacy Policy / Data Safety:** No personal data, tracking cookies, or browsing history are logged or stored.

@@ -103,6 +103,8 @@ export default function Footer() {
                         <li><Link href="/how-it-works" className="hover:text-brand-400 transition-colors">Pricing Algorithm &amp; Comps</Link></li>
                         <li><Link href="/pricing" className="hover:text-brand-400 transition-colors">Account Tiers &amp; Quotas</Link></li>
                         <li><Link href="/suggest" className="hover:text-brand-400 transition-colors">Brandable Name Generator</Link></li>
+                        <li><Link href="/extension/support" className="hover:text-brand-400 transition-colors text-emerald-400 font-semibold">🛠️ Chrome Extension Support</Link></li>
+                        <li><Link href="/support" className="hover:text-brand-400 transition-colors">Help &amp; Contact Center</Link></li>
                         <li><Link href="/advertise" className="hover:text-amber-300 transition-colors text-amber-400 font-semibold flex items-center gap-1"><span>★ Advertise on DomainVoodoo</span></Link></li>
                     </ul>
                 </div>
