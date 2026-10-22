@@ -1,9 +1,11 @@
 import { MetadataRoute } from 'next';
 import { getAllArticles } from '@/data/articles';
+import { getAllTlds } from '@/data/tlds';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://prstuvw.xyz';
     const articles = getAllArticles();
+    const tlds = getAllTlds();
 
     const staticRoutes: MetadataRoute.Sitemap = [
         {
@@ -11,6 +13,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             changeFrequency: 'daily',
             priority: 1.0,
+        },
+        {
+            url: `${baseUrl}/records`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.95,
         },
         {
             url: `${baseUrl}/articles`,
@@ -35,6 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.95,
+        },
+        {
+            url: `${baseUrl}/tld`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
         },
         {
             url: `${baseUrl}/domain-worth-calculator`,
@@ -105,5 +119,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.9,
     }));
 
-    return [...staticRoutes, ...articleRoutes];
+    const tldRoutes: MetadataRoute.Sitemap = tlds.map((tld) => ({
+        url: `${baseUrl}/tld/${tld.extension}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.9,
+    }));
+
+    return [...staticRoutes, ...articleRoutes, ...tldRoutes];
 }

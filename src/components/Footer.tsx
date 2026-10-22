@@ -63,6 +63,8 @@ export default function Footer() {
                     <h4 className="mb-3 font-bold uppercase tracking-wider text-slate-300">Terminal Tools</h4>
                     <ul className="space-y-2 text-slate-400">
                         <li><Link href="/" className="hover:text-brand-400 transition-colors">Instant Domain Valuation</Link></li>
+                        <li><Link href="/records" className="hover:text-brand-400 transition-colors text-yellow-300 font-semibold">🏆 Top 100 Domain Sales in History</Link></li>
+                        <li><Link href="/tld" className="hover:text-brand-400 transition-colors text-cyan-300">🌐 TLD Valuation Guides (.ai, .com, .io)</Link></li>
                         <li><Link href="/compare" className="hover:text-brand-400 transition-colors">Head-to-Head Comparer</Link></li>
                         <li><Link href="/bulk" className="hover:text-brand-400 transition-colors">Bulk Portfolio Appraisal</Link></li>
                         <li><Link href="/drops" className="hover:text-brand-400 transition-colors">Expiring Drop Radar</Link></li>

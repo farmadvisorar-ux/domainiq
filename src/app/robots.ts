@@ -12,7 +12,7 @@ export default function robots(): MetadataRoute.Robots {
             },
             {
                 userAgent: ['GPTBot', 'PerplexityBot', 'ClaudeBot', 'Applebot', 'CCBot', 'Googlebot'],
-                allow: ['/', '/articles/', '/aeo/', '/domain-worth-calculator', '/compare', '/how-it-works'],
+                allow: ['/', '/articles/', '/aeo/', '/records', '/tld/', '/draftline', '/domain-worth-calculator', '/compare', '/how-it-works'],
                 disallow: ['/admin/', '/api/'],
             },
         ],

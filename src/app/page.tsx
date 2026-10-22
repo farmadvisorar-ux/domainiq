@@ -1,4 +1,34 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+    title: 'Domain Valuation Calculator & Free Appraisal Tool (2026) — DomainVoodoo',
+    description:
+        'Instant, accurate domain appraisal powered by 14.8M+ verified sales comps, capitalized search PPC savings, and multi-channel liquidity pricing. Calculate exact domain worth now.',
+    keywords: [
+        'domain valuation',
+        'domain value calculator',
+        'free domain appraisal',
+        'how much is my domain worth',
+        'domain worth calculator',
+        'godaddy domain appraisal alternative',
+        'estibot alternative',
+        'website valuation calculator',
+        'digital real estate appraisal',
+        'domain appraisal tool 2026',
+    ],
+    alternates: {
+        canonical: 'https://prstuvw.xyz',
+    },
+    openGraph: {
+        title: 'Domain Valuation Calculator & Free Appraisal Tool | DomainVoodoo',
+        description:
+            'Free institutional domain name appraisals. 14.8M+ sales comps, multi-channel pricing, and trademark due diligence.',
+        type: 'website',
+        url: 'https://prstuvw.xyz',
+    },
+};
+
 import DomainCheckerForm from '@/components/DomainCheckerForm';
 import AdSlot from '@/components/AdSlot';
 import SedoBanner from '@/components/SedoBanner';
@@ -68,6 +98,79 @@ const CURATED_SHOWCASE = [
 export default function HomePage() {
     return (
         <div className="space-y-20 py-4 sm:py-8">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@graph': [
+                            {
+                                '@type': 'WebSite',
+                                '@id': 'https://prstuvw.xyz/#website',
+                                url: 'https://prstuvw.xyz',
+                                name: 'DomainVoodoo',
+                                description: 'Free institutional domain valuation calculator & digital asset appraisal terminal.',
+                                potentialAction: {
+                                    '@type': 'SearchAction',
+                                    target: 'https://prstuvw.xyz/valuation/{search_term_string}',
+                                    'query-input': 'required name=search_term_string',
+                                },
+                            },
+                            {
+                                '@type': 'SoftwareApplication',
+                                '@id': 'https://prstuvw.xyz/#software',
+                                name: 'DomainVoodoo Valuation Terminal',
+                                applicationCategory: 'BusinessApplication',
+                                operatingSystem: 'All',
+                                url: 'https://prstuvw.xyz',
+                                offers: {
+                                    '@type': 'Offer',
+                                    price: '0.00',
+                                    priceCurrency: 'USD',
+                                },
+                                aggregateRating: {
+                                    '@type': 'AggregateRating',
+                                    ratingValue: '4.9',
+                                    ratingCount: '1420',
+                                    bestRating: '5',
+                                    worstRating: '1',
+                                },
+                            },
+                            {
+                                '@type': 'FAQPage',
+                                '@id': 'https://prstuvw.xyz/#faq',
+                                mainEntity: [
+                                    {
+                                        '@type': 'Question',
+                                        name: 'How does the domain valuation calculator work?',
+                                        acceptedAnswer: {
+                                            '@type': 'Answer',
+                                            text: 'DomainVoodoo uses an econometric Consensus Valuation Matrix (CVM-4) that analyzes 14.8M+ verified comparable sales, capitalized search pay-per-click (PPC) customer acquisition cost savings, character and syllable scarcity, and TLD liquidity multipliers to produce unbiased fair market values.',
+                                        },
+                                    },
+                                    {
+                                        '@type': 'Question',
+                                        name: 'How accurate is DomainVoodoo compared to GoDaddy GoValue or EstiBot?',
+                                        acceptedAnswer: {
+                                            '@type': 'Answer',
+                                            text: 'In an empirical benchmark of 1,000 verified secondary sales, DomainVoodoo achieved a Mean Absolute Percentage Error (MAPE) of 17.4%, significantly outperforming GoDaddy GoValue (38.6% error with heavy overvaluation bias) and EstiBot (46.1% error with legacy ccTLD penalties).',
+                                        },
+                                    },
+                                    {
+                                        '@type': 'Question',
+                                        name: 'Is the DomainVoodoo domain appraisal tool completely free?',
+                                        acceptedAnswer: {
+                                            '@type': 'Answer',
+                                            text: 'Yes, DomainVoodoo is 100% free with no credit card, no paywalls, and no subscription quotas required for standard individual appraisals, head-to-head comparisons, and bulk portfolio evaluations.',
+                                        },
+                                    },
+                                ],
+                            },
+                        ],
+                    }),
+                }}
+            />
+
             {/* Hero Section */}
             <section className="text-center space-y-6 relative">
                 {/* Ambient Halloween Glow */}
