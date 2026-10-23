@@ -13,12 +13,12 @@ export default function Footer() {
     return (
         <footer className="border-t border-slate-800/80 bg-slate-950 mt-24">
             {/* Ad Box #4 Sitewide Banner */}
-            <div className="mx-auto max-w-6xl px-4 pt-8">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8">
                 <AdSlot slotId={4} variant="banner" className="my-0" />
             </div>
 
             {/* Newsletter Banner */}
-            <div className="mx-auto max-w-6xl px-4 pt-8">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8">
                 <div className="card flex flex-col gap-5 p-6 sm:p-8 sm:flex-row sm:items-center sm:justify-between border-brand-500/20 bg-gradient-to-r from-slate-900 via-slate-900 to-indigo-950/40">
                     <div>
                         <div className="flex items-center gap-2 mb-1">
@@ -36,7 +36,7 @@ export default function Footer() {
             </div>
 
             {/* Links Grid */}
-            <div className="mx-auto max-w-6xl px-4 py-12 grid gap-8 sm:grid-cols-2 md:grid-cols-4 text-xs">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 grid gap-8 sm:grid-cols-2 md:grid-cols-4 text-xs">
                 {/* Brand Column */}
                 <div className="space-y-3">
                     <div className="flex items-center gap-2 font-black text-lg text-white">

@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <HalloweenEffects />
                 <MarketTicker />
                 <NavBar />
-                <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:py-12 relative z-10">{children}</main>
+                <main className="mx-auto w-full max-w-7xl flex-1 px-4 sm:px-6 lg:px-8 py-6 sm:py-10 relative z-10">{children}</main>
                 <Footer />
                 <SpeedInsights />
             </body>

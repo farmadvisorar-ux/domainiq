@@ -23,16 +23,17 @@ const LIVE_COMPS = [
 export default function MarketTicker() {
     return (
         <div className="relative border-b border-orange-900/40 bg-slate-950 text-slate-300 text-[11px] font-mono overflow-hidden select-none z-30 shadow-sm shadow-orange-950/20">
-            <div className="mx-auto max-w-7xl flex items-center h-8 px-3">
+            <div className="mx-auto max-w-7xl flex items-center h-8 px-4 sm:px-6 lg:px-8">
                 {/* Fixed Label Tag with Halloween styling */}
-                <div className="flex items-center gap-1.5 shrink-0 bg-slate-900/90 text-orange-400 font-bold px-2 py-0.5 rounded border border-orange-500/40 mr-3 shadow-sm shadow-orange-500/20">
+                <div className="flex items-center gap-1.5 shrink-0 bg-slate-900/90 text-orange-400 font-bold px-2 py-0.5 rounded border border-orange-500/40 mr-2 sm:mr-3 shadow-sm shadow-orange-500/20">
                     <span className="relative flex h-1.5 w-1.5">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-orange-500"></span>
                     </span>
                     <span className="tracking-widest uppercase flex items-center gap-1">
                         <span>🎃</span>
-                        <span>SPOOKY RADAR</span>
+                        <span className="hidden sm:inline">SPOOKY RADAR</span>
+                        <span className="sm:hidden text-[10px]">RADAR</span>
                     </span>
                 </div>
 
