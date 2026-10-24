@@ -104,7 +104,8 @@ export default function Footer() {
                         <li><Link href="/pricing" className="hover:text-brand-400 transition-colors">Account Tiers &amp; Quotas</Link></li>
                         <li><Link href="/suggest" className="hover:text-brand-400 transition-colors">Brandable Name Generator</Link></li>
                         <li><Link href="/extension/support" className="hover:text-brand-400 transition-colors text-emerald-400 font-semibold">🛠️ Chrome Extension Support</Link></li>
-                        <li><Link href="/support" className="hover:text-brand-400 transition-colors">Help &amp; Contact Center</Link></li>
+                        <li><Link href="/support" className="hover:text-brand-400 transition-colors text-cyan-300 font-semibold">💬 Help &amp; Support Center</Link></li>
+                        <li><Link href="/terms" className="hover:text-brand-400 transition-colors">⚖️ Terms of Service</Link></li>
                         <li><Link href="/advertise" className="hover:text-amber-300 transition-colors text-amber-400 font-semibold flex items-center gap-1"><span>★ Advertise on DomainVoodoo</span></Link></li>
                     </ul>
                 </div>
@@ -122,6 +123,14 @@ export default function Footer() {
                 <AltHuntBadge />
                 <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
                 <span>© {new Date().getFullYear()} DomainVoodoo Inc. Algorithmic estimates for informational decision intelligence, not guaranteed appraisal warrants.</span>
+                <span className="text-slate-700">•</span>
+                <Link href="/support" className="text-slate-400 hover:text-white transition-colors">
+                    Support
+                </Link>
+                <span className="text-slate-700">•</span>
+                <Link href="/terms" className="text-slate-400 hover:text-white transition-colors">
+                    Terms of Service
+                </Link>
                 <span className="text-slate-700">•</span>
                 <Link href="/admin" className="text-slate-400 hover:text-orange-300 font-mono transition-colors">
                     Admin Terminal
