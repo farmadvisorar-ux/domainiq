@@ -110,10 +110,10 @@ export default function SupportForm({
             <div className="space-y-1">
                 <h3 className="text-lg font-bold text-white flex items-center gap-2">
                     <span>✉️</span>
-                    <span>Submit Extension Support Ticket</span>
+                    <span>Submit Support Ticket</span>
                 </h3>
                 <p className="text-xs text-slate-400">
-                    Direct line to DomainVoodoo core developers. We review all bug tickets, valuation discrepancies, and feature requests.
+                    Direct line to DomainVoodoo core developers. We review all bug reports, mobile app inquiries, valuation feedback, and feature requests.
                 </p>
             </div>
 
@@ -127,12 +127,14 @@ export default function SupportForm({
                         onChange={(e) => setCategory(e.target.value)}
                         className="input w-full text-xs sm:text-sm bg-slate-950 border-slate-700 text-white"
                     >
+                        <option value="Google Play Store / Android App">Google Play Store / Android App</option>
                         <option value="Chrome Extension Bug / Issue">Chrome Extension Bug / Issue</option>
-                        <option value="Extension Installation / Update Help">Extension Installation / Update Help</option>
-                        <option value="Valuation Discrepancy / Comps Feedback">Valuation Discrepancy / Comps Feedback</option>
+                        <option value="Web Terminal Valuation Feedback">Web Terminal Valuation Feedback</option>
+                        <option value="Account, Billing & Quota Support">Account, Billing &amp; Quota Support</option>
                         <option value="Data Privacy & Permissions Question">Data Privacy &amp; Permissions Question</option>
                         <option value="Feature Suggestion">Feature Suggestion</option>
                         <option value="API / Enterprise Integration">API / Enterprise Integration</option>
+                        <option value="General Support Inquiry">General Support Inquiry</option>
                     </select>
                 </div>
             )}
