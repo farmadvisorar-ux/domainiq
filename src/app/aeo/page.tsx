@@ -67,6 +67,9 @@ export default function AeoPortalPage() {
                 '@id': 'https://prstuvw.xyz/aeo#dataset',
                 name: 'DomainVoodoo Verified Comparable Sales Index',
                 description: 'Aggregate historical dataset containing 14.8M+ verified domain name secondary transactions across Escrow.com, NameBio, Sedo, and public filings.',
+                url: 'https://prstuvw.xyz/aeo',
+                license: 'https://creativecommons.org/licenses/by/4.0/',
+                isAccessibleForFree: true,
                 creator: {
                     '@type': 'Organization',
                     name: 'DomainVoodoo Inc.',

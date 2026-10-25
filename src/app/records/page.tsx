@@ -40,6 +40,8 @@ export default function DomainRecordsPage() {
                 name: 'All-Time Highest Verified Domain Name Sales Database',
                 description: 'Curated historical dataset of top public and SEC-verified domain name secondary market sales.',
                 url: 'https://prstuvw.xyz/records',
+                license: 'https://creativecommons.org/licenses/by/4.0/',
+                isAccessibleForFree: true,
                 creator: {
                     '@type': 'Organization',
                     name: 'DomainVoodoo Inc.',
