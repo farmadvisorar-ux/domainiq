@@ -69,6 +69,7 @@ export default function Footer() {
                         <li><Link href="/bulk" className="hover:text-brand-400 transition-colors">Bulk Portfolio Appraisal</Link></li>
                         <li><Link href="/drops" className="hover:text-brand-400 transition-colors">Expiring Drop Radar</Link></li>
                         <li><Link href="/extension" className="hover:text-brand-400 transition-colors">Chrome &amp; Edge Extension</Link></li>
+                        <li><Link href="/deal-room" className="hover:text-brand-400 transition-colors text-emerald-300 font-semibold">🤝 Domain Deal Room &amp; Fees</Link></li>
                         <li><Link href="/api-docs" className="hover:text-brand-400 transition-colors">Developer REST API v1</Link></li>
                         <li><Link href="/dashboard" className="hover:text-brand-400 transition-colors">Portfolio Watchlist &amp; Alerts</Link></li>
                     </ul>

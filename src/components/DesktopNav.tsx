@@ -60,6 +60,14 @@ const TOOLS_ITEMS: NavItem[] = [
         badge: 'New',
         badgeColor: 'bg-emerald-950 text-emerald-300 border-emerald-800',
     },
+    {
+        href: '/deal-room',
+        label: 'Domain Deal Room & Fees',
+        desc: 'Negotiation ladder, broker scripts & escrow fees',
+        icon: '🤝',
+        badge: 'New',
+        badgeColor: 'bg-emerald-950 text-emerald-300 border-emerald-800',
+    },
 ];
 
 const INTELLIGENCE_ITEMS: NavItem[] = [

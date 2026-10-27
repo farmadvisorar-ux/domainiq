@@ -34,6 +34,7 @@ import AdSlot from '@/components/AdSlot';
 import SedoBanner from '@/components/SedoBanner';
 import AltHuntBadge from '@/components/AltHuntBadge';
 import CompetitorComparisonTable from '@/components/CompetitorComparisonTable';
+import InteractiveValuationSandbox from '@/components/InteractiveValuationSandbox';
 
 const PILLARS = [
     {
@@ -253,6 +254,9 @@ export default function HomePage() {
                     </Link>
                 </div>
             </section>
+
+            {/* Interactive CVM-4 Valuation Simulator */}
+            <InteractiveValuationSandbox />
 
             {/* Quick Live Comps Showcase Carousel */}
             <section className="space-y-4">

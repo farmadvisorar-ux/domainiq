@@ -270,6 +270,138 @@ export const TLDS_DATA: Record<string, TldGuideData> = {
             },
         ],
     },
+    net: {
+        extension: 'net',
+        label: '.net',
+        fullName: 'Network Infrastructure Top-Level Domain',
+        registry: 'Verisign Inc.',
+        annualCarryingCost: '$13 - $18/year',
+        liquidityMultiplier: '0.07x - 0.12x relative to .com baseline',
+        trustScore: 90.4,
+        primaryTarget: 'ISPs, Cloud Infrastructure Providers, Telecommunications, Gaming Networks (Battle.net, Speedtest.net)',
+        metaTitle: '.NET Domain Valuation & Pricing Guide (2026) | DomainVoodoo',
+        metaDescription:
+            'How to value .net domain names: Verisign legacy authority, 3-letter .net wholesale floors, infrastructure comps, and secondary market pricing.',
+        overview:
+            'Introduced in January 1985 as one of the original seven top-level domains, .net was engineered specifically for network providers and telecommunications backbones. Today, with over 13 million active registrations, it remains the third most liquid legacy gTLD globally and carries deep technical credibility.',
+        pricingHeuristics: [
+            'Two-letter .net domains (LL.net) command $18,000 to $65,000 in liquid investor auctions.',
+            'Three-letter .net domains (LLL.net) trade at a wholesale floor of $850 to $3,500.',
+            'Single-word technical and gaming nouns clear between $10,000 and $150,000 to end users.',
+        ],
+        topComps: [
+            { domain: 'Mobile.net', price: '$500,000', year: 2014, significance: 'Landmark telecommunications infrastructure sale.' },
+            { domain: 'Website.net', price: '$175,000', year: 2021, significance: 'Web hosting and cloud directory flagship.' },
+            { domain: 'Audit.net', price: '$88,000', year: 2023, significance: 'Cybersecurity and smart-contract verification brand.' },
+        ],
+        faqs: [
+            {
+                question: 'How much is a .net domain worth compared to .com?',
+                answer:
+                    'On average, a premium single-word or 3-letter .net domain trades at 7% to 12% of its exact-match .com equivalent.',
+            },
+            {
+                question: 'Is .net still a good extension for startups in 2026?',
+                answer:
+                    'Yes, particularly for cloud infrastructure, developer networking, VPNs, and multiplayer gaming platforms where "network" aligns with the product architecture.',
+            },
+        ],
+    },
+    dev: {
+        extension: 'dev',
+        label: '.dev',
+        fullName: 'Developer & Software Engineering gTLD',
+        registry: 'Charleston Road Registry (Google Registry)',
+        annualCarryingCost: '$12 - $20/year (Standard) | $100 - $2,500/year (Registry Premiums)',
+        liquidityMultiplier: '0.06x - 0.14x relative to .com baseline',
+        trustScore: 88.0,
+        primaryTarget: 'Developer Tools, SDKs, API Platforms, Open-Source Frameworks (Web.dev, Vite.dev, React.dev)',
+        metaTitle: '.DEV Domain Valuation & Google Registry Guide (2026) | DomainVoodoo',
+        metaDescription:
+            'How to value .dev domains: HSTS security preloading, DevTools startup demand, Google Registry premium tiers, and aftermarket comps.',
+        overview:
+            'Operated by Google Registry and included on the Chrome HSTS preload list (requiring HTTPS by default on every connection), .dev has become the premier namespace for developer tooling, API documentation portals, and software engineering ecosystems.',
+        pricingHeuristics: [
+            'Single-word programming verbs and CLI tools (e.g., Deploy.dev, Build.dev, Test.dev) command $10,000 to $75,000.',
+            'Always audit renewal rates before acquiring a .dev domain—Google Registry assigns recurring 4-figure annual renewals to many short dictionary words.',
+        ],
+        topComps: [
+            { domain: 'Run.dev', price: '$45,000', year: 2023, significance: 'Cloud execution environment flagship.' },
+            { domain: 'Agent.dev', price: '$38,500', year: 2024, significance: 'Autonomous coding assistant developer hub.' },
+        ],
+        faqs: [
+            {
+                question: 'Why do all .dev domains require SSL/HTTPS?',
+                answer:
+                    'Google Registry added the entire .dev top-level zone to the HSTS preload list, forcing modern browsers to connect exclusively over encrypted HTTPS.',
+            },
+            {
+                question: 'How do Google Registry premium renewals affect .dev valuation?',
+                answer:
+                    'High annual registry renewal fees ($500+/yr) compress wholesale investor liquidity because holding costs eat into portfolio ROI. Standard-renewal .dev domains (~$14/yr) command a much higher investor multiple.',
+            },
+        ],
+    },
+    app: {
+        extension: 'app',
+        label: '.app',
+        fullName: 'Application & Mobile Software gTLD',
+        registry: 'Charleston Road Registry (Google Registry)',
+        annualCarryingCost: '$14 - $20/year (Standard)',
+        liquidityMultiplier: '0.06x - 0.12x relative to .com baseline',
+        trustScore: 87.6,
+        primaryTarget: 'Mobile Apps, SaaS Web Applications, Consumer Fintech (Cash.app, Linear.app, Railway.app)',
+        metaTitle: '.APP Domain Valuation & SaaS Pricing Guide (2026) | DomainVoodoo',
+        metaDescription:
+            'How to value .app domain names: Cash.app halo effect, HSTS mandatory security, mobile app store conversion rates, and verified comps.',
+        overview:
+            'Acquired by Google in a historic $25,000,000 ICANN auction in 2015, .app is the highest-grossing new gTLD acquisition in history. Anchored by Block’s multi-billion-dollar Cash.app and modern SaaS leaders like Linear.app, it enjoys massive consumer recognition on mobile devices.',
+        pricingHeuristics: [
+            'Category-defining consumer verbs and fintech keywords command $15,000 to $120,000.',
+            'Provides an immediate "call to action" in mobile marketing campaigns and Apple App Store / Google Play cross-promotions.',
+        ],
+        topComps: [
+            { domain: 'Shop.app', price: '$200,000+', year: 2020, significance: 'Shopify consumer mobile commerce flagship.' },
+            { domain: 'Note.app', price: '$55,000', year: 2022, significance: 'Productivity software acquisition.' },
+        ],
+        faqs: [
+            {
+                question: 'Is .app good for SEO and mobile user trust?',
+                answer:
+                    'Yes. Because .app is HSTS-preloaded by Google and widely adopted by major fintech and productivity companies (Cash.app, Shop.app, Linear.app), users trust it natively on mobile browsers.',
+            },
+        ],
+    },
+    gg: {
+        extension: 'gg',
+        label: '.gg',
+        fullName: 'Bailiwick of Guernsey / "Good Game" Esports & Gaming ccTLD',
+        registry: 'Island Networks (Channel Islands)',
+        annualCarryingCost: '$55 - $75/year',
+        liquidityMultiplier: '0.05x - 0.11x relative to .com baseline',
+        trustScore: 84.5,
+        primaryTarget: 'Esports Organizations, Gaming Communities, Discord Servers, Streaming Platforms (Discord.gg, OP.gg, Blitz.gg)',
+        metaTitle: '.GG Domain Valuation & Esports Gaming Guide (2026) | DomainVoodoo',
+        metaDescription:
+            'How to value .gg domain names: Discord.gg cultural dominance, gaming & esports startup valuations, Guernsey registry rules, and sales comps.',
+        overview:
+            'Originally the country code top-level domain for the Bailiwick of Guernsey, .gg was adopted globally by the video game and esports industry as shorthand for "Good Game." Today it is the universal standard for gaming analytics platforms, competitive leagues, and community hubs.',
+        pricingHeuristics: [
+            'Short gaming action words, RPG classes, and esports terms trade between $5,000 and $65,000.',
+            'Two-letter and three-letter .gg domains have active liquidity among gaming studio buyers and Web3 gaming protocols.',
+        ],
+        topComps: [
+            { domain: 'Tier.gg', price: '$35,000', year: 2022, significance: 'Esports ranking and tournament platform.' },
+            { domain: 'Loot.gg', price: '$28,500', year: 2023, significance: 'Gaming digital items marketplace.' },
+        ],
+        faqs: [
+            {
+                question: 'Why do gaming companies use .gg domains?',
+                answer:
+                    'In competitive gaming, "GG" universally means "Good Game." Platforms like Discord.gg and OP.gg turned the extension into an instant badge of gaming authenticity.',
+            },
+        ],
+    },
 };
 
 export function getTldData(extension: string): TldGuideData | undefined {

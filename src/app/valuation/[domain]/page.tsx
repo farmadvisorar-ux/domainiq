@@ -350,6 +350,12 @@ export default async function ValuationPage({ params }: Props) {
                     <Link href={`/valuation/${encodeURIComponent(result.domain)}/certificate`} className="btn-secondary">
                         📄 Certificate
                     </Link>
+                    <Link
+                        href={`/deal-room?domain=${encodeURIComponent(result.domain)}&price=${Math.round(result.midUsd)}`}
+                        className="btn-secondary border-emerald-500/40 text-emerald-300 hover:bg-emerald-950/50 hover:border-emerald-400"
+                    >
+                        🤝 Deal Room &amp; Fees →
+                    </Link>
                     <Link href={`/compare?a=${encodeURIComponent(result.domain)}`} className="btn-secondary">Compare</Link>
                     <a
                         href={`https://dan.com/buy-domain/${encodeURIComponent(result.domain)}`}

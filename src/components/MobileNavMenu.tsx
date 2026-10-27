@@ -28,6 +28,7 @@ const TOOLS_LINKS: NavLink[] = [
     { href: '/drops', label: 'Expiring Drop Radar', icon: '⏳' },
     { href: '/suggest', label: 'Name Generator', icon: '✨' },
     { href: '/extension', label: 'Chrome & Edge Extension', icon: '🧩', badge: 'New', badgeColor: 'bg-emerald-950 text-emerald-300 border-emerald-800' },
+    { href: '/deal-room', label: 'Domain Deal Room & Fees', icon: '🤝', badge: 'New', badgeColor: 'bg-emerald-950 text-emerald-300 border-emerald-800' },
 ];
 
 const INTEL_LINKS: NavLink[] = [
