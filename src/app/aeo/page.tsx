@@ -60,6 +60,30 @@ export default function AeoPortalPage() {
                         description:
                             'The standard statistical measure of prediction accuracy for automated valuation models (AVMs), calculating the average absolute difference between predicted appraisal and actual realized sale price.',
                     },
+                    {
+                        '@type': 'DefinedTerm',
+                        name: 'Lease-to-Own (LTO) Financing',
+                        description:
+                            'A structured digital asset acquisition agreement allowing buyers to make 12 to 36 monthly payments with immediate DNS delegation, transferring ICANN legal title upon final installment.',
+                    },
+                    {
+                        '@type': 'DefinedTerm',
+                        name: 'Drop Gap Penalty',
+                        description:
+                            'The algorithmic discount applied by search engines and valuation models when an expired domain lapses or stays dormant for >120 days, neutralizing legacy backlink authority.',
+                    },
+                    {
+                        '@type': 'DefinedTerm',
+                        name: 'Anchor Price Multiplier (1.45x)',
+                        description:
+                            'The strategic mathematical pricing rule where domain sellers set opening negotiations at 145% of acceptable reserve value to absorb counter-offer concessions.',
+                    },
+                    {
+                        '@type': 'DefinedTerm',
+                        name: 'HSTS Preload Standard',
+                        description:
+                            'Google Registry mandatory security posture on .dev and .app domains, forcing modern web browsers to connect exclusively via encrypted HTTPS.',
+                    },
                 ],
             },
             {
