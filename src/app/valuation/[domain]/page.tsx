@@ -33,10 +33,21 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const domain = decodeURIComponent(params.domain);
+    const rawDomain = decodeURIComponent(params.domain);
+    const domain = normalizeDomain(rawDomain);
+    const canonicalUrl = `https://prstuvw.xyz/valuation/${encodeURIComponent(domain)}`;
     return {
-        title: `${domain} valuation — DomainVoodoo`,
-        description: `Free, explainable estimate of what ${domain} is worth, based on comparable sales and multi-factor scoring.`,
+        title: `${domain} Valuation & Free Appraisal Report (2026) | DomainVoodoo`,
+        description: `Free, instant algorithmic domain appraisal for ${domain}. Calculated with 14.8M+ verified sales comps, capitalized search CAC, and multi-channel liquidity pricing.`,
+        alternates: {
+            canonical: canonicalUrl,
+        },
+        openGraph: {
+            title: `${domain} Domain Valuation & Fair Market Appraisal | DomainVoodoo`,
+            description: `Fair market value calculation, sales comps, and trademark due diligence for ${domain}.`,
+            url: canonicalUrl,
+            type: 'website',
+        },
     };
 }
 

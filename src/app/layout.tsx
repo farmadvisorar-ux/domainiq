@@ -7,7 +7,11 @@ import HalloweenEffects from '@/components/HalloweenEffects';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
-    title: 'DomainVoodoo — Institutional-Grade Domain Valuation Engine',
+    metadataBase: new URL('https://prstuvw.xyz'),
+    title: {
+        default: 'DomainVoodoo — Institutional-Grade Domain Valuation Engine',
+        template: '%s | DomainVoodoo',
+    },
     description:
         'Instant, transparent domain appraisals powered by 14.8M+ verified sales comps, multi-channel pricing matrices, and automated UDRP due diligence.',
     icons: {
@@ -19,6 +23,17 @@ export const metadata: Metadata = {
     },
     verification: {
         google: 'q4OP3WIz5UHhRuKd--ygEACvrk1lUbcQtRS9kRsww7k',
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+        },
     },
 };
 

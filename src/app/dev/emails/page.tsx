@@ -1,4 +1,13 @@
+import type { Metadata } from 'next';
 import { getDevOutbox } from '@/lib/mailer';
+
+export const metadata: Metadata = {
+    title: 'Dev Outbox | DomainVoodoo',
+    robots: {
+        index: false,
+        follow: false,
+    },
+};
 
 export const dynamic = 'force-dynamic';
 

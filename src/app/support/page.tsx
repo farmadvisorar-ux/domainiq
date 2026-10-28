@@ -15,6 +15,9 @@ export const metadata: Metadata = {
         'chrome extension support domainvoodoo',
         'domain appraisal api support',
     ],
+    alternates: {
+        canonical: 'https://prstuvw.xyz/support',
+    },
     openGraph: {
         title: 'DomainVoodoo Support & Help Center',
         description: 'Need help? Submit a ticket, read FAQs, or reach out to our engineering support team.',

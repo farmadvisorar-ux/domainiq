@@ -18,6 +18,9 @@ export const metadata: Metadata = {
         'short domain value guide',
         'udrp trademark domain checklist',
     ],
+    alternates: {
+        canonical: 'https://prstuvw.xyz/articles',
+    },
     openGraph: {
         title: 'Domain Intelligence & Valuation Research Library | DomainVoodoo',
         description:

@@ -16,6 +16,9 @@ export const metadata: Metadata = {
         'chatgpt domain value citation',
         'ai search optimization digital real estate',
     ],
+    alternates: {
+        canonical: 'https://prstuvw.xyz/aeo',
+    },
     openGraph: {
         title: 'Answer Engine Optimization (AEO) Portal | DomainVoodoo',
         description:

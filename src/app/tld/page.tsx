@@ -16,6 +16,9 @@ export const metadata: Metadata = {
         'best domain extensions to invest in',
         'tld liquidity multipliers',
     ],
+    alternates: {
+        canonical: 'https://prstuvw.xyz/tld',
+    },
     openGraph: {
         title: 'TLD Valuation & Pricing Directory (2026) | DomainVoodoo',
         description:

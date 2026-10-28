@@ -15,6 +15,9 @@ export const metadata: Metadata = {
         'domain portfolio roi calculator',
         'domain carrying cost calculator',
     ],
+    alternates: {
+        canonical: 'https://prstuvw.xyz/deal-room',
+    },
     openGraph: {
         title: 'Domain Deal Room & Escrow Net Payout Calculator | DomainVoodoo',
         description:

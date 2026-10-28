@@ -11,6 +11,9 @@ export const metadata: Metadata = {
         'domain appraisal disclaimer',
         'domainvoodoo legal terms',
     ],
+    alternates: {
+        canonical: 'https://prstuvw.xyz/terms',
+    },
     openGraph: {
         title: 'Terms of Service — DomainVoodoo',
         description: 'Terms of Service, acceptable use guidelines, and algorithmic disclaimers for the DomainVoodoo platform and extensions.',

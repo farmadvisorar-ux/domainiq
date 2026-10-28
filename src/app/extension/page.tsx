@@ -13,6 +13,9 @@ export const metadata: Metadata = {
         'namecheap domain worth extension',
         'domainvoodoo extension download',
     ],
+    alternates: {
+        canonical: 'https://prstuvw.xyz/extension',
+    },
     openGraph: {
         title: 'DomainVoodoo Browser Extension for Chrome & Edge',
         description: 'Instant 1-click domain valuation, multi-channel pricing, and UDRP risk radar in your browser toolbar.',

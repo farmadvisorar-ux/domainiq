@@ -21,6 +21,9 @@ export const metadata: Metadata = {
         'nfts.com domain sale price',
         'domain sales database 2026',
     ],
+    alternates: {
+        canonical: 'https://prstuvw.xyz/records',
+    },
     openGraph: {
         title: 'Top 100 Most Expensive Domain Sales in History | DomainVoodoo',
         description:

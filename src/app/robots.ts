@@ -8,12 +8,17 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: '*',
                 allow: '/',
-                disallow: ['/admin/', '/api/', '/dashboard/'],
+                disallow: ['/admin/', '/api/', '/dashboard/', '/reset-password', '/verify-email', '/dev/'],
             },
             {
-                userAgent: ['GPTBot', 'PerplexityBot', 'ClaudeBot', 'Applebot', 'CCBot', 'Googlebot'],
-                allow: ['/', '/articles/', '/aeo/', '/records', '/tld/', '/draftline', '/domain-worth-calculator', '/compare', '/how-it-works'],
-                disallow: ['/admin/', '/api/'],
+                userAgent: 'Googlebot',
+                allow: '/',
+                disallow: ['/admin/', '/api/', '/dashboard/', '/reset-password', '/verify-email', '/dev/'],
+            },
+            {
+                userAgent: ['GPTBot', 'PerplexityBot', 'ClaudeBot', 'Applebot', 'CCBot', 'Google-Extended'],
+                allow: '/',
+                disallow: ['/admin/', '/api/', '/dashboard/', '/dev/'],
             },
         ],
         sitemap: `${baseUrl}/sitemap.xml`,

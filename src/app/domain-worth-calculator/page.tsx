@@ -25,6 +25,9 @@ export const metadata: Metadata = {
         'domain escrow transfer process',
         'digital real estate appraisal',
     ],
+    alternates: {
+        canonical: 'https://prstuvw.xyz/domain-worth-calculator',
+    },
     openGraph: {
         title: 'How to Value & Sell a Domain Name for Maximum Profit in 2026',
         description:

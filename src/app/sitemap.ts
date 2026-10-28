@@ -7,6 +7,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const articles = getAllArticles();
     const tlds = getAllTlds();
 
+    const benchmarkDomains = [
+        'draftline.com',
+        'insurance.com',
+        'cars.com',
+        'carinsurance.com',
+        'voice.com',
+        'ghost.ai',
+        'haunted.com',
+        'ai.com',
+        'cloudscale.ai',
+        'friend.com',
+        'nfts.com',
+        'chat.com',
+    ];
+
     const staticRoutes: MetadataRoute.Sitemap = [
         {
             url: baseUrl,
@@ -34,12 +49,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
         {
             url: `${baseUrl}/draftline`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.95,
-        },
-        {
-            url: `${baseUrl}/valuation/draftline.com`,
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.95,
@@ -150,5 +159,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.9,
     }));
 
-    return [...staticRoutes, ...articleRoutes, ...tldRoutes];
+    const valuationRoutes: MetadataRoute.Sitemap = benchmarkDomains.map((dom) => ({
+        url: `${baseUrl}/valuation/${encodeURIComponent(dom)}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.85,
+    }));
+
+    return [...staticRoutes, ...articleRoutes, ...tldRoutes, ...valuationRoutes];
 }

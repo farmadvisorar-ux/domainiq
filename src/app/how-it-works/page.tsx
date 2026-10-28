@@ -1,3 +1,20 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Domain Valuation Methodology & Algorithm Explained | DomainVoodoo',
+    description: 'Learn how DomainVoodoo calculates fair market domain values. Explore our 8-step econometric methodology: structural scarcity, phonetic brandability, TLD multipliers, and comps gating.',
+    keywords: ['how domain valuation works', 'domain appraisal methodology', 'domain valuation algorithm explained', 'domain pricing formula'],
+    alternates: {
+        canonical: 'https://prstuvw.xyz/how-it-works',
+    },
+    openGraph: {
+        title: 'Domain Valuation Methodology & Pricing Algorithm | DomainVoodoo',
+        description: 'Transparent 8-step econometric framework powering DomainVoodoo appraisals.',
+        url: 'https://prstuvw.xyz/how-it-works',
+        type: 'website',
+    },
+};
+
 const STEPS = [
     {
         title: '1. Length & structure',

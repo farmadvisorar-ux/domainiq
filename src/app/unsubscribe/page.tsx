@@ -1,3 +1,13 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Unsubscribe | DomainVoodoo',
+    robots: {
+        index: false,
+        follow: false,
+    },
+};
+
 import Link from 'next/link';
 
 const MESSAGES: Record<string, { title: string; body: string }> = {

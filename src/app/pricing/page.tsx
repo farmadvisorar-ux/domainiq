@@ -1,4 +1,20 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+    title: 'Free Domain Appraisal Pricing & Account Quotas | DomainVoodoo',
+    description: 'DomainVoodoo is 100% free with zero paywalls, no subscriptions, and no credit card required. Unlimited valuations, bulk checks, and Watchlist alerts.',
+    keywords: ['free domain appraisal', 'domain valuation cost', 'godaddy appraisal free alternative', 'estibot free alternative'],
+    alternates: {
+        canonical: 'https://prstuvw.xyz/pricing',
+    },
+    openGraph: {
+        title: 'Simple Pricing: 100% Free Domain Valuation | DomainVoodoo',
+        description: 'Zero paywalls, no credit cards. Instant access to institutional domain appraisal tools.',
+        url: 'https://prstuvw.xyz/pricing',
+        type: 'website',
+    },
+};
 
 const PLANS = [
     {

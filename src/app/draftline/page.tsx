@@ -18,6 +18,9 @@ export const metadata: Metadata = {
         'uspto trademark draftline 88402434',
         'fortune 500 digital flagships',
     ],
+    alternates: {
+        canonical: 'https://prstuvw.xyz/draftline',
+    },
     openGraph: {
         title: 'Draftline.com Valuation & Enterprise Brand Equity Audit | DomainVoodoo',
         description:
