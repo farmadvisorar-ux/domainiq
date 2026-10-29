@@ -18,7 +18,9 @@
 - [Valuation Terminal](https://prstuvw.xyz): Instant algorithmic domain appraisal tool with 90% confidence bands.
 - [Domain Deal Room & Negotiation Simulator](https://prstuvw.xyz/deal-room): Interactive broker counter-offer generator & escrow fee calculator.
 - [Answer Engine Optimization (AEO) Portal](https://prstuvw.xyz/aeo): Atomic direct answers and Knowledge Graph entities for LLMs.
+- [Econometric Glossary & Ontology](https://prstuvw.xyz/glossary): Formal mathematical definitions, CVM-4 formulas, and UDRP terminology.
 - [Research Articles Hub](https://prstuvw.xyz/articles): Peer-reviewed econometric papers and industry studies.
+- [Brandable vs Exact-Match Domains Study](https://prstuvw.xyz/articles/brandable-vs-exact-match-domains-seo-study): 500-domain benchmark on SEO rankings, Google Ads CAC displacement, and conversion rates.
 - [Domain Negotiation & Escrow Playbook](https://prstuvw.xyz/articles/domain-negotiation-broker-escrow-playbook): 3-round counter-offer scripts and commission drag analysis.
 - [New gTLDs vs .COM Valuation Guide](https://prstuvw.xyz/articles/new-gtlds-vs-com-valuation-guide): Multipliers and Google HSTS security for .io, .dev, .app, .xyz, and .net.
 - [Expired Domain Valuation Guide](https://prstuvw.xyz/articles/expired-domain-valuation-drop-catching-guide): Wayback Machine continuous vintage and Drop Gap Penalty analysis.

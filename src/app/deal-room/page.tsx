@@ -38,16 +38,77 @@ export default function DealRoomPage({
 
     const jsonLd = {
         '@context': 'https://schema.org',
-        '@type': 'SoftwareApplication',
-        name: 'DomainVoodoo Deal Room & Commission Simulator',
-        applicationCategory: 'BusinessApplication',
-        operatingSystem: 'All',
-        url: 'https://prstuvw.xyz/deal-room',
-        offers: {
-            '@type': 'Offer',
-            price: '0.00',
-            priceCurrency: 'USD',
-        },
+        '@graph': [
+            {
+                '@type': 'SoftwareApplication',
+                '@id': 'https://prstuvw.xyz/deal-room#software',
+                name: 'DomainVoodoo Deal Room & Commission Simulator',
+                applicationCategory: 'BusinessApplication',
+                operatingSystem: 'All',
+                url: 'https://prstuvw.xyz/deal-room',
+                offers: {
+                    '@type': 'Offer',
+                    price: '0.00',
+                    priceCurrency: 'USD',
+                },
+            },
+            {
+                '@type': 'BreadcrumbList',
+                '@id': 'https://prstuvw.xyz/deal-room#breadcrumb',
+                itemListElement: [
+                    {
+                        '@type': 'ListItem',
+                        position: 1,
+                        name: 'Home',
+                        item: 'https://prstuvw.xyz',
+                    },
+                    {
+                        '@type': 'ListItem',
+                        position: 2,
+                        name: 'Domain Deal Room & Negotiation Simulator',
+                        item: 'https://prstuvw.xyz/deal-room',
+                    },
+                ],
+            },
+            {
+                '@type': 'FAQPage',
+                '@id': 'https://prstuvw.xyz/deal-room#faq',
+                mainEntity: [
+                    {
+                        '@type': 'Question',
+                        name: 'What is the 1.45x anchor rule in domain negotiations?',
+                        acceptedAnswer: {
+                            '@type': 'Answer',
+                            text: 'The 1.45x anchor rule states that domain sellers should set their opening price at 145% of their walk-away reserve value. This mathematical buffer absorbs typical buyer counter-offer concessions across a standard 3-round negotiation without eating into the seller\'s true target profit.',
+                        },
+                    },
+                    {
+                        '@type': 'Question',
+                        name: 'What percentage should a buyer offer below asking price on a domain?',
+                        acceptedAnswer: {
+                            '@type': 'Answer',
+                            text: 'Buyers should open between 35% and 50% of the seller\'s initial asking price or algorithmic fair market value. This establishes a credible counter-anchor while leaving room to settle at approximately 70% to 80% of asking price.',
+                        },
+                    },
+                    {
+                        '@type': 'Question',
+                        name: 'What are the lowest fees for closing a domain sale?',
+                        acceptedAnswer: {
+                            '@type': 'Answer',
+                            text: 'Direct wire transfers on Escrow.com charge the lowest fee at 1.50% for standard transactions, compared to 15.00% on Sedo MLS and standard Afternic Fast-Transfer, or up to 25.00% for unboosted or outbound brokerage.',
+                        },
+                    },
+                    {
+                        '@type': 'Question',
+                        name: 'How does domain Lease-to-Own (LTO) financing work?',
+                        acceptedAnswer: {
+                            '@type': 'Answer',
+                            text: 'Lease-to-Own allows buyers to pay for premium domains in 12 to 36 monthly installments with a standard 10% financing surcharge. The seller delegates DNS nameservers immediately upon the first deposit so the buyer can launch their website, while title transfer occurs in escrow upon final payment.',
+                        },
+                    },
+                ],
+            },
+        ],
     };
 
     return (

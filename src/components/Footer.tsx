@@ -100,6 +100,7 @@ export default function Footer() {
                         <li><Link href="/articles" className="hover:text-brand-400 transition-colors text-amber-300 font-semibold">📚 Research Articles &amp; Whitepapers</Link></li>
                         <li><Link href="/articles/domain-negotiation-broker-escrow-playbook" className="hover:text-brand-400 transition-colors text-emerald-300">🤝 Domain Negotiation &amp; Escrow Playbook</Link></li>
                         <li><Link href="/aeo" className="hover:text-brand-400 transition-colors text-purple-300 font-semibold">🤖 AEO &amp; Direct Answers Portal</Link></li>
+                        <li><Link href="/glossary" className="hover:text-brand-400 transition-colors text-teal-300 font-semibold">📖 Econometric Glossary &amp; Ontology</Link></li>
                         <li><Link href="/draftline" className="hover:text-brand-400 transition-colors text-amber-400 font-semibold">🏢 Draftline.com Enterprise Audit</Link></li>
                         <li><Link href="/domain-worth-calculator" className="hover:text-brand-400 transition-colors text-cyan-300 font-semibold">How Much Is My Domain Worth? (Guide)</Link></li>
                         <li><Link href="/how-it-works" className="hover:text-brand-400 transition-colors">Pricing Algorithm &amp; Comps</Link></li>

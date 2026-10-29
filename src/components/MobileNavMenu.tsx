@@ -36,6 +36,7 @@ const INTEL_LINKS: NavLink[] = [
     { href: '/tld', label: 'TLD Valuation Directory', icon: '🌐' },
     { href: '/articles', label: 'Research Articles & Whitepapers', icon: '📚' },
     { href: '/aeo', label: 'AEO & Direct Answers Portal', icon: '🤖', badge: 'AI', badgeColor: 'bg-purple-950 text-purple-300 border-purple-800' },
+    { href: '/glossary', label: 'Econometric Glossary & Ontology', icon: '📖', badge: 'Ontology', badgeColor: 'bg-teal-950 text-teal-300 border-teal-800' },
     { href: '/domain-worth-calculator', label: 'Domain Worth Calculator Guide', icon: '📖' },
     { href: '/draftline', label: 'Draftline.com Enterprise Audit', icon: '🏢' },
 ];

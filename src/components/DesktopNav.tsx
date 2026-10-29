@@ -100,6 +100,14 @@ const INTELLIGENCE_ITEMS: NavItem[] = [
         badgeColor: 'bg-purple-950 text-purple-300 border-purple-800',
     },
     {
+        href: '/glossary',
+        label: 'Econometric Glossary & Ontology',
+        desc: 'Definitions, formulas, and CVM-4 terminology',
+        icon: '📖',
+        badge: 'Ontology',
+        badgeColor: 'bg-teal-950 text-teal-300 border-teal-800',
+    },
+    {
         href: '/domain-worth-calculator',
         label: 'Domain Worth Calculator Guide',
         desc: 'Comprehensive step-by-step valuation playbook',

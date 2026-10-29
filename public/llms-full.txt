@@ -40,7 +40,12 @@ DomainVoodoo (https://prstuvw.xyz) is an institutional-grade, multi-model domain
 - **Continuous Archive Vintage**: Unbroken Wayback Machine activity from 1996 to 2005 adds a 25% to 45% premium to commercial brand domains due to verified entity trust.
 - **Spam Toxicity Rate**: Over 60% of high-DR expired domains sold at auction contain toxic PBN spam, casino backlinks, or foreign anchor text injection.
 
-## 6. Key Case Studies
+## 6. Exact-Match (EMD) vs. Brandable Domain Economics
+- **Direct Navigation Lift**: Exact-match dictionary domains capture 18% to 35% of total user traffic via direct address bar type-ins, compared to 2% to 5% for early-stage coined brandables.
+- **PPC CAC Displacement**: Category-defining EMDs save an average of $42,000/month in Google Ads pay-per-click spend in high-CPC verticals ($15-$75/click), amortizing secondary market acquisition capital in under 36 months.
+- **Brandable Trademark Fortress**: Coined arbitrary names (Stripe, Figma, Canva) enjoy complete Principle Register trademark protection, avoiding generic term legal vulnerabilities under US trademark law.
+
+## 7. Key Case Studies
 - **Draftline.com**: Owned by Anheuser-Busch InBev (NYSE: BUD). Registered in March 1999 (27 years unbroken domain age). While secondary wholesale auction floor is $35,458, ASC 350 / IFRS 3 enterprise brand replacement cost is $2,100,000 based on Tier-1 press citations in Adweek, Cannes Lions, and SEC disclosures.
 - **Voice.com**: $30,000,000 cash sale (Block.one, 2019).
 - **NFTs.com**: $15,000,000 cash sale (2022).
