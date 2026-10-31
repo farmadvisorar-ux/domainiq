@@ -5,6 +5,12 @@ import { classifyStructuralArchetype } from '../src/lib/valuation/structural-cla
 import { computeEconomicArbitrage } from '../src/lib/valuation/economic-arbitrage';
 
 test('Structural Classifier correctly identifies investor asset archetypes', () => {
+    // Apex Sovereign Brand Flagship
+    const archApexFlagship = classifyStructuralArchetype('youtube', 'com');
+    assert.equal(archApexFlagship.key, 'APEX_GLOBAL_BRAND_FLAGSHIP');
+    assert.equal(archApexFlagship.rarity, 'Generational Scarcity');
+    assert(archApexFlagship.marketFloorUsd >= 500_000_000);
+
     // 1L .com
     const arch1L = classifyStructuralArchetype('z', 'com');
     assert.equal(arch1L.key, 'APEX_1L_COM');
@@ -102,4 +108,48 @@ test('Consensus Valuation Engine applies appropriate discipline to long-tail dom
     assert(resLongTail.midUsd < 5_000, `Expected long-tail domain under $5,000, got ${resLongTail.midUsd}`);
     assert(resLongTail.lowUsd < resLongTail.midUsd);
     assert(resLongTail.highUsd > resLongTail.midUsd);
+});
+
+test('Consensus Valuation Engine correctly recognizes Apex Global Sovereign Brand assets', async () => {
+    const yt = await evaluateDomain('youtube.com', {
+        lookupAge: false,
+        lookupArchive: false,
+    });
+
+    assert.equal(yt.domain, 'youtube.com');
+    assert.equal(yt.structuralArchetype.key, 'APEX_GLOBAL_BRAND_FLAGSHIP');
+    assert.equal(yt.trademark.isSovereignBrand, true);
+    assert.equal(yt.trademark.riskLevel, 'low');
+    assert.equal(yt.trademark.udrpRiskScore, 0);
+    assert.equal(yt.liquidity.rating, 'Ultra-Liquid');
+    assert.equal(yt.confidence, 'high');
+    assert.equal(yt.confidenceScore, 99);
+    assert(yt.midUsd >= 500_000_000, `Expected youtube.com to be worth $500M+, got ${yt.midUsd}`);
+});
+
+test('Consensus Valuation Engine correctly dampens slang keyword compounds vs sovereign brands', async () => {
+    const da = await evaluateDomain('darealty.com', {
+        lookupAge: false,
+        lookupArchive: false,
+    });
+
+    const yt = await evaluateDomain('youtube.com', {
+        lookupAge: false,
+        lookupArchive: false,
+    });
+
+    assert(da.midUsd < 10_000, `Expected darealty.com under $10,000, got ${da.midUsd}`);
+    assert(yt.midUsd > 500_000_000, `Expected youtube.com over $500,000,000, got ${yt.midUsd}`);
+    assert(yt.midUsd > da.midUsd * 10_000, 'youtube.com must be worth orders of magnitude more than darealty.com');
+});
+
+test('Consensus Valuation Engine severely penalizes third-party trademark infringers on secondary TLDs', async () => {
+    const ytNet = await evaluateDomain('youtube.net', {
+        lookupAge: false,
+        lookupArchive: false,
+    });
+
+    assert.equal(ytNet.trademark.riskLevel, 'severe');
+    assert(ytNet.trademark.udrpRiskScore >= 90);
+    assert(ytNet.midUsd < 5_000, `Expected infringing domain to suffer severe haircut, got ${ytNet.midUsd}`);
 });

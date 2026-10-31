@@ -5,10 +5,22 @@ export interface TrademarkMatch {
     category?: string;
 }
 
+export interface ApexBrandInfo {
+    mark: string;
+    primaryTld: string;
+    brandName: string;
+    parentEntity: string;
+    enterpriseFloorUsd: number;
+    monthlyNavSearches: number;
+    category: string;
+}
+
 export interface TrademarkResult {
     /** Whether a live USPTO search actually ran (false = comprehensive heuristic screen). */
     checked: boolean;
     source: 'uspto-live' | 'heuristic-only';
+    isSovereignBrand?: boolean;
+    apexBrand?: ApexBrandInfo;
     riskLevel: 'unknown' | 'low' | 'elevated' | 'severe';
     /** UDRP Bad Faith & Trademark Conflict Index (0-100) */
     udrpRiskScore: number;
@@ -25,6 +37,280 @@ export interface TrademarkResult {
 
 const NOT_LEGAL_ADVICE =
     'This is an automated legal and UDRP risk screen, not a formal legal opinion. It evaluates names against globally famous registered marks, known WIPO dispute precedents, and common-law liability patterns. Consult an intellectual property attorney before major acquisitions.';
+
+export const APEX_GLOBAL_BRANDS: Record<string, ApexBrandInfo> = {
+    youtube: {
+        mark: 'youtube',
+        primaryTld: 'com',
+        brandName: 'YouTube',
+        parentEntity: 'Alphabet Inc.',
+        enterpriseFloorUsd: 850_000_000,
+        monthlyNavSearches: 350_000_000,
+        category: 'Video & Entertainment',
+    },
+    google: {
+        mark: 'google',
+        primaryTld: 'com',
+        brandName: 'Google',
+        parentEntity: 'Alphabet Inc.',
+        enterpriseFloorUsd: 1_200_000_000,
+        monthlyNavSearches: 850_000_000,
+        category: 'Search & Cloud',
+    },
+    apple: {
+        mark: 'apple',
+        primaryTld: 'com',
+        brandName: 'Apple',
+        parentEntity: 'Apple Inc.',
+        enterpriseFloorUsd: 950_000_000,
+        monthlyNavSearches: 280_000_000,
+        category: 'Consumer Hardware & Services',
+    },
+    amazon: {
+        mark: 'amazon',
+        primaryTld: 'com',
+        brandName: 'Amazon',
+        parentEntity: 'Amazon.com Inc.',
+        enterpriseFloorUsd: 1_100_000_000,
+        monthlyNavSearches: 420_000_000,
+        category: 'E-Commerce & Cloud',
+    },
+    microsoft: {
+        mark: 'microsoft',
+        primaryTld: 'com',
+        brandName: 'Microsoft',
+        parentEntity: 'Microsoft Corp.',
+        enterpriseFloorUsd: 900_000_000,
+        monthlyNavSearches: 180_000_000,
+        category: 'Enterprise Software & Cloud',
+    },
+    netflix: {
+        mark: 'netflix',
+        primaryTld: 'com',
+        brandName: 'Netflix',
+        parentEntity: 'Netflix Inc.',
+        enterpriseFloorUsd: 450_000_000,
+        monthlyNavSearches: 150_000_000,
+        category: 'Entertainment',
+    },
+    meta: {
+        mark: 'meta',
+        primaryTld: 'com',
+        brandName: 'Meta',
+        parentEntity: 'Meta Platforms Inc.',
+        enterpriseFloorUsd: 550_000_000,
+        monthlyNavSearches: 90_000_000,
+        category: 'Social Technology',
+    },
+    facebook: {
+        mark: 'facebook',
+        primaryTld: 'com',
+        brandName: 'Facebook',
+        parentEntity: 'Meta Platforms Inc.',
+        enterpriseFloorUsd: 750_000_000,
+        monthlyNavSearches: 320_000_000,
+        category: 'Social Media',
+    },
+    instagram: {
+        mark: 'instagram',
+        primaryTld: 'com',
+        brandName: 'Instagram',
+        parentEntity: 'Meta Platforms Inc.',
+        enterpriseFloorUsd: 800_000_000,
+        monthlyNavSearches: 260_000_000,
+        category: 'Social Media',
+    },
+    whatsapp: {
+        mark: 'whatsapp',
+        primaryTld: 'com',
+        brandName: 'WhatsApp',
+        parentEntity: 'Meta Platforms Inc.',
+        enterpriseFloorUsd: 400_000_000,
+        monthlyNavSearches: 110_000_000,
+        category: 'Communications',
+    },
+    tiktok: {
+        mark: 'tiktok',
+        primaryTld: 'com',
+        brandName: 'TikTok',
+        parentEntity: 'ByteDance Ltd.',
+        enterpriseFloorUsd: 650_000_000,
+        monthlyNavSearches: 210_000_000,
+        category: 'Social Media',
+    },
+    twitter: {
+        mark: 'twitter',
+        primaryTld: 'com',
+        brandName: 'Twitter',
+        parentEntity: 'X Corp.',
+        enterpriseFloorUsd: 350_000_000,
+        monthlyNavSearches: 120_000_000,
+        category: 'Social Media',
+    },
+    x: {
+        mark: 'x',
+        primaryTld: 'com',
+        brandName: 'X',
+        parentEntity: 'X Corp.',
+        enterpriseFloorUsd: 600_000_000,
+        monthlyNavSearches: 180_000_000,
+        category: 'Social Media & Super-App',
+    },
+    linkedin: {
+        mark: 'linkedin',
+        primaryTld: 'com',
+        brandName: 'LinkedIn',
+        parentEntity: 'Microsoft Corp.',
+        enterpriseFloorUsd: 500_000_000,
+        monthlyNavSearches: 140_000_000,
+        category: 'Professional Network',
+    },
+    reddit: {
+        mark: 'reddit',
+        primaryTld: 'com',
+        brandName: 'Reddit',
+        parentEntity: 'Reddit Inc.',
+        enterpriseFloorUsd: 350_000_000,
+        monthlyNavSearches: 160_000_000,
+        category: 'Social Media & Community',
+    },
+    wikipedia: {
+        mark: 'wikipedia',
+        primaryTld: 'org',
+        brandName: 'Wikipedia',
+        parentEntity: 'Wikimedia Foundation',
+        enterpriseFloorUsd: 450_000_000,
+        monthlyNavSearches: 220_000_000,
+        category: 'Global Reference',
+    },
+    spotify: {
+        mark: 'spotify',
+        primaryTld: 'com',
+        brandName: 'Spotify',
+        parentEntity: 'Spotify AB',
+        enterpriseFloorUsd: 300_000_000,
+        monthlyNavSearches: 95_000_000,
+        category: 'Audio Streaming',
+    },
+    openai: {
+        mark: 'openai',
+        primaryTld: 'com',
+        brandName: 'OpenAI',
+        parentEntity: 'OpenAI Inc.',
+        enterpriseFloorUsd: 400_000_000,
+        monthlyNavSearches: 85_000_000,
+        category: 'Artificial Intelligence',
+    },
+    chatgpt: {
+        mark: 'chatgpt',
+        primaryTld: 'com',
+        brandName: 'ChatGPT',
+        parentEntity: 'OpenAI Inc.',
+        enterpriseFloorUsd: 350_000_000,
+        monthlyNavSearches: 130_000_000,
+        category: 'Artificial Intelligence',
+    },
+    nvidia: {
+        mark: 'nvidia',
+        primaryTld: 'com',
+        brandName: 'NVIDIA',
+        parentEntity: 'NVIDIA Corp.',
+        enterpriseFloorUsd: 700_000_000,
+        monthlyNavSearches: 75_000_000,
+        category: 'Semiconductor & AI',
+    },
+    tesla: {
+        mark: 'tesla',
+        primaryTld: 'com',
+        brandName: 'Tesla',
+        parentEntity: 'Tesla Inc.',
+        enterpriseFloorUsd: 500_000_000,
+        monthlyNavSearches: 90_000_000,
+        category: 'Automotive & Energy',
+    },
+    uber: {
+        mark: 'uber',
+        primaryTld: 'com',
+        brandName: 'Uber',
+        parentEntity: 'Uber Technologies Inc.',
+        enterpriseFloorUsd: 350_000_000,
+        monthlyNavSearches: 65_000_000,
+        category: 'Mobility & Delivery',
+    },
+    airbnb: {
+        mark: 'airbnb',
+        primaryTld: 'com',
+        brandName: 'Airbnb',
+        parentEntity: 'Airbnb Inc.',
+        enterpriseFloorUsd: 380_000_000,
+        monthlyNavSearches: 70_000_000,
+        category: 'Travel & Hospitality',
+    },
+    paypal: {
+        mark: 'paypal',
+        primaryTld: 'com',
+        brandName: 'PayPal',
+        parentEntity: 'PayPal Holdings Inc.',
+        enterpriseFloorUsd: 400_000_000,
+        monthlyNavSearches: 80_000_000,
+        category: 'Fintech & Payments',
+    },
+    stripe: {
+        mark: 'stripe',
+        primaryTld: 'com',
+        brandName: 'Stripe',
+        parentEntity: 'Stripe Inc.',
+        enterpriseFloorUsd: 350_000_000,
+        monthlyNavSearches: 45_000_000,
+        category: 'Fintech & Infrastructure',
+    },
+    nike: {
+        mark: 'nike',
+        primaryTld: 'com',
+        brandName: 'Nike',
+        parentEntity: 'NIKE Inc.',
+        enterpriseFloorUsd: 400_000_000,
+        monthlyNavSearches: 75_000_000,
+        category: 'Consumer Apparel',
+    },
+    disney: {
+        mark: 'disney',
+        primaryTld: 'com',
+        brandName: 'Disney',
+        parentEntity: 'The Walt Disney Company',
+        enterpriseFloorUsd: 500_000_000,
+        monthlyNavSearches: 95_000_000,
+        category: 'Entertainment & Media',
+    },
+    walmart: {
+        mark: 'walmart',
+        primaryTld: 'com',
+        brandName: 'Walmart',
+        parentEntity: 'Walmart Inc.',
+        enterpriseFloorUsd: 600_000_000,
+        monthlyNavSearches: 180_000_000,
+        category: 'Retail & E-Commerce',
+    },
+    costco: {
+        mark: 'costco',
+        primaryTld: 'com',
+        brandName: 'Costco',
+        parentEntity: 'Costco Wholesale Corp.',
+        enterpriseFloorUsd: 350_000_000,
+        monthlyNavSearches: 65_000_000,
+        category: 'Retail & Wholesale',
+    },
+};
+
+export function getApexBrandInfo(label: string, tld: string): ApexBrandInfo | null {
+    const clean = label.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const cleanTld = tld.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const apex = APEX_GLOBAL_BRANDS[clean];
+    if (apex && apex.primaryTld === cleanTld) {
+        return apex;
+    }
+    return null;
+}
 
 interface FamousBrand {
     mark: string;
@@ -189,24 +475,53 @@ function levenshtein(a: string, b: string): number {
 /**
  * Evaluates trademark infringement liability and UDRP forfeiture risk.
  */
-export function screenTrademarkAndUdrp(label: string): TrademarkResult {
+export function screenTrademarkAndUdrp(label: string, tld: string = 'com'): TrademarkResult {
     const clean = label.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const cleanTld = tld.toLowerCase().replace(/[^a-z0-9]/g, '');
     const matches: TrademarkMatch[] = [];
 
     const usptoUrl = `https://tmsearch.uspto.gov/search/search-results?query=${encodeURIComponent(clean)}`;
     const wipoUrl = `https://www.wipo.int/amc/en/domains/search/index.jsp?q=${encodeURIComponent(clean)}`;
     const euipoUrl = `https://euipo.europa.eu/eSearch/#basic/1+1+1+1/${encodeURIComponent(clean)}`;
 
+    // Check if this domain IS the official apex sovereign brand flagship
+    const apex = getApexBrandInfo(clean, cleanTld);
+    if (apex) {
+        matches.push({
+            mark: clean,
+            category: apex.category,
+            matchType: 'exact',
+            note: `Official apex sovereign brand flagship domain for ${apex.brandName} (${apex.parentEntity}). Under ASC 350 / IFRS 3, this asset represents institutional sovereign brand equity with zero UDRP exposure.`,
+        });
+
+        return {
+            checked: false,
+            source: 'heuristic-only',
+            isSovereignBrand: true,
+            apexBrand: apex,
+            riskLevel: 'low',
+            udrpRiskScore: 0,
+            udrpRating: 'Minimal Risk',
+            matches,
+            links: {
+                usptoUrl,
+                wipoUrl,
+                euipoUrl,
+            },
+            disclaimer: `Verified apex sovereign flagship brand asset (${apex.brandName}). Evaluated under ASC 350 / IFRS 3 institutional intangible brand asset standards with zero UDRP forfeiture exposure.`,
+        };
+    }
+
     for (const item of FAMOUS_BRANDS) {
         const mark = item.mark;
 
-        // 1. Exact match
+        // 1. Exact match (Non-sovereign TLD or non-official extension, e.g. "youtube.net", "google.co")
         if (clean === mark) {
             matches.push({
                 mark,
                 category: item.category,
                 matchType: 'exact',
-                note: `Exact match for globally recognized registered trademark "${mark}" (${item.category}). Near 100% risk of immediate UDRP forfeiture or legal demand.`,
+                note: `Exact match for globally recognized registered trademark "${mark}" (${item.category}) on secondary extension .${cleanTld}. Near 100% risk of immediate UDRP forfeiture or legal demand from the mark holder.`,
             });
             continue;
         }
@@ -289,9 +604,9 @@ interface UsptoApiRecord {
  * Checks trademark risk via live USPTO API if key is present,
  * or runs the comprehensive heuristic and UDRP analyzer.
  */
-export async function checkTrademarkRisk(label: string, timeoutMs = 1000): Promise<TrademarkResult> {
-    const baseScreen = screenTrademarkAndUdrp(label);
-
+export async function checkTrademarkRisk(label: string, timeoutMs = 1000, tld: string = 'com'): Promise<TrademarkResult> {
+    const baseScreen = screenTrademarkAndUdrp(label, tld);
+    if (baseScreen.isSovereignBrand) return baseScreen;
 
     const apiKey = process.env.USPTO_API_KEY;
     if (!apiKey) return baseScreen;

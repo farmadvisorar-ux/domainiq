@@ -1,5 +1,6 @@
 import { isDictionaryWord, segmentLabel } from './dictionary';
 import { KEYWORDS } from './keywords';
+import { getApexBrandInfo } from './trademark';
 
 export interface EconomicArbitrageResult {
     monthlyExactSearchEstimate: number;
@@ -50,6 +51,27 @@ export function computeEconomicArbitrage(params: {
     const isCom = tld.toLowerCase() === 'com';
     const isTech = ['ai', 'io'].includes(tld.toLowerCase());
 
+    // 0. Apex Global Sovereign Brand Special Handling (e.g. youtube.com, google.com)
+    const apex = getApexBrandInfo(label, tld);
+    if (apex) {
+        const monthlyExactSearchEstimate = apex.monthlyNavSearches;
+        const estimatedCpcUsd = 4.80; // High institutional brand advertiser bidding benchmark
+        // Universal direct navigation: ~15% direct navigation CTR capture
+        const annualNavigationalClicks = Math.round(monthlyExactSearchEstimate * 12 * 0.15);
+        const annualMarketingAvoidanceUsd = Math.round(annualNavigationalClicks * estimatedCpcUsd);
+        const capitalizedAssetValueUsd = Math.max(1_000_000_000, Math.round(apex.enterpriseFloorUsd * 1.25));
+
+        return {
+            monthlyExactSearchEstimate,
+            estimatedCpcUsd,
+            annualMarketingAvoidanceUsd,
+            capitalizedAssetValueUsd,
+            conversionTrustLiftPercent: 55,
+            commercialIntentGrade: 'Tier-1 Institutional (High CPC)',
+            rationale: `Sovereign global flagship asset for ${apex.brandName}. Captures an estimated ${(monthlyExactSearchEstimate / 1_000_000).toFixed(0)}M+ monthly brand queries, displacing over $${(annualMarketingAvoidanceUsd / 1_000_000).toFixed(0)}M in annual paid search CAC.`,
+        };
+    }
+
     // 1. Determine Industry Cost-Per-Click (CPC)
     const benchmark = (category && VERTICAL_CPC_BENCHMARKS[category])
         ? VERTICAL_CPC_BENCHMARKS[category]!
@@ -80,12 +102,21 @@ export function computeEconomicArbitrage(params: {
         }
     } else {
         const seg = segmentLabel(label);
+        // Only legitimate 2-word dictionary compounds get full 3,200 searches
         if (seg.words.length === 2 && seg.coverage === 1) {
             estimatedMonthlySearches = Math.round(3_200 * benchmark.volumeWeight);
             typeInMultiplier = 1.2;
-        } else if (compositionScore >= 60) {
-            estimatedMonthlySearches = Math.round(800 * benchmark.volumeWeight);
-            typeInMultiplier = 0.8;
+        } else if (seg.words.length === 2 && seg.coverage >= 0.85 && seg.words.every((w) => isDictionaryWord(w))) {
+            estimatedMonthlySearches = Math.round(1_200 * benchmark.volumeWeight);
+            typeInMultiplier = 0.9;
+        } else if (compositionScore >= 80 && seg.coverage === 1) {
+            estimatedMonthlySearches = Math.round(600 * benchmark.volumeWeight);
+            typeInMultiplier = 0.6;
+        } else if (seg.coverage < 1.0) {
+            // Partial lexical coverage (e.g. slang/coined prefix compound like "darealty")
+            // A non-dictionary prefix means this is not a high-volume exact-search commercial compound
+            estimatedMonthlySearches = 80;
+            typeInMultiplier = 0.25;
         } else {
             estimatedMonthlySearches = 150;
             typeInMultiplier = 0.3;
@@ -109,7 +140,6 @@ export function computeEconomicArbitrage(params: {
     const annualMarketingAvoidanceUsd = Math.round(annualNavigationalClicks * cpc);
 
     // 4. Capitalize at an Institutional Domain Cap Rate (10% Cap Rate = 10x Annual Savings)
-    // Clamped between conservative minimums and grounded market ceilings
     const capRate = 0.10;
     let capitalizedAssetValueUsd = Math.round(annualMarketingAvoidanceUsd / capRate);
 

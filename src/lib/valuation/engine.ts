@@ -185,7 +185,7 @@ export async function evaluateDomain(
 
     // 3. Parallel Due Diligence Lookups (RDAP Age, Archive Wayback, Trademark Screening, Alternative TLDs)
     const agePromise = opts.lookupAge ? lookupDomainAge(domain, 1200).catch(() => null) : Promise.resolve(null);
-    const trademarkPromise = opts.checkTrademark === false
+    const trademarkPromise: Promise<TrademarkResult> = opts.checkTrademark === false
         ? Promise.resolve({
             checked: false,
             source: 'heuristic-only' as const,
@@ -200,7 +200,7 @@ export async function evaluateDomain(
             },
             disclaimer: 'Trademark screening skipped for this request.',
         })
-        : checkTrademarkRisk(label, 1000).catch(() => screenTrademarkAndUdrp(label));
+        : checkTrademarkRisk(label, 1000, tld).catch(() => screenTrademarkAndUdrp(label, tld));
 
     const archivePromise = (opts.lookupArchive !== false && opts.lookupAge !== false)
         ? lookupArchiveHistory(domain, null, 1200).catch(() => null)
@@ -354,13 +354,26 @@ export async function evaluateDomain(
         wStructural = 0.0;
         wComps = 1.0;
         wEconomic = 0.0;
+    } else if (structuralArchetype.key === 'APEX_GLOBAL_BRAND_FLAGSHIP') {
+        // Apex global sovereign brand flagships: evaluated on sovereign brand equity and direct navigation traffic
+        wStructural = 0.65;
+        wComps = 0.0;
+        wEconomic = 0.35;
+        compsWeight = 0.0;
+        const blendedCore = (structuralValueUsd * wStructural) + (economicValueUsd * wEconomic) + defensiveValueUsd;
+        midUsd = Math.max(structuralArchetype.marketFloorUsd, Math.round(blendedCore));
     } else {
+        let maxCompWeight = 0.55;
+        if (keywordMatch && (keywordMatch as any).coherence === 'slang-or-fragment') {
+            maxCompWeight = 0.20; // Slang compounds cannot rely purely on premium coherent comps
+        }
+
         if (compsValueUsd !== null && compsResult.weight >= 0.35) {
-            wComps = Math.min(0.55, compsResult.weight);
+            wComps = Math.min(maxCompWeight, compsResult.weight);
             wStructural = (1.0 - wComps) * 0.70;
             wEconomic = (1.0 - wComps) * 0.30;
         } else if (compsValueUsd !== null && compsResult.weight >= 0.15) {
-            wComps = compsResult.weight;
+            wComps = Math.min(maxCompWeight, compsResult.weight);
             wStructural = (1.0 - wComps) * 0.72;
             wEconomic = (1.0 - wComps) * 0.28;
         } else {
@@ -375,15 +388,15 @@ export async function evaluateDomain(
         // Add defensive corporate collision pressure
         blendedCore += defensiveValueUsd;
 
-        // Apply trademark risk discounts if flagged
-        if (trademark.riskLevel === 'severe') {
+        // Apply trademark risk discounts if flagged (only for non-sovereign domains)
+        if (trademark.riskLevel === 'severe' && !trademark.isSovereignBrand) {
             blendedCore *= 0.25; // 75% haircut for severe UDRP risk
-        } else if (trademark.riskLevel === 'elevated') {
+        } else if (trademark.riskLevel === 'elevated' && !trademark.isSovereignBrand) {
             blendedCore *= 0.70; // 30% haircut for potential trademark friction
         }
 
         // Clamp to archetype market floor for ultra-liquid tiers
-        if (['APEX_1L_COM', 'APEX_2L_COM', 'APEX_3L_COM', 'NUMERIC_2N_COM', 'NUMERIC_3N_COM'].includes(structuralArchetype.key)) {
+        if (['APEX_GLOBAL_BRAND_FLAGSHIP', 'APEX_1L_COM', 'APEX_2L_COM', 'APEX_3L_COM', 'NUMERIC_2N_COM', 'NUMERIC_3N_COM'].includes(structuralArchetype.key)) {
             midUsd = Math.max(structuralArchetype.marketFloorUsd, Math.round(blendedCore));
         } else {
             midUsd = Math.max(50, Math.round(blendedCore));
@@ -394,7 +407,9 @@ export async function evaluateDomain(
 
     // 9. Model Agreement & Convergence Index
     let modelAgreementScore = 85;
-    if (compsValueUsd !== null) {
+    if (structuralArchetype.key === 'APEX_GLOBAL_BRAND_FLAGSHIP') {
+        modelAgreementScore = 96;
+    } else if (compsValueUsd !== null) {
         const ratio = Math.max(structuralValueUsd, 1) / Math.max(compsValueUsd, 1);
         const logDiff = Math.abs(Math.log10(ratio));
         modelAgreementScore = Math.max(45, Math.min(99, Math.round(100 - logDiff * 35)));
@@ -423,8 +438,31 @@ export async function evaluateDomain(
         amountUsd: structuralArchetype.marketFloorUsd,
         impact: 'baseline',
         category: 'scarcity',
-        description: `Fundamental market liquidity floor for the ${structuralArchetype.rarity.toLowerCase()} asset class.`,
+        description: structuralArchetype.key === 'APEX_GLOBAL_BRAND_FLAGSHIP'
+            ? 'Institutional sovereign replacement baseline under ASC 350 / IFRS 3 and ISO 10668 brand asset valuation.'
+            : `Fundamental market liquidity floor for the ${structuralArchetype.rarity.toLowerCase()} asset class.`,
     });
+
+    if (structuralArchetype.key === 'APEX_GLOBAL_BRAND_FLAGSHIP') {
+        const mindshareEquity = Math.round(midUsd * 0.25);
+        valuationLedger.push({
+            label: 'Apex Global Sovereign Brand Mindshare & Goodwill (ASC 350 / IFRS 3)',
+            amountUsd: mindshareEquity,
+            impact: 'credit',
+            category: 'commercial',
+            description: 'Unassailable global consumer mindshare, top-of-mind brand monopoly, and institutional enterprise balance sheet goodwill.',
+        });
+
+        if (trademark.isSovereignBrand) {
+            valuationLedger.push({
+                label: 'Sovereign Brand Trademark Defense & Zero UDRP Exposure',
+                amountUsd: Math.round(midUsd * 0.15),
+                impact: 'credit',
+                category: 'provenance',
+                description: 'Official flagship registry holder with zero third-party infringement liability and comprehensive worldwide trademark defense.',
+            });
+        }
+    }
 
     // Phonetic & Brandability
     const phoneticDelta = Math.round(midUsd * ((phonetic.score - 70) / 350));
@@ -443,13 +481,23 @@ export async function evaluateDomain(
     // Keyword & Industry Demand
     if (keywordMatch && keywordMatch.multiplier > 1.0) {
         const kwPremium = Math.round(midUsd * (1 - 1 / keywordMatch.multiplier));
-        valuationLedger.push({
-            label: `High-Intent Advertiser Keyword ("${keywordMatch.keyword}")`,
-            amountUsd: kwPremium,
-            impact: 'credit',
-            category: 'commercial',
-            description: `Active commercial advertiser bidding in the ${vertical.label} vertical with high customer lifetime value.`,
-        });
+        if ((keywordMatch as any).coherence === 'slang-or-fragment') {
+            valuationLedger.push({
+                label: `High-Intent Advertiser Keyword ("${keywordMatch.keyword}") with Slang / Coined Modifier ("${(keywordMatch as any).remainder}")`,
+                amountUsd: kwPremium,
+                impact: 'credit',
+                category: 'commercial',
+                description: `Commercial keyword demand in ${vertical.label}, calibrated for lower institutional buyer transferability due to slang prefix "${(keywordMatch as any).remainder}".`,
+            });
+        } else {
+            valuationLedger.push({
+                label: `High-Intent Advertiser Keyword ("${keywordMatch.keyword}")`,
+                amountUsd: kwPremium,
+                impact: 'credit',
+                category: 'commercial',
+                description: `Active commercial advertiser bidding in the ${vertical.label} vertical with high customer lifetime value.`,
+            });
+        }
     }
 
     // Economic Search & CAC Replacement Equity
@@ -487,8 +535,8 @@ export async function evaluateDomain(
         });
     }
 
-    // Trademark Haircut (if any)
-    if (trademark.riskLevel === 'severe') {
+    // Trademark Haircut (if any - sovereign brands have zero forfeiture risk)
+    if (trademark.riskLevel === 'severe' && !trademark.isSovereignBrand) {
         const tmDiscount = Math.round(midUsd * 3.0); // was discounted by 75%
         valuationLedger.push({
             label: `Severe Trademark Infringement Exposure ("${trademark.matches[0]?.mark}")`,
@@ -497,7 +545,7 @@ export async function evaluateDomain(
             category: 'risk',
             description: 'Significant legal hazard of UDRP dispute or forfeiture under the Lanham Act.',
         });
-    } else if (trademark.riskLevel === 'elevated') {
+    } else if (trademark.riskLevel === 'elevated' && !trademark.isSovereignBrand) {
         const tmDiscount = Math.round(midUsd * 0.42);
         valuationLedger.push({
             label: `Trademark Caution Haircut ("${trademark.matches[0]?.mark}")`,
@@ -738,7 +786,11 @@ function computeConfidence(params: {
     let ddDesc = 'Clean legal screening with no recorded brand collisions or UDRP red flags.';
     let ddImpact: 'positive' | 'neutral' | 'negative' = 'positive';
 
-    if (trademark.riskLevel === 'severe') {
+    if (trademark.isSovereignBrand) {
+        ddScore = 100;
+        ddDesc = `Official sovereign flagship brand asset (${trademark.apexBrand?.brandName}). Zero UDRP exposure with pristine institutional trademark standing.`;
+        ddImpact = 'positive';
+    } else if (trademark.riskLevel === 'severe') {
         ddScore = 15;
         ddDesc = `Severe trademark conflict: "${trademark.matches[0]?.mark}". High risk of UDRP dispute or forfeiture.`;
         ddImpact = 'negative';
@@ -774,7 +826,11 @@ function computeConfidence(params: {
     let confidence: Confidence = 'low';
     let volatilityBandPercent = 65;
 
-    if (trademark.riskLevel === 'severe') {
+    if (structuralArchetype.key === 'APEX_GLOBAL_BRAND_FLAGSHIP') {
+        confidence = 'high';
+        confidenceScore = 99;
+        volatilityBandPercent = 18;
+    } else if (trademark.riskLevel === 'severe' && !trademark.isSovereignBrand) {
         confidence = 'low';
         confidenceScore = Math.min(35, confidenceScore);
         volatilityBandPercent = 85;
@@ -813,14 +869,16 @@ function computeLiquidity(params: {
         };
     }
 
-    // Rare structural archetypes (1L, 2L, 3L, 2N, 3N) have guaranteed ultra-liquidity
-    if (['APEX_1L_COM', 'APEX_2L_COM', 'APEX_3L_COM', 'NUMERIC_2N_COM', 'NUMERIC_3N_COM'].includes(structuralArchetype.key)) {
+    // Rare structural archetypes (Apex Global Sovereign Brands, 1L, 2L, 3L, 2N, 3N) have guaranteed ultra-liquidity
+    if (['APEX_GLOBAL_BRAND_FLAGSHIP', 'APEX_1L_COM', 'APEX_2L_COM', 'APEX_3L_COM', 'NUMERIC_2N_COM', 'NUMERIC_3N_COM'].includes(structuralArchetype.key)) {
         return {
             rating: 'Ultra-Liquid',
-            score: 98,
-            estimatedDaysToSell: '7 - 30 days',
+            score: structuralArchetype.key === 'APEX_GLOBAL_BRAND_FLAGSHIP' ? 100 : 98,
+            estimatedDaysToSell: structuralArchetype.key === 'APEX_GLOBAL_BRAND_FLAGSHIP' ? 'Immediate (Bespoke Enterprise Escrow)' : '7 - 30 days',
             turnoverVelocity: 'fast',
-            rationale: `${structuralArchetype.label} represents a globally recognized sovereign asset class with guaranteed floor pricing and instant cash liquidity in wholesale auctions.`,
+            rationale: structuralArchetype.key === 'APEX_GLOBAL_BRAND_FLAGSHIP'
+                ? `${structuralArchetype.label} represents an irreplaceable global sovereign brand asset with institutional balance-sheet demand under ASC 350 / IFRS 3 guidelines.`
+                : `${structuralArchetype.label} represents a globally recognized sovereign asset class with guaranteed floor pricing and instant cash liquidity in wholesale auctions.`,
         };
     }
 

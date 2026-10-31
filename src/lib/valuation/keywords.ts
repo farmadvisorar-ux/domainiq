@@ -1,3 +1,5 @@
+import { isDictionaryWord } from './dictionary';
+
 export type KeywordTier = 'S' | 'A' | 'B' | 'C';
 
 export interface KeywordInfo {
@@ -98,21 +100,66 @@ export const KEYWORDS: Record<string, KeywordInfo> = {
     social: { tier: 'C', multiplier: 1.2, category: 'tech' },
 };
 
+const RECOGNIZED_COMMERCIAL_AFFIXES = new Set([
+    'get', 'go', 'try', 'the', 'my', 'we', 'our', 'all', 'pro', 'smart',
+    'hyper', 'super', 'meta', 'omni', 'sync', 'open', 'true', 'pure', 'neo',
+    'pay', 'cloud', 'data', 'auto', 'cyber', 'block', 'agent', 'fast', 'quick',
+    'best', 'top', 'first', 'prime', 'direct', 'online', 'global', 'metro', 'city',
+    'hq', 'ai', 'io', 'app', 'hub', 'flow', 'labs', 'box', 'stack', 'base',
+    'desk', 'vault', 'link', 'core', 'grid', 'pulse', 'wave', 'path', 'shift',
+    'lane', 'gate', 'lock', 'zone', 'cast', 'craft', 'forge', 'group', 'club', 'center'
+]);
+
 const sortedKeys = Object.keys(KEYWORDS).sort((a, b) => b.length - a.length);
 
 export interface KeywordMatch extends KeywordInfo {
     keyword: string;
+    rawMultiplier: number;
+    coherence: 'exact' | 'coherent-compound' | 'slang-or-fragment';
+    coherenceFactor: number;
+    remainder?: string;
 }
 
-/** Finds the highest-tier keyword contained in `label`, if any. */
+/** Finds the highest-tier keyword contained in `label`, evaluating modifier coherence. */
 export function bestKeywordMatch(label: string): KeywordMatch | null {
     const lower = label.toLowerCase();
     let best: KeywordMatch | null = null;
+
     for (const key of sortedKeys) {
         if (lower.includes(key)) {
             const info = KEYWORDS[key]!;
-            if (!best || info.multiplier > best.multiplier) {
-                best = { ...info, keyword: key };
+            const rawMultiplier = info.multiplier;
+
+            // Evaluate modifier coherence
+            let coherence: KeywordMatch['coherence'] = 'exact';
+            let coherenceFactor = 1.0;
+            const remainder = lower.replace(key, '');
+
+            if (remainder.length > 0) {
+                const isCoherentWord = isDictionaryWord(remainder);
+                const isCoherentAffix = RECOGNIZED_COMMERCIAL_AFFIXES.has(remainder);
+
+                if (isCoherentWord || isCoherentAffix) {
+                    coherence = 'coherent-compound';
+                    coherenceFactor = 0.85; // 85% retention of keyword premium for legitimate 2-word compounds
+                } else {
+                    coherence = 'slang-or-fragment';
+                    coherenceFactor = 0.30; // 30% retention for slang, arbitrary fragments, or informal affixes (e.g. "da", "xx")
+                }
+            }
+
+            const effectiveMultiplier = Number((1.0 + (rawMultiplier - 1.0) * coherenceFactor).toFixed(2));
+
+            if (!best || effectiveMultiplier > best.multiplier) {
+                best = {
+                    ...info,
+                    multiplier: effectiveMultiplier,
+                    rawMultiplier,
+                    keyword: key,
+                    coherence,
+                    coherenceFactor,
+                    remainder: remainder || undefined,
+                };
             }
         }
     }

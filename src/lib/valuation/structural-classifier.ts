@@ -1,6 +1,8 @@
 import { isDictionaryWord, segmentLabel } from './dictionary';
+import { getApexBrandInfo } from './trademark';
 
 export type StructuralArchetypeKey =
+    | 'APEX_GLOBAL_BRAND_FLAGSHIP'
     | 'APEX_1L_COM'
     | 'APEX_2L_COM'
     | 'APEX_3L_COM'
@@ -75,6 +77,20 @@ export function classifyStructuralArchetype(label: string, tld: string): Structu
     const isAllDigits = /^[0-9]+$/.test(lower);
     const hasHyphen = lower.includes('-');
     const hasDigits = /\d/.test(lower);
+
+    // 0. Apex Global Sovereign Brand Flagship (e.g. youtube.com, google.com, apple.com)
+    const apexBrand = getApexBrandInfo(lower, tld);
+    if (apexBrand) {
+        return {
+            key: 'APEX_GLOBAL_BRAND_FLAGSHIP',
+            label: `Apex Global Sovereign Brand .${tld.toUpperCase()}`,
+            rarity: 'Generational Scarcity',
+            marketFloorUsd: apexBrand.enterpriseFloorUsd,
+            structuralMultiplier: 250.0,
+            investorDescription: `Official apex flagship brand asset for ${apexBrand.brandName} (${apexBrand.parentEntity}). Commands billions in global customer mindshare, institutional trust, and direct type-in navigation equity under ASC 350 / IFRS 3 intangible asset standards.`,
+            totalPossibleUniverse: 50,
+        };
+    }
 
     // 1. Hyphenated penalty
     if (hasHyphen) {
