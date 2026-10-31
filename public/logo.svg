@@ -2,44 +2,51 @@
   <defs>
     <!-- Background Gradient -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#070a14"/>
-      <stop offset="50%" stop-color="#0f172a"/>
-      <stop offset="100%" stop-color="#16133a"/>
+      <stop offset="0%" stop-color="#05070d"/>
+      <stop offset="45%" stop-color="#0b1021"/>
+      <stop offset="100%" stop-color="#120e29"/>
     </linearGradient>
 
-    <!-- Outer Rim Glow Gradient -->
-    <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#818cf8" stop-opacity="0.9"/>
-      <stop offset="35%" stop-color="#a855f7" stop-opacity="0.8"/>
-      <stop offset="70%" stop-color="#38bdf8" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#10b981" stop-opacity="0.9"/>
+    <!-- Outer Bevel Perimeter -->
+    <linearGradient id="perimeterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8"/>
+      <stop offset="30%" stop-color="#818cf8" stop-opacity="0.6"/>
+      <stop offset="70%" stop-color="#c084fc" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.7"/>
     </linearGradient>
 
-    <!-- Neon Purple Core Gradient -->
-    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c084fc"/>
-      <stop offset="50%" stop-color="#a855f7"/>
-      <stop offset="100%" stop-color="#7c3aed"/>
-    </linearGradient>
-
-    <!-- Cyber Cyan / Emerald Gradient -->
-    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <!-- Wing D (Institutional Cyan/Emerald Vault) -->
+    <linearGradient id="wingDGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="60%" stop-color="#06b6d4"/>
+      <stop offset="50%" stop-color="#06b6d4"/>
       <stop offset="100%" stop-color="#10b981"/>
     </linearGradient>
 
-    <!-- Crystal Facet Highlight -->
-    <linearGradient id="facetHighlight" x1="50%" y1="0%" x2="50%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
-      <stop offset="40%" stop-color="#e0e7ff" stop-opacity="0.4"/>
-      <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+    <!-- Wing V (Mystic Ultraviolet Prism) -->
+    <linearGradient id="wingVGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e879f9"/>
+      <stop offset="45%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#6366f1"/>
     </linearGradient>
 
-    <!-- Filters for Intense Cyber Glow -->
-    <filter id="coreGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="8" result="blur1"/>
-      <feGaussianBlur stdDeviation="18" result="blur2"/>
+    <!-- Core Facet Gold Radiance -->
+    <linearGradient id="goldCoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#fef08a"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+
+    <!-- Dynamic Surface Shimmer -->
+    <linearGradient id="shimmerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.75"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Intense Holographic Glow Filters -->
+    <filter id="intenseGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur1"/>
+      <feGaussianBlur stdDeviation="28" result="blur2"/>
       <feMerge>
         <feMergeNode in="blur2"/>
         <feMergeNode in="blur1"/>
@@ -47,68 +54,96 @@
       </feMerge>
     </filter>
 
-    <filter id="softGlow" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    <filter id="crispGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
   </defs>
 
-  <!-- Deep Obsidian Rounded Canvas -->
-  <rect width="512" height="512" rx="112" fill="url(#bgGrad)"/>
+  <!-- Deep Obsidian Squircle Foundation -->
+  <rect width="512" height="512" rx="116" fill="url(#bgGrad)"/>
+  <rect x="6" y="6" width="500" height="500" rx="110" fill="none" stroke="url(#perimeterGrad)" stroke-width="2.5" stroke-opacity="0.45"/>
 
-  <!-- High-Precision Cyber Perimeter Border -->
-  <rect x="8" y="8" width="496" height="496" rx="104" fill="none" stroke="url(#rimGrad)" stroke-width="3" stroke-opacity="0.4"/>
+  <!-- Ambient Internal Atmospheric Halo -->
+  <circle cx="256" cy="256" r="160" fill="#7c3aed" opacity="0.16" filter="url(#intenseGlow)"/>
+  <circle cx="256" cy="256" r="100" fill="#06b6d4" opacity="0.12" filter="url(#intenseGlow)"/>
 
-  <!-- Inner Ambient Aura -->
-  <circle cx="256" cy="256" r="150" fill="#7c3aed" opacity="0.12" filter="url(#coreGlow)"/>
-  <circle cx="256" cy="270" r="110" fill="#06b6d4" opacity="0.08" filter="url(#coreGlow)"/>
-
-  <!-- Orbital Valuation Rings (Geometric Precision) -->
-  <ellipse cx="256" cy="256" rx="170" ry="85" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="4 8" opacity="0.35" transform="rotate(-25 256 256)"/>
-  <ellipse cx="256" cy="256" rx="150" ry="75" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="2 6" opacity="0.4" transform="rotate(25 256 256)"/>
+  <!-- Orbital Valuation Rings (Geometric Precision Grid) -->
+  <ellipse cx="256" cy="256" rx="180" ry="90" fill="none" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="3 9" opacity="0.3" transform="rotate(-30 256 256)"/>
+  <ellipse cx="256" cy="256" rx="160" ry="80" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="2 8" opacity="0.25" transform="rotate(30 256 256)"/>
 
   <!-- ======================================================== -->
-  <!-- CENTRAL TALISMAN / DV PRISM EMBLEM                      -->
+  <!-- THE SACRED DV TALISMAN MONOGRAM                           -->
   <!-- ======================================================== -->
 
-  <!-- Left 'D' Arch (Institutional Vault Casing) -->
-  <path d="M 148 152 
-           C 148 152, 230 152, 270 180 
-           C 310 208, 310 270, 275 310 
-           C 240 350, 165 360, 148 360" 
+  <!-- Left 'D' Enclosure (Precision Vault Arch) -->
+  <path d="M 160 145 
+           L 248 145 
+           C 318 145, 352 188, 352 256 
+           C 352 324, 318 367, 248 367 
+           L 160 367" 
         fill="none" 
-        stroke="url(#cyanGrad)" 
-        stroke-width="26" 
+        stroke="url(#wingDGrad)" 
+        stroke-width="28" 
         stroke-linecap="round" 
         stroke-linejoin="round"
-        filter="url(#coreGlow)"/>
+        opacity="0.45"
+        filter="url(#intenseGlow)"/>
 
-  <!-- Back Shadow for Depth -->
-  <polygon points="256,120 368,290 256,410 144,290" fill="#0b0f24" opacity="0.85"/>
-
-  <!-- The Mystic 'V' Nexus (Luminous Crystal Falcon) -->
-  <path d="M 172 176 L 256 364 L 340 176" 
+  <path d="M 160 145 
+           L 248 145 
+           C 318 145, 352 188, 352 256 
+           C 352 324, 318 367, 248 367 
+           L 160 367" 
         fill="none" 
-        stroke="url(#purpleGrad)" 
-        stroke-width="32" 
+        stroke="url(#wingDGrad)" 
+        stroke-width="28" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+
+  <!-- The Mystic 'V' Chevron (Sharp Prismatic Crystal Core) -->
+  <path d="M 152 165 
+           L 256 385 
+           L 360 165" 
+        fill="none" 
+        stroke="url(#wingVGrad)" 
+        stroke-width="34" 
         stroke-linecap="round" 
         stroke-linejoin="round"
-        filter="url(#coreGlow)"/>
+        filter="url(#intenseGlow)"/>
 
-  <!-- Inner Diamond Core (Algorithmic Appraisal Eye) -->
-  <polygon points="256,195 298,260 256,325 214,260" fill="url(#purpleGrad)" filter="url(#softGlow)"/>
-  <polygon points="256,200 290,260 256,320 256,200" fill="url(#facetHighlight)"/>
+  <!-- V Highlight Ridge -->
+  <path d="M 162 170 
+           L 256 370 
+           L 350 170" 
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-width="6" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        opacity="0.8"
+        filter="url(#crispGlow)"/>
 
-  <!-- Center Floating Spark / Valuation Orb -->
-  <circle cx="256" cy="260" r="10" fill="#ffffff" filter="url(#coreGlow)"/>
-  <circle cx="256" cy="260" r="4" fill="#67e8f9"/>
+  <!-- Inner Sacred Hex-Diamond (Consensus Valuation Aperture) -->
+  <polygon points="256,182 308,256 256,330 204,256" fill="#0d132b" stroke="url(#wingVGrad)" stroke-width="4" opacity="0.95"/>
+  <polygon points="256,185 304,256 256,256" fill="url(#shimmerGrad)"/>
+  <polygon points="256,256 304,256 256,326" fill="url(#wingDGrad)" opacity="0.3"/>
 
-  <!-- Floating Energy Nodes (Ascending Valuation Points) -->
-  <circle cx="172" cy="176" r="8" fill="#38bdf8" filter="url(#coreGlow)"/>
-  <circle cx="340" cy="176" r="8" fill="#c084fc" filter="url(#coreGlow)"/>
-  <circle cx="256" cy="364" r="10" fill="#34d399" filter="url(#coreGlow)"/>
+  <!-- Central Super-Luminous Core Focus Point -->
+  <circle cx="256" cy="256" r="14" fill="url(#goldCoreGrad)" filter="url(#intenseGlow)"/>
+  <circle cx="256" cy="256" r="6" fill="#ffffff"/>
 
-  <!-- Ascending Cyber Vector Arrow from V Bottom -->
-  <path d="M 256 364 L 256 420" stroke="url(#cyanGrad)" stroke-width="6" stroke-linecap="round" opacity="0.8" filter="url(#softGlow)"/>
-  <polygon points="256,432 248,416 264,416" fill="#10b981" filter="url(#softGlow)"/>
+  <!-- North-South Valuation Ray (Laser Alignment) -->
+  <line x1="256" y1="96" x2="256" y2="155" stroke="url(#wingDGrad)" stroke-width="4" stroke-linecap="round" opacity="0.8" filter="url(#crispGlow)"/>
+  <circle cx="256" cy="96" r="5" fill="#38bdf8" filter="url(#crispGlow)"/>
+
+  <line x1="256" y1="385" x2="256" y2="435" stroke="url(#wingVGrad)" stroke-width="4" stroke-linecap="round" opacity="0.8" filter="url(#crispGlow)"/>
+  <circle cx="256" cy="438" r="6" fill="#10b981" filter="url(#crispGlow)"/>
+
+  <!-- Cardinal Telemetry Diamonds -->
+  <polygon points="120,256 126,250 132,256 126,262" fill="#38bdf8" filter="url(#crispGlow)"/>
+  <polygon points="392,256 386,250 380,256 386,262" fill="#c084fc" filter="url(#crispGlow)"/>
 </svg>

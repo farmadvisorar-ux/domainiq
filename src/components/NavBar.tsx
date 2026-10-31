@@ -14,28 +14,32 @@ export default async function NavBar() {
                 {/* Brand Logo */}
                 <div className="flex items-center gap-3">
                     <Link href="/" className="flex items-center gap-2.5 font-extrabold text-lg tracking-tight group">
-                        <div className="relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 via-brand-600 to-purple-700 text-white shadow-md shadow-orange-500/20 group-hover:shadow-orange-500/50 transition-all duration-300">
+                        <div className="relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl overflow-hidden border border-purple-500/30 bg-slate-900 shadow-md shadow-purple-500/20 group-hover:shadow-cyan-500/40 group-hover:border-cyan-500/50 transition-all duration-300">
+                            <img
+                                src="/logo.svg"
+                                alt="DomainVoodoo Emblem"
+                                className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
                             {/* Ambient glow */}
-                            <div className="absolute inset-0 rounded-xl bg-orange-400 opacity-0 blur-sm group-hover:opacity-40 transition-opacity" />
-                            <span className="relative font-mono font-black text-xs sm:text-sm tracking-wider">DV</span>
+                            <div className="absolute inset-0 rounded-xl bg-purple-500 opacity-0 blur-sm group-hover:opacity-25 transition-opacity pointer-events-none" />
                             {/* Perched Mini Pumpkin */}
                             <span
-                                className="absolute -top-2.5 -right-2 text-[12px] sm:text-[14px] select-none filter drop-shadow-[0_0_6px_rgba(255,140,0,0.9)] animate-bounce"
+                                className="absolute -top-2.5 -right-2 text-[12px] sm:text-[14px] select-none filter drop-shadow-[0_0_6px_rgba(255,140,0,0.9)] animate-bounce pointer-events-none"
                                 style={{ animationDuration: '3s' }}
                             >
                                 🎃
                             </span>
                         </div>
                         <div className="flex items-center gap-1.5">
-                            <span className="text-white text-base sm:text-lg group-hover:text-orange-300 transition-colors font-black">
-                                Domain<span className="text-orange-400">Voodoo</span>
+                            <span className="text-white text-base sm:text-lg group-hover:text-purple-300 transition-colors font-black">
+                                Domain<span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-emerald-400">Voodoo</span>
                             </span>
-                            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-orange-950/70 text-orange-400 border border-orange-500/40 font-semibold tracking-wider hidden sm:inline-flex items-center gap-1 shadow-sm shadow-orange-500/20">
-                                <span>🎃</span>
-                                <span>Spooky Edition</span>
+                            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-950/70 text-purple-300 border border-purple-500/40 font-semibold tracking-wider hidden sm:inline-flex items-center gap-1 shadow-sm shadow-purple-500/20">
+                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                <span>CVM-4</span>
                             </span>
-                            <span className="text-[9px] font-mono px-1.5 py-0.2 rounded-full bg-orange-950/70 text-orange-400 border border-orange-500/40 font-semibold sm:hidden">
-                                v2.5
+                            <span className="text-[9px] font-mono px-1.5 py-0.2 rounded-full bg-purple-950/70 text-purple-300 border border-purple-500/40 font-semibold sm:hidden">
+                                v3.0
                             </span>
                         </div>
                     </Link>
