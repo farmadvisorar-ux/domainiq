@@ -118,6 +118,48 @@ body {
     }
 }
 
+/* Occasional Winter Snowfall Flurry Animations */
+@keyframes snowFall {
+    0% {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    8% {
+        opacity: 0.95;
+    }
+    90% {
+        opacity: 0.95;
+    }
+    100% {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
+}
+
+@keyframes snowDrift {
+    0% {
+        margin-left: -20px;
+        transform: rotate(0deg);
+    }
+    50% {
+        margin-left: 20px;
+        transform: rotate(180deg);
+    }
+    100% {
+        margin-left: -10px;
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes winterFrostPulse {
+    0%, 100% {
+        opacity: 0.12;
+    }
+    50% {
+        opacity: 0.35;
+    }
+}
+
 /* Strutting Turkey Trot Animations */
 @keyframes turkeyTrotLeftToRight {
     0% {
