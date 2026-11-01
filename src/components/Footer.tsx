@@ -114,11 +114,11 @@ export default function Footer() {
                 </div>
             </div>
 
-            {/* Spooky Halloween Greetings Banner */}
-            <div className="border-t border-orange-950/50 bg-orange-950/20 py-3 text-center text-xs font-mono text-orange-400/90 flex items-center justify-center gap-2 shadow-inner">
-                <span>🎃</span>
-                <span>Happy Halloween from the DomainVoodoo team! Bewitching valuations &amp; mystical market comps.</span>
-                <span>👻</span>
+            {/* Thanksgiving Harvest Greetings Banner */}
+            <div className="border-t border-amber-950/50 bg-amber-950/20 py-3 text-center text-xs font-mono text-amber-400/90 flex items-center justify-center gap-2 shadow-inner">
+                <span>🍂</span>
+                <span>Happy Thanksgiving from the DomainVoodoo team! Feast on transparent domain valuations &amp; harvest real market comps.</span>
+                <span>🦃</span>
             </div>
 
             {/* Bottom Copyright Bar */}

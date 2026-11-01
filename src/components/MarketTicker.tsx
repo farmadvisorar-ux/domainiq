@@ -4,13 +4,13 @@ import Link from 'next/link';
 
 const LIVE_COMPS = [
     { domain: 'insurance.com', price: '$35,600,000', cat: 'Fintech / Mega' },
-    { domain: 'ghost.ai', price: '$350,000', cat: '🎃 Spooky Tech' },
+    { domain: 'harvest.ai', price: '$350,000', cat: '🦃 Harvest Tech' },
     { domain: 'voice.com', price: '$30,000,000', cat: 'Tech' },
-    { domain: 'haunted.com', price: '$85,000', cat: '🎃 Category' },
+    { domain: 'feast.com', price: '$85,000', cat: '🍂 Holiday Brand' },
     { domain: 'chat.com', price: '$15,500,000', cat: 'AI / Brand' },
     { domain: 'voodoo.io', price: '$120,000', cat: '🧙 Brandable SaaS' },
     { domain: 'crypto.com', price: '$12,000,000', cat: 'Web3' },
-    { domain: 'pumpkin.com', price: '$195,000', cat: '🎃 Seasonal Asset' },
+    { domain: 'turkey.com', price: '$195,000', cat: '🦃 Seasonal Asset' },
     { domain: 'ai.com', price: '$11,000,000', cat: 'AI Category' },
     { domain: 'sky.com', price: '$1,800,000', cat: '3-Letter .com' },
     { domain: 'prompt.com', price: '$850,000', cat: 'Generative AI' },
@@ -22,17 +22,17 @@ const LIVE_COMPS = [
 
 export default function MarketTicker() {
     return (
-        <div className="relative border-b border-orange-900/40 bg-slate-950 text-slate-300 text-[11px] font-mono overflow-hidden select-none z-30 shadow-sm shadow-orange-950/20">
+        <div className="relative border-b border-amber-900/40 bg-slate-950 text-slate-300 text-[11px] font-mono overflow-hidden select-none z-30 shadow-sm shadow-amber-950/20">
             <div className="mx-auto max-w-7xl flex items-center h-8 px-4 sm:px-6 lg:px-8">
-                {/* Fixed Label Tag with Halloween styling */}
-                <div className="flex items-center gap-1.5 shrink-0 bg-slate-900/90 text-orange-400 font-bold px-2 py-0.5 rounded border border-orange-500/40 mr-2 sm:mr-3 shadow-sm shadow-orange-500/20">
+                {/* Fixed Label Tag with Thanksgiving styling */}
+                <div className="flex items-center gap-1.5 shrink-0 bg-slate-900/90 text-amber-400 font-bold px-2 py-0.5 rounded border border-amber-500/40 mr-2 sm:mr-3 shadow-sm shadow-amber-500/20">
                     <span className="relative flex h-1.5 w-1.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-orange-500"></span>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-amber-500"></span>
                     </span>
                     <span className="tracking-widest uppercase flex items-center gap-1">
-                        <span>🎃</span>
-                        <span className="hidden sm:inline">SPOOKY RADAR</span>
+                        <span>🦃</span>
+                        <span className="hidden sm:inline">HARVEST RADAR</span>
                         <span className="sm:hidden text-[10px]">RADAR</span>
                     </span>
                 </div>

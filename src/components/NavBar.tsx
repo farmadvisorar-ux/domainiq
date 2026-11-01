@@ -22,12 +22,12 @@ export default async function NavBar() {
                             />
                             {/* Ambient glow */}
                             <div className="absolute inset-0 rounded-xl bg-purple-500 opacity-0 blur-sm group-hover:opacity-25 transition-opacity pointer-events-none" />
-                            {/* Perched Mini Pumpkin */}
+                            {/* Perched Autumn Leaf */}
                             <span
-                                className="absolute -top-2.5 -right-2 text-[12px] sm:text-[14px] select-none filter drop-shadow-[0_0_6px_rgba(255,140,0,0.9)] animate-bounce pointer-events-none"
+                                className="absolute -top-2.5 -right-2 text-[12px] sm:text-[14px] select-none filter drop-shadow-[0_0_6px_rgba(245,158,11,0.9)] animate-bounce pointer-events-none"
                                 style={{ animationDuration: '3s' }}
                             >
-                                🎃
+                                🍁
                             </span>
                         </div>
                         <div className="flex items-center gap-1.5">

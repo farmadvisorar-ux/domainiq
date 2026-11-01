@@ -89,9 +89,9 @@ const PILLARS = [
 
 const CURATED_SHOWCASE = [
     { domain: 'insurance.com', fmv: '$35,600,000', floor: '$4,272,000', rating: 'Ultra-Liquid', tier: 'AAA+' },
-    { domain: 'ghost.ai', fmv: '$350,000', floor: '$78,000', rating: '🎃 Spooky Tech', tier: 'AAA' },
+    { domain: 'harvest.ai', fmv: '$350,000', floor: '$78,000', rating: '🦃 Harvest Tech', tier: 'AAA' },
     { domain: 'voice.com', fmv: '$30,000,000', floor: '$3,600,000', rating: 'Ultra-Liquid', tier: 'AAA+' },
-    { domain: 'haunted.com', fmv: '$85,000', floor: '$18,500', rating: '🎃 Prime Brand', tier: 'AA' },
+    { domain: 'feast.com', fmv: '$85,000', floor: '$18,500', rating: '🍂 Holiday Brand', tier: 'AA' },
     { domain: 'ai.com', fmv: '$11,000,000', floor: '$1,320,000', rating: 'Ultra-Liquid', tier: 'AAA+' },
     { domain: 'cloudscale.ai', fmv: '$42,500', floor: '$9,200', rating: 'High Liquidity', tier: 'A' },
 ];
@@ -174,15 +174,15 @@ export default function HomePage() {
 
             {/* Hero Section */}
             <section className="text-center space-y-6 relative">
-                {/* Ambient Halloween Glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-gradient-to-r from-orange-600/15 via-purple-600/15 to-brand-600/15 blur-[120px] pointer-events-none rounded-full" />
+                {/* Ambient Thanksgiving Glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-gradient-to-r from-amber-600/15 via-orange-600/15 to-rose-600/15 blur-[120px] pointer-events-none rounded-full" />
 
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-orange-500/40 text-orange-300 text-xs font-mono font-semibold shadow-lg shadow-orange-500/10">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-300 text-xs font-mono font-semibold shadow-lg shadow-amber-500/10">
                     <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
                     </span>
-                    <span>🎃 Halloween Edition · 100% Free · Spooky Accurate Appraisals</span>
+                    <span>🦃 Thanksgiving &amp; Fall Edition · 100% Free · Harvest Real Domain Equity</span>
                 </div>
 
                 <div className="flex items-center justify-center pt-1">
@@ -191,7 +191,7 @@ export default function HomePage() {
 
                 <h1 className="mx-auto max-w-4xl text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">
                     What is your domain{' '}
-                    <span className="bg-gradient-to-r from-orange-400 via-amber-300 to-purple-400 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-amber-400 via-orange-300 to-rose-400 bg-clip-text text-transparent">
                         actually worth?
                     </span>
                 </h1>
@@ -200,22 +200,22 @@ export default function HomePage() {
                     Stop relying on opaque black boxes. Get an instant, fully explainable valuation backed by real comparable sales, multi-channel pricing spreads, and automated legal due diligence.
                 </p>
 
-                {/* Search Bar Console with Halloween Accents */}
+                {/* Search Bar Console with Thanksgiving Accents */}
                 <div className="mx-auto max-w-2xl pt-2 relative">
-                    {/* Spooky Header Subtitle */}
-                    <div className="flex items-center justify-center gap-2 text-xs font-mono text-orange-400/90 font-bold mb-2.5">
-                        <span className="animate-pulse">🦇</span>
-                        <span>Brew a Real-Time Valuation in the Voodoo Cauldron</span>
-                        <span className="animate-pulse">🧙‍♀️</span>
+                    {/* Harvest Header Subtitle */}
+                    <div className="flex items-center justify-center gap-2 text-xs font-mono text-amber-400/90 font-bold mb-2.5">
+                        <span className="animate-pulse">🍁</span>
+                        <span>Harvest an Instant Real-Time Domain Appraisal with CVM-4</span>
+                        <span className="animate-pulse">🦃</span>
                     </div>
 
                     <div className="relative">
-                        {/* Corner Perched Ghosts & Pumpkins */}
+                        {/* Corner Perched Autumn Leaves & Turkey */}
                         <div className="absolute -top-3.5 -left-3.5 text-2xl sm:text-3xl select-none z-20 animate-bounce pointer-events-none" style={{ animationDuration: '3s' }}>
-                            👻
+                            🍁
                         </div>
                         <div className="absolute -top-3.5 -right-3.5 text-2xl sm:text-3xl select-none z-20 pointer-events-none filter drop-shadow-[0_0_12px_rgba(255,140,0,0.9)] animate-pulse">
-                            🎃
+                            🦃
                         </div>
                         <DomainCheckerForm />
                     </div>

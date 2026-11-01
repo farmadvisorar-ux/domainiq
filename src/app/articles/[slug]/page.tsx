@@ -224,11 +224,11 @@ export default function ArticleDetailPage({ params }: Props) {
             </section>
 
             {/* In-Article Interactive Domain Appraisal Embed */}
-            <div className="rounded-2xl border border-orange-500/30 bg-orange-950/20 p-5 space-y-3">
-                <div className="flex items-center justify-between text-xs font-mono text-orange-300">
+            <div className="rounded-2xl border border-amber-500/30 bg-amber-950/20 p-5 space-y-3">
+                <div className="flex items-center justify-between text-xs font-mono text-amber-300">
                     <span className="font-bold flex items-center gap-1.5">
-                        <span>🎃</span>
-                        <span>Interactive Valuation Sandbox</span>
+                        <span>🦃</span>
+                        <span>Harvest Valuation Sandbox</span>
                     </span>
                     <span>Test your domain with our CVM-4 engine</span>
                 </div>
