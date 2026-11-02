@@ -4,6 +4,7 @@ import LogoutButton from './LogoutButton';
 import DesktopNav from './DesktopNav';
 import MobileNavMenu from './MobileNavMenu';
 import AltHuntBadge from './AltHuntBadge';
+import ListMySaaSBadge from './ListMySaaSBadge';
 
 export default async function NavBar() {
     const session = await getSession();
@@ -50,9 +51,10 @@ export default async function NavBar() {
 
                 {/* Right Action Elements */}
                 <div className="flex items-center gap-2 sm:gap-3">
-                    {/* AltHunt Featured Badge on Extra Wide PC Screens */}
-                    <div className="hidden xl:flex items-center shrink-0">
+                    {/* Featured Badges on Extra Wide PC Screens */}
+                    <div className="hidden xl:flex items-center gap-2.5 shrink-0">
                         <AltHuntBadge />
+                        <ListMySaaSBadge />
                     </div>
 
                     {/* Desktop Authentication Controls */}

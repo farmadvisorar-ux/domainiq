@@ -33,6 +33,7 @@ import DomainCheckerForm from '@/components/DomainCheckerForm';
 import AdSlot from '@/components/AdSlot';
 import SedoBanner from '@/components/SedoBanner';
 import AltHuntBadge from '@/components/AltHuntBadge';
+import ListMySaaSBadge from '@/components/ListMySaaSBadge';
 import CompetitorComparisonTable from '@/components/CompetitorComparisonTable';
 import InteractiveValuationSandbox from '@/components/InteractiveValuationSandbox';
 
@@ -185,8 +186,9 @@ export default function HomePage() {
                     <span>🦃 Thanksgiving &amp; Fall Edition · 100% Free · Harvest Real Domain Equity</span>
                 </div>
 
-                <div className="flex items-center justify-center pt-1">
+                <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
                     <AltHuntBadge />
+                    <ListMySaaSBadge />
                 </div>
 
                 <h1 className="mx-auto max-w-4xl text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">

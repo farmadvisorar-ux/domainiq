@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import AltHuntBadge from './AltHuntBadge';
+import ListMySaaSBadge from './ListMySaaSBadge';
 import LogoutButton from './LogoutButton';
 
 interface MobileNavMenuProps {
@@ -243,9 +244,12 @@ export default function MobileNavMenu({ session }: MobileNavMenuProps) {
                             </div>
                         </div>
 
-                        {/* AltHunt Featured Badge & Live System Status */}
+                        {/* Featured Badges & Live System Status */}
                         <div className="pt-2 pb-6 border-t border-slate-900 flex flex-col items-center gap-3">
-                            <AltHuntBadge />
+                            <div className="flex flex-wrap items-center justify-center gap-2.5">
+                                <AltHuntBadge />
+                                <ListMySaaSBadge />
+                            </div>
                             <div className="flex items-center gap-2 text-[11px] font-mono text-emerald-400">
                                 <span className="relative flex h-2 w-2">
                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
