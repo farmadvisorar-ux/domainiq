@@ -7,10 +7,13 @@ interface Props {
 }
 
 export default function ListMySaaSBadge({ className = '' }: Props) {
-    const [imgSrc, setImgSrc] = useState('https://listmysaas.xyz/listmysaasbadgenormal.svg');
+    const [imgSrc, setImgSrc] = useState('https://listmysaas.xyz/listmysaasbadgedarkmode.svg');
 
     return (
-        <div className={`listmysaas-badge-embed inline-flex items-center ${className}`}>
+        <div
+            className={`listmysaas-badge-embed inline-flex items-center ${className}`}
+            style={{ display: 'inline-flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.75rem', maxWidth: '100%' }}
+        >
             <a
                 href="https://listmysaas.xyz"
                 target="_blank"
@@ -27,7 +30,7 @@ export default function ListMySaaSBadge({ className = '' }: Props) {
                     decoding="async"
                     onError={() => {
                         // Fail-safe local fallback if external CDN is blocked
-                        setImgSrc('/badges/listmysaasbadgenormal.svg');
+                        setImgSrc('/badges/listmysaasbadgedarkmode.svg');
                     }}
                     className="h-9 w-auto rounded-md shadow-md shadow-black/20"
                 />
