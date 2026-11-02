@@ -124,6 +124,8 @@ test('Consensus Valuation Engine correctly recognizes Apex Global Sovereign Bran
     assert.equal(yt.liquidity.rating, 'Ultra-Liquid');
     assert.equal(yt.confidence, 'high');
     assert.equal(yt.confidenceScore, 99);
+    assert.equal(yt.domainRating, 10.0);
+    assert.equal(yt.domainRatingLabel, '10.0 / 10 Sovereign Apex');
     assert(yt.midUsd >= 500_000_000, `Expected youtube.com to be worth $500M+, got ${yt.midUsd}`);
 });
 

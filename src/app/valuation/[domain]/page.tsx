@@ -300,12 +300,26 @@ export default async function ValuationPage({ params }: Props) {
             <section className="card p-8 sm:p-10 text-center relative overflow-hidden border-brand-500/30 bg-gradient-to-b from-slate-900 via-slate-900 to-indigo-950/30">
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-500 via-indigo-500 to-emerald-400" />
                 
-                {/* Asset Grade Pill */}
-                <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-xs font-mono font-bold shadow-sm backdrop-blur-md">
-                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="tracking-wide">GRADE: {assetGrade.grade}</span>
-                    <span className="text-slate-500">·</span>
-                    <span className="text-slate-400 font-sans font-normal">{assetGrade.blurb}</span>
+                {/* Domain Rating & Asset Grade Badges */}
+                <div className="mx-auto mb-4 flex flex-wrap items-center justify-center gap-2.5">
+                    <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1 text-xs font-mono font-bold shadow-lg shadow-amber-500/10 backdrop-blur-md bg-amber-950/60 border-amber-500/50 text-amber-300">
+                        <span className="flex items-center gap-1 text-sm text-amber-400">
+                            <span>⭐</span>
+                            <span className="font-black text-sm tracking-tight text-white">{result.domainRating.toFixed(1)}</span>
+                            <span className="text-[10px] text-amber-400/80">/ 10</span>
+                        </span>
+                        <span className="text-amber-500/50">·</span>
+                        <span className="text-amber-200 tracking-wide uppercase text-[11px] font-bold">DOMAIN RATING</span>
+                        <span className="text-amber-500/50">·</span>
+                        <span className="text-amber-300/90 font-sans font-normal text-xs">{result.domainRatingLabel}</span>
+                    </div>
+
+                    <div className="inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-xs font-mono font-bold shadow-sm backdrop-blur-md border-slate-700 bg-slate-900/80">
+                        <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="tracking-wide">GRADE: {assetGrade.grade}</span>
+                        <span className="text-slate-500">·</span>
+                        <span className="text-slate-400 font-sans font-normal">{assetGrade.blurb}</span>
+                    </div>
                 </div>
 
                 <p className="text-xs uppercase tracking-wider font-semibold text-slate-400">Estimated Fair Market Value for</p>
@@ -331,6 +345,9 @@ export default async function ValuationPage({ params }: Props) {
 
                 {/* Trust & Liquidity Highlights */}
                 <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+                    <span className="label-pill px-3 py-1 font-semibold bg-amber-950/70 text-amber-300 border border-amber-500/40">
+                        ⭐ {result.domainRating.toFixed(1)}/10 DOMAIN RATING
+                    </span>
                     <span className={`label-pill px-3 py-1 font-semibold ${CONFIDENCE_STYLE[result.confidence]}`}>
                         🛡️ {result.confidenceScore}% {result.confidence.toUpperCase()} CONFIDENCE
                     </span>

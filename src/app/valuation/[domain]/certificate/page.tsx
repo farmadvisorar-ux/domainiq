@@ -147,6 +147,12 @@ export default async function CertificatePage({ params }: Props) {
 
                 {/* Core Valuation Figures Banner */}
                 <div className="p-6 bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700 text-center my-6">
+                    <div className="mb-2 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700 uppercase mr-2">
+                        <span>⭐ Domain Rating:</span>
+                        <span className="font-black text-amber-900 dark:text-white">{result.domainRating.toFixed(1)} / 10</span>
+                        <span>·</span>
+                        <span>{result.domainRatingLabel}</span>
+                    </div>
                     <div className="mb-2 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[10px] font-mono font-bold bg-brand-100 dark:bg-brand-950 text-brand-700 dark:text-brand-300 border border-brand-300 dark:border-brand-800 uppercase">
                         <span>🏛️ Archetype:</span>
                         <span>{result.structuralArchetype.label}</span>

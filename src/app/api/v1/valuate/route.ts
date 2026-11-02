@@ -92,6 +92,8 @@ async function handleValuationRequest(rawDomain: string, req: NextRequest) {
                 charCount: result.charCount,
                 valuation: {
                     fairMarketValue: result.midUsd,
+                    domainRating: result.domainRating,
+                    domainRatingLabel: result.domainRatingLabel,
                     range: {
                         low: result.lowUsd,
                         high: result.highUsd,

@@ -108,6 +108,8 @@ export interface ValuationResult {
     leadProspector: LeadProspectorResult;
     gtm: GtmStrategy;
     // --- Groundbreaking Engine v3.0 Extensions ---
+    domainRating: number; // 1.0 - 10.0 scale institutional quality rating
+    domainRatingLabel: string; // e.g. "10.0 / 10 Sovereign Apex"
     structuralArchetype: StructuralArchetypeInfo;
     economicArbitrage: EconomicArbitrageResult;
     triangulation: TriangulationResult;
@@ -636,6 +638,49 @@ export async function evaluateDomain(
         compositionQuality,
     });
 
+    // --- Domain Rating (1.0 - 10.0 Scale) ---
+    // Triangulates sovereign moats, economic CAC yield, structural rarity, liquidity velocity, and legal safety
+    let rawRating = 5.0;
+
+    if (trademark.isSovereignBrand || structuralArchetype.key === 'APEX_GLOBAL_BRAND_FLAGSHIP' || midUsd >= 5_000_000) {
+        rawRating = 10.0;
+    } else {
+        const valExponent = Math.log10(Math.max(100, midUsd));
+        // Base points: $100 -> 2.0, $1k -> 3.5, $10k -> 5.5, $100k -> 7.5, $1M -> 9.0
+        const baseComponent = Math.min(4.0, Math.max(0.5, (valExponent - 2) * 1.0 + 1.5));
+        const lingComponent = (linguisticScore / 100) * 2.5; // up to 2.5 pts
+        const tldComponent = (tldInfo.authority / 100) * 2.0; // up to 2.0 pts
+        const liquidityComponent = (liquidity.score / 100) * 1.5; // up to 1.5 pts
+        rawRating = Math.min(9.9, Math.max(1.0, baseComponent + lingComponent + tldComponent + liquidityComponent));
+
+        // Trademark hazard penalty
+        if (trademark.riskLevel === 'severe') {
+            rawRating = Math.min(2.0, rawRating * 0.25);
+        } else if (trademark.riskLevel === 'elevated') {
+            rawRating = Math.min(4.5, rawRating * 0.55);
+        }
+    }
+
+    if (midUsd >= 5_000_000 || trademark.isSovereignBrand || structuralArchetype.key === 'APEX_GLOBAL_BRAND_FLAGSHIP') {
+        rawRating = 10.0;
+    } else {
+        rawRating = Math.round(rawRating * 10) / 10;
+    }
+
+    const domainRating = Math.min(10.0, Math.max(1.0, rawRating));
+    const domainRatingLabel =
+        domainRating >= 10.0
+            ? '10.0 / 10 Sovereign Apex'
+            : domainRating >= 9.0
+            ? `${domainRating.toFixed(1)} / 10 Institutional Grade`
+            : domainRating >= 8.0
+            ? `${domainRating.toFixed(1)} / 10 Prime Commercial`
+            : domainRating >= 6.5
+            ? `${domainRating.toFixed(1)} / 10 Liquid Brandable`
+            : domainRating >= 5.0
+            ? `${domainRating.toFixed(1)} / 10 Moderate Asset`
+            : `${domainRating.toFixed(1)} / 10 Speculative Long-Tail`;
+
     return {
         domain,
         tld,
@@ -643,6 +688,8 @@ export async function evaluateDomain(
         charCount,
         words: segmentation.words,
         linguisticScore: Math.round(linguisticScore),
+        domainRating,
+        domainRatingLabel,
         factors,
         tld_authority: tldInfo.authority,
         tld_multiplier: tldInfo.multiplier,

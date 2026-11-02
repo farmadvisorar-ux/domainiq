@@ -89,12 +89,12 @@ const PILLARS = [
 ];
 
 const CURATED_SHOWCASE = [
-    { domain: 'insurance.com', fmv: '$35,600,000', floor: '$4,272,000', rating: 'Ultra-Liquid', tier: 'AAA+' },
-    { domain: 'harvest.ai', fmv: '$350,000', floor: '$78,000', rating: '🦃 Harvest Tech', tier: 'AAA' },
-    { domain: 'voice.com', fmv: '$30,000,000', floor: '$3,600,000', rating: 'Ultra-Liquid', tier: 'AAA+' },
-    { domain: 'feast.com', fmv: '$85,000', floor: '$18,500', rating: '🍂 Holiday Brand', tier: 'AA' },
-    { domain: 'ai.com', fmv: '$11,000,000', floor: '$1,320,000', rating: 'Ultra-Liquid', tier: 'AAA+' },
-    { domain: 'cloudscale.ai', fmv: '$42,500', floor: '$9,200', rating: 'High Liquidity', tier: 'A' },
+    { domain: 'insurance.com', fmv: '$35,600,000', floor: '$4,272,000', rating: 'Ultra-Liquid', tier: 'AAA+', dr: '10.0 / 10' },
+    { domain: 'harvest.ai', fmv: '$350,000', floor: '$78,000', rating: '🦃 Harvest Tech', tier: 'AAA', dr: '9.8 / 10' },
+    { domain: 'voice.com', fmv: '$30,000,000', floor: '$3,600,000', rating: 'Ultra-Liquid', tier: 'AAA+', dr: '10.0 / 10' },
+    { domain: 'feast.com', fmv: '$85,000', floor: '$18,500', rating: '🍂 Holiday Brand', tier: 'AA', dr: '8.8 / 10' },
+    { domain: 'ai.com', fmv: '$11,000,000', floor: '$1,320,000', rating: 'Ultra-Liquid', tier: 'AAA+', dr: '10.0 / 10' },
+    { domain: 'cloudscale.ai', fmv: '$42,500', floor: '$9,200', rating: 'High Liquidity', tier: 'A', dr: '8.6 / 10' },
 ];
 
 export default function HomePage() {
@@ -283,7 +283,10 @@ export default function HomePage() {
                         >
                             <div>
                                 <div className="flex items-center justify-between text-xs mb-2">
-                                    <span className="font-mono text-slate-400">{item.rating}</span>
+                                    <span className="font-mono text-amber-300 font-bold flex items-center gap-1">
+                                        <span>⭐</span>
+                                        <span>{item.dr}</span>
+                                    </span>
                                     <span className="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-bold">
                                         {item.tier}
                                     </span>

@@ -16,6 +16,11 @@ export default function robots(): MetadataRoute.Robots {
                 disallow: ['/admin/', '/api/', '/dashboard/', '/reset-password', '/verify-email', '/dev/'],
             },
             {
+                userAgent: ['AhrefsBot', 'SemrushBot', 'DotBot', 'MJ12bot', 'rogerbot', 'bingbot'],
+                allow: '/',
+                disallow: ['/admin/', '/api/', '/dashboard/', '/dev/'],
+            },
+            {
                 userAgent: ['GPTBot', 'PerplexityBot', 'ClaudeBot', 'Applebot', 'CCBot', 'Google-Extended'],
                 allow: '/',
                 disallow: ['/admin/', '/api/', '/dashboard/', '/dev/'],
