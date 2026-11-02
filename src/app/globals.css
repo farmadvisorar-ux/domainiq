@@ -86,20 +86,20 @@ body {
 /* FALL / THANKSGIVING SEASONAL ANIMATIONS                  */
 /* ======================================================== */
 
-/* Falling Autumn Leaves Physics */
+/* Falling Autumn Leaves Physics (Starts safely below header, never obstructed) */
 @keyframes leafFall {
     0% {
-        transform: translateY(-40px) rotate(0deg);
-        opacity: 0;
-    }
-    8% {
+        transform: translateY(0px) rotate(0deg);
         opacity: 0.95;
+    }
+    10% {
+        opacity: 1;
     }
     90% {
         opacity: 0.95;
     }
     100% {
-        transform: translateY(112vh) rotate(360deg);
+        transform: translateY(105vh) rotate(360deg);
         opacity: 0;
     }
 }
@@ -118,20 +118,97 @@ body {
     }
 }
 
+/* Autumn Tree Sway & Shake Keyframes */
+@keyframes treeSwayLeft {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(2deg) skewX(1deg);
+    }
+}
+
+@keyframes treeSwayRight {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-2deg) skewX(-1deg);
+    }
+}
+
+@keyframes treeShake {
+    0%, 100% {
+        transform: rotate(0deg) scale(1);
+    }
+    20% {
+        transform: rotate(-4deg) scale(1.03);
+    }
+    40% {
+        transform: rotate(3.5deg) scale(0.98);
+    }
+    60% {
+        transform: rotate(-2.5deg) scale(1.02);
+    }
+    80% {
+        transform: rotate(2deg) scale(1);
+    }
+}
+
+@keyframes leafDriftFromLeftTree {
+    0% {
+        transform: translate(0px, 0px) rotate(0deg);
+        opacity: 0.95;
+    }
+    25% {
+        transform: translate(35px, 20vh) rotate(80deg);
+    }
+    50% {
+        transform: translate(15px, 45vh) rotate(160deg);
+    }
+    75% {
+        transform: translate(45px, 75vh) rotate(260deg);
+    }
+    100% {
+        transform: translate(25px, 102vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes leafDriftFromRightTree {
+    0% {
+        transform: translate(0px, 0px) rotate(0deg);
+        opacity: 0.95;
+    }
+    25% {
+        transform: translate(-35px, 20vh) rotate(-80deg);
+    }
+    50% {
+        transform: translate(-15px, 45vh) rotate(-160deg);
+    }
+    75% {
+        transform: translate(-45px, 75vh) rotate(-260deg);
+    }
+    100% {
+        transform: translate(-25px, 102vh) rotate(-360deg);
+        opacity: 0;
+    }
+}
+
 /* Occasional Winter Snowfall Flurry Animations */
 @keyframes snowFall {
     0% {
-        transform: translateY(-30px);
-        opacity: 0;
+        transform: translateY(0px);
+        opacity: 0.9;
     }
-    8% {
-        opacity: 0.95;
+    10% {
+        opacity: 1;
     }
     90% {
         opacity: 0.95;
     }
     100% {
-        transform: translateY(110vh);
+        transform: translateY(105vh);
         opacity: 0;
     }
 }
