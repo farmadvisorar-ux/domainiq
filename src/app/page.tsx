@@ -34,6 +34,7 @@ import AdSlot from '@/components/AdSlot';
 import SedoBanner from '@/components/SedoBanner';
 import AltHuntBadge from '@/components/AltHuntBadge';
 import ListMySaaSBadge from '@/components/ListMySaaSBadge';
+import SmolLaunchBadge from '@/components/SmolLaunchBadge';
 import CompetitorComparisonTable from '@/components/CompetitorComparisonTable';
 import InteractiveValuationSandbox from '@/components/InteractiveValuationSandbox';
 
@@ -189,6 +190,7 @@ export default function HomePage() {
                 <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
                     <AltHuntBadge />
                     <ListMySaaSBadge />
+                    <SmolLaunchBadge />
                 </div>
 
                 <h1 className="mx-auto max-w-4xl text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">

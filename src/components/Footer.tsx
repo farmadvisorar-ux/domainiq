@@ -3,6 +3,7 @@ import NewsletterSignup from './NewsletterSignup';
 import AdSlot from './AdSlot';
 import AltHuntBadge from './AltHuntBadge';
 import ListMySaaSBadge from './ListMySaaSBadge';
+import SmolLaunchBadge from './SmolLaunchBadge';
 
 const MARKETPLACES = [
     { name: 'Sedo', href: 'https://sedo.com/?language=us&campaignId=336760', blurb: 'Largest international domain marketplace' },
@@ -127,6 +128,7 @@ export default function Footer() {
                 <div className="flex flex-wrap items-center justify-center gap-3">
                     <AltHuntBadge />
                     <ListMySaaSBadge />
+                    <SmolLaunchBadge />
                 </div>
                 <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
                 <span>© {new Date().getFullYear()} DomainVoodoo Inc. Algorithmic estimates for informational decision intelligence, not guaranteed appraisal warrants.</span>

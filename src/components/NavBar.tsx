@@ -5,6 +5,7 @@ import DesktopNav from './DesktopNav';
 import MobileNavMenu from './MobileNavMenu';
 import AltHuntBadge from './AltHuntBadge';
 import ListMySaaSBadge from './ListMySaaSBadge';
+import SmolLaunchBadge from './SmolLaunchBadge';
 
 export default async function NavBar() {
     const session = await getSession();
@@ -55,6 +56,7 @@ export default async function NavBar() {
                     <div className="hidden xl:flex items-center gap-2.5 shrink-0">
                         <AltHuntBadge />
                         <ListMySaaSBadge />
+                        <SmolLaunchBadge />
                     </div>
 
                     {/* Desktop Authentication Controls */}

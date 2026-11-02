@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import AltHuntBadge from './AltHuntBadge';
 import ListMySaaSBadge from './ListMySaaSBadge';
+import SmolLaunchBadge from './SmolLaunchBadge';
 import LogoutButton from './LogoutButton';
 
 interface MobileNavMenuProps {
@@ -249,6 +250,7 @@ export default function MobileNavMenu({ session }: MobileNavMenuProps) {
                             <div className="flex flex-wrap items-center justify-center gap-2.5">
                                 <AltHuntBadge />
                                 <ListMySaaSBadge />
+                                <SmolLaunchBadge />
                             </div>
                             <div className="flex items-center gap-2 text-[11px] font-mono text-emerald-400">
                                 <span className="relative flex h-2 w-2">
