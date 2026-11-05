@@ -12,8 +12,8 @@ export default function EmbedBadge({ domain }: { domain: string }) {
     const reportUrl = `${baseUrl}/valuation/${encodeURIComponent(domain)}`;
     const certificateUrl = `${reportUrl}/certificate`;
 
-    const htmlSnippet = `<a href="${reportUrl}" target="_blank" rel="noopener noreferrer"><img src="${badgeUrl}" alt="${domain} valuation on DomainVoodoo" /></a>`;
-    const markdownSnippet = `[![${domain} valuation](${badgeUrl})](${reportUrl})`;
+    const htmlSnippet = `<a href="${reportUrl}" target="_blank" rel="noopener"><img src="${badgeUrl}" alt="${domain} Domain Valuation & Appraisal on DomainVoodoo" /></a>`;
+    const markdownSnippet = `[![${domain} Domain Valuation by DomainVoodoo](${badgeUrl})](${reportUrl})`;
 
     async function copy(text: string, which: 'html' | 'markdown' | 'url') {
         try {
