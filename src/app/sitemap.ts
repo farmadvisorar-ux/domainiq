@@ -1,26 +1,60 @@
 import { MetadataRoute } from 'next';
 import { getAllArticles } from '@/data/articles';
 import { getAllTlds } from '@/data/tlds';
+import { DOMAIN_SALE_RECORDS } from '@/data/records';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://prstuvw.xyz';
     const articles = getAllArticles();
     const tlds = getAllTlds();
 
-    const benchmarkDomains = [
-        'draftline.com',
-        'insurance.com',
-        'cars.com',
-        'carinsurance.com',
-        'voice.com',
-        'ghost.ai',
-        'haunted.com',
-        'ai.com',
-        'cloudscale.ai',
-        'friend.com',
-        'nfts.com',
-        'chat.com',
-    ];
+    // Comprehensive programmatic valuation URLs: Top 100 historical sales + sovereign flagships + market comps
+    const benchmarkDomains = Array.from(
+        new Set([
+            ...DOMAIN_SALE_RECORDS.map((r) => r.domain.toLowerCase()),
+            'youtube.com',
+            'google.com',
+            'apple.com',
+            'amazon.com',
+            'microsoft.com',
+            'meta.com',
+            'netflix.com',
+            'stripe.com',
+            'spotify.com',
+            'openai.com',
+            'tesla.com',
+            'uber.com',
+            'airbnb.com',
+            'github.com',
+            'draftline.com',
+            'insurance.com',
+            'cars.com',
+            'carinsurance.com',
+            'voice.com',
+            'ghost.ai',
+            'haunted.com',
+            'ai.com',
+            'cloudscale.ai',
+            'friend.com',
+            'nfts.com',
+            'chat.com',
+            'crypto.com',
+            'harvest.ai',
+            'feast.com',
+            'voodoo.io',
+            'turkey.com',
+            'sky.com',
+            'prompt.com',
+            'cobalt.com',
+            'smartpay.com',
+            'apexcapital.com',
+            'hotels.com',
+            'fb.com',
+            'fund.com',
+            '20.com',
+            '360.com',
+        ])
+    );
 
     const staticRoutes: MetadataRoute.Sitemap = [
         {

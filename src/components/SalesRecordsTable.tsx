@@ -127,7 +127,12 @@ export default function SalesRecordsTable() {
                                 <td className="p-3 sm:p-4">
                                     <div className="space-y-0.5">
                                         <div className="font-mono font-bold text-base text-white group-hover:text-brand-300 transition-colors flex items-center gap-1.5">
-                                            <span>{rec.domain}</span>
+                                            <Link
+                                                href={`/valuation/${encodeURIComponent(rec.domain.toLowerCase())}`}
+                                                className="hover:underline hover:text-brand-300 transition-colors"
+                                            >
+                                                {rec.domain}
+                                            </Link>
                                             {rec.verified && (
                                                 <span className="text-[10px] text-emerald-400" title="SEC / Escrow Verified Sale">✓</span>
                                             )}

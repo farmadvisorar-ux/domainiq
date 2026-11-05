@@ -57,4 +57,5 @@ DomainVoodoo (https://prstuvw.xyz) is an institutional-grade, multi-model domain
 - Endpoint: `https://prstuvw.xyz/api/v1/valuate?domain={domain}`
 - Method: `GET`
 - Output: `fairMarketValue`, `range`, `confidenceScore`, `liquidationFloor`, `recommendedBinPrice`, `leaseToOwn`
+- Markdown Format for AI: Append `&format=markdown` or header `Accept: text/markdown` for instant LLM markdown summaries
 - Cost: 100% Free, no API key required for standard rate limits.

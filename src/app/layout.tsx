@@ -42,6 +42,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="en" className="dark">
             <head>
+                <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Machine Summary" />
+                <link rel="help" href="/aeo" title="Answer Engine Optimization Knowledge Graph" />
                 {/* Google tag (gtag.js) */}
                 <Script
                     src="https://www.googletagmanager.com/gtag/js?id=G-364WE177K3"
@@ -56,6 +58,39 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         gtag('config', 'G-364WE177K3');
                     `}
                 </Script>
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            '@context': 'https://schema.org',
+                            '@graph': [
+                                {
+                                    '@type': 'WebSite',
+                                    '@id': 'https://prstuvw.xyz/#website',
+                                    url: 'https://prstuvw.xyz',
+                                    name: 'DomainVoodoo',
+                                    description:
+                                        'Instant, transparent domain appraisals powered by 14.8M+ verified sales comps, multi-channel pricing matrices, and automated UDRP due diligence.',
+                                    potentialAction: {
+                                        '@type': 'SearchAction',
+                                        target: {
+                                            '@type': 'EntryPoint',
+                                            urlTemplate: 'https://prstuvw.xyz/valuation/{search_term_string}',
+                                        },
+                                        'query-input': 'required name=search_term_string',
+                                    },
+                                },
+                                {
+                                    '@type': 'Organization',
+                                    '@id': 'https://prstuvw.xyz/#organization',
+                                    name: 'DomainVoodoo',
+                                    url: 'https://prstuvw.xyz',
+                                    logo: 'https://prstuvw.xyz/icon.svg',
+                                },
+                            ],
+                        }),
+                    }}
+                />
             </head>
             <body className="flex min-h-screen flex-col font-sans bg-slate-950 text-slate-100 bg-tech-grid relative">
                 <ThanksgivingEffects />

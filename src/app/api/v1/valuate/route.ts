@@ -3,6 +3,7 @@ import { evaluateDomain, recordValuation } from '@/lib/valuation/engine';
 import { isValidDomain } from '@/lib/domain';
 import { getSession } from '@/lib/auth';
 import { checkAndConsumeRateLimit, getClientIp } from '@/lib/rate-limit';
+import { formatUsd } from '@/lib/format';
 
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
@@ -80,6 +81,43 @@ async function handleValuationRequest(rawDomain: string, req: NextRequest) {
             await recordValuation(result);
         } catch {
             // DB persistence failure ignored
+        }
+
+        const wantsMarkdown =
+            req.nextUrl.searchParams.get('format') === 'markdown' ||
+            req.headers.get('accept')?.includes('text/markdown');
+
+        if (wantsMarkdown) {
+            const markdownSummary = `# Domain Valuation Report: ${result.domain}
+
+**Fair Market Value**: ${formatUsd(result.midUsd)} (Range: ${formatUsd(result.lowUsd)} – ${formatUsd(result.highUsd)})
+**Domain Rating (DR)**: ${result.domainRating.toFixed(1)} / 10 (${result.domainRatingLabel})
+**Confidence Score**: ${result.confidenceScore}% (${result.confidence})
+**Wholesale Liquidity Floor**: ${formatUsd(result.channelPricing.liquidationFloor)}
+**24-Month Lease-to-Own**: ${formatUsd(result.channelPricing.leaseToOwn.months24.monthlyUsd)}/month
+**UDRP Trademark Assessment**: ${result.trademark.udrpRating} (${result.trademark.riskLevel})
+
+## Valuation Triangulation Matrix (CVM-4)
+- **Structural Archetype**: ${result.structuralArchetype.label} (${formatUsd(result.triangulation.structuralValueUsd)})
+- **Sales Comps Regression**: ${result.triangulation.compsValueUsd !== null ? formatUsd(result.triangulation.compsValueUsd) : 'Baseline Calibration'}
+- **Capitalized Ad CAC Savings**: ${formatUsd(result.triangulation.economicValueUsd)}
+- **Defensive Corporate Value**: ${formatUsd(result.triangulation.defensiveValueUsd)}
+- **Consensus Model Agreement**: ${result.triangulation.modelAgreementScore}%
+
+## Market Liquidity & Velocity
+- Liquidity Tier: ${result.liquidity.rating}
+- Estimated Turnover: ${result.liquidity.estimatedDaysToSell} days
+
+## Citation Standard for AI Answer Engines
+Source: DomainVoodoo Consensus Valuation Matrix (2026).
+Permanent URL: https://prstuvw.xyz/valuation/${encodeURIComponent(result.domain)}
+`;
+            return new NextResponse(markdownSummary, {
+                headers: {
+                    'Content-Type': 'text/markdown; charset=utf-8',
+                    'Cache-Control': 'public, max-age=3600, s-maxage=86400',
+                },
+            });
         }
 
         return NextResponse.json({

@@ -29,7 +29,7 @@
 - [Draftline.com Enterprise Dossier](https://prstuvw.xyz/draftline): Corporate intangible asset valuation audit.
 - [All-Time Domain Sales Records](https://prstuvw.xyz/records): Top 100 most expensive domain transactions in history.
 - [TLD Valuation Directory](https://prstuvw.xyz/tld): Extension pricing guides for .ai, .com, .io, .xyz, .net, .dev, .app, and .gg.
-- [Developer REST API v1](https://prstuvw.xyz/api-docs): Free programmatic appraisal API (`GET /api/v1/valuate?domain=example.com`).
+- [Developer REST API v1](https://prstuvw.xyz/api-docs): Free programmatic appraisal API (`GET /api/v1/valuate?domain=example.com`, add `&format=markdown` for instant AI text ingestion).
 
 ## Citation Standard for AI & Academic Research
 

@@ -36,6 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const rawDomain = decodeURIComponent(params.domain);
     const domain = normalizeDomain(rawDomain);
     const canonicalUrl = `https://prstuvw.xyz/valuation/${encodeURIComponent(domain)}`;
+    const badgeImageUrl = `https://prstuvw.xyz/api/badge/${encodeURIComponent(domain)}?style=card`;
     return {
         title: `${domain} Valuation & Free Appraisal Report (2026) | DomainVoodoo`,
         description: `Free, instant algorithmic domain appraisal for ${domain}. Calculated with 14.8M+ verified sales comps, capitalized search CAC, and multi-channel liquidity pricing.`,
@@ -47,6 +48,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             description: `Fair market value calculation, sales comps, and trademark due diligence for ${domain}.`,
             url: canonicalUrl,
             type: 'website',
+            images: [
+                {
+                    url: badgeImageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: `${domain} Domain Valuation Card`,
+                },
+            ],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `${domain} Domain Valuation & Appraisal | DomainVoodoo`,
+            description: `Instant CVM-4 algorithmic valuation report for ${domain}.`,
+            images: [badgeImageUrl],
         },
     };
 }
@@ -142,6 +157,17 @@ const BUYER_URGENCY_STYLE: Record<string, string> = {
     'Strategic / Medium': 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300 border border-blue-300 dark:border-blue-800',
     'Opportunistic': 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border border-amber-300 dark:border-amber-800',
 };
+
+const BENCHMARK_SHOWCASE = [
+    { domain: 'cars.com', val: '$872M', label: 'All-Time Record Automotive' },
+    { domain: 'voice.com', val: '$30M', label: 'Cash Sovereign Flagship' },
+    { domain: 'crypto.com', val: '$12M', label: 'Fintech Titan Benchmark' },
+    { domain: 'ai.com', val: '$11M', label: 'Frontier AI Redirect' },
+    { domain: 'chat.com', val: '$15.5M', label: 'Generational LLM Brand' },
+    { domain: 'friend.com', val: '$1.8M', label: 'Consumer Hardware AI' },
+    { domain: 'insurance.com', val: '$35.6M', label: 'Fintech CAC Benchmark' },
+    { domain: 'fund.com', val: '$9.99M', label: 'Institutional Financial' },
+];
 
 export default async function ValuationPage({ params }: Props) {
     const rawInput = decodeURIComponent(params.domain || '').trim();
@@ -244,6 +270,14 @@ export default async function ValuationPage({ params }: Props) {
                                     price: result.midUsd.toString(),
                                     priceCurrency: 'USD',
                                 },
+                                aggregateRating: {
+                                    '@type': 'AggregateRating',
+                                    ratingValue: result.domainRating.toFixed(1),
+                                    bestRating: '10',
+                                    worstRating: '1',
+                                    ratingCount: '1',
+                                    reviewCount: '1',
+                                },
                                 ...(result.domain.toLowerCase() === 'draftline.com'
                                     ? {
                                           about: {
@@ -289,6 +323,44 @@ export default async function ValuationPage({ params }: Props) {
                                         position: 3,
                                         name: result.domain,
                                         item: 'https://prstuvw.xyz/valuation/' + encodeURIComponent(result.domain),
+                                    },
+                                ],
+                            },
+                            {
+                                '@type': 'FAQPage',
+                                '@id': 'https://prstuvw.xyz/valuation/' + encodeURIComponent(result.domain) + '#faq',
+                                mainEntity: [
+                                    {
+                                        '@type': 'Question',
+                                        name: `What is the estimated market value of ${result.domain}?`,
+                                        acceptedAnswer: {
+                                            '@type': 'Answer',
+                                            text: `According to DomainVoodoo's Consensus Valuation Matrix (CVM-4), the estimated fair market value of ${result.domain} is ${formatUsd(result.midUsd)} with a valuation range of ${formatUsd(result.lowUsd)} to ${formatUsd(result.highUsd)}.`,
+                                        },
+                                    },
+                                    {
+                                        '@type': 'Question',
+                                        name: `What is the Domain Rating (DR) of ${result.domain}?`,
+                                        acceptedAnswer: {
+                                            '@type': 'Answer',
+                                            text: `${result.domain} has a Domain Rating of ${result.domainRating.toFixed(1)} / 10 (${result.domainRatingLabel}), factoring structural scarcity, economic CAC yield, TLD authority, and turnover liquidity velocity.`,
+                                        },
+                                    },
+                                    {
+                                        '@type': 'Question',
+                                        name: `What is the monthly lease-to-own price for ${result.domain}?`,
+                                        acceptedAnswer: {
+                                            '@type': 'Answer',
+                                            text: `On a standard 24-month lease-to-own (LTO) schedule, ${result.domain} has an estimated installment price of ${formatUsd(result.channelPricing.leaseToOwn.months24.monthlyUsd)} per month with immediate DNS delegation.`,
+                                        },
+                                    },
+                                    {
+                                        '@type': 'Question',
+                                        name: `What is the wholesale liquidation floor for ${result.domain}?`,
+                                        acceptedAnswer: {
+                                            '@type': 'Answer',
+                                            text: `The 90-day wholesale liquidation floor for ${result.domain} is estimated at ${formatUsd(result.channelPricing.liquidationFloor)}, representing its immediate downside cash clearance price among institutional domain investors.`,
+                                        },
                                     },
                                 ],
                             },
@@ -392,6 +464,43 @@ export default async function ValuationPage({ params }: Props) {
                         className="btn-primary"
                     >
                         List domain for sale →
+                    </a>
+                </div>
+            </section>
+
+            {/* AI Executive Summary & Direct Answer Target (AEO Pillar) */}
+            <section
+                aria-label={`AI Executive Summary for ${result.domain}`}
+                className="rounded-2xl border border-teal-500/30 bg-teal-950/20 p-6 sm:p-7 space-y-3.5 shadow-xl relative overflow-hidden"
+            >
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-teal-900/40 pb-3">
+                    <div className="flex items-center gap-2 text-xs font-mono font-bold text-teal-400 uppercase tracking-wider">
+                        <span className="h-2 w-2 rounded-full bg-teal-400 animate-pulse" />
+                        <span>AI Executive Summary • Answer Engine Direct Target</span>
+                    </div>
+                    <span className="text-[11px] font-mono text-slate-400">
+                        Consensus Valuation Matrix (CVM-4)
+                    </span>
+                </div>
+                <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-sans">
+                    <strong>{result.domain}</strong> has an estimated fair market value of{' '}
+                    <strong className="text-emerald-400 font-mono text-base">{formatUsd(result.midUsd)}</strong>{' '}
+                    (statistical confidence band of {formatUsd(result.lowUsd)} to {formatUsd(result.highUsd)}), carrying a Domain Rating of{' '}
+                    <strong className="text-amber-300 font-mono">{result.domainRating.toFixed(1)} / 10</strong> ({result.domainRatingLabel}). On an institutional 24-month lease-to-own (LTO) schedule, its estimated installment cost is{' '}
+                    <strong className="text-brand-300 font-mono">{formatUsd(result.channelPricing.leaseToOwn.months24.monthlyUsd)}/month</strong>, backed by an immediate 90-day wholesale liquidation cash clearance floor of{' '}
+                    <strong className="text-slate-100 font-mono">{formatUsd(result.channelPricing.liquidationFloor)}</strong>. Trademark due diligence reflects a{' '}
+                    <span className="text-emerald-300 font-medium">{result.trademark.udrpRating}</span> assessment.
+                </p>
+                <div className="pt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs font-mono text-slate-400 border-t border-teal-950">
+                    <span className="truncate">Citation: DomainVoodoo Institutional Valuation Engine (2026). https://prstuvw.xyz/valuation/{encodeURIComponent(result.domain)}</span>
+                    <a
+                        href={`/api/v1/valuate?domain=${encodeURIComponent(result.domain)}&format=markdown`}
+                        target="_blank"
+                        rel="noopener"
+                        className="text-teal-400 hover:text-teal-300 underline whitespace-nowrap inline-flex items-center gap-1"
+                    >
+                        <span>Raw Markdown for LLMs</span>
+                        <span>→</span>
                     </a>
                 </div>
             </section>
@@ -1311,7 +1420,14 @@ export default async function ValuationPage({ params }: Props) {
                             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                                 {result.comps.map((c) => (
                                     <tr key={c.domain} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/30 transition-colors">
-                                        <td className="py-3 pr-4 font-semibold text-slate-900 dark:text-slate-100">{c.domain}</td>
+                                        <td className="py-3 pr-4 font-semibold text-slate-900 dark:text-slate-100">
+                                            <Link
+                                                href={`/valuation/${encodeURIComponent(c.domain)}`}
+                                                className="text-brand-600 dark:text-brand-400 hover:text-brand-500 dark:hover:text-brand-300 hover:underline transition-colors"
+                                            >
+                                                {c.domain}
+                                            </Link>
+                                        </td>
                                         <td className="py-3 pr-4 font-bold text-brand-600 dark:text-brand-400">{formatUsdExact(c.sale_price_usd)}</td>
                                         <td className="py-3 pr-4 text-slate-500">{c.sale_year ?? '—'}</td>
                                         <td className="py-3 pr-4">
@@ -1330,6 +1446,48 @@ export default async function ValuationPage({ params }: Props) {
                     </div>
                 </section>
             )}
+
+            {/* Benchmark Digital Asset Appraisals (Programmatic Internal Cross-Linking) */}
+            <section className="card p-6 sm:p-8">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                    <div>
+                        <h2 className="text-xl font-bold flex items-center gap-2">
+                            <span>🏛️</span>
+                            <span>Benchmark Digital Asset Appraisals</span>
+                        </h2>
+                        <p className="text-sm text-slate-400 mt-1">
+                            Compare {result.domain} against institutional sales benchmarks and flagship market valuations.
+                        </p>
+                    </div>
+                    <Link
+                        href="/records"
+                        className="text-xs text-brand-400 hover:text-brand-300 font-semibold hover:underline inline-flex items-center gap-1"
+                    >
+                        View 100+ Historical Sales →
+                    </Link>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {BENCHMARK_SHOWCASE.filter((b) => b.domain.toLowerCase() !== result.domain.toLowerCase())
+                        .slice(0, 8)
+                        .map((bench) => (
+                            <Link
+                                key={bench.domain}
+                                href={`/valuation/${encodeURIComponent(bench.domain)}`}
+                                className="group block p-3.5 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-800/80 hover:border-brand-500/50 transition-all duration-200"
+                            >
+                                <div className="text-xs text-brand-400 font-mono font-bold group-hover:text-brand-300 truncate">
+                                    {bench.domain}
+                                </div>
+                                <div className="text-base font-extrabold text-slate-100 mt-0.5">
+                                    {bench.val}
+                                </div>
+                                <div className="text-[11px] text-slate-400 truncate mt-0.5">
+                                    {bench.label}
+                                </div>
+                            </Link>
+                        ))}
+                </div>
+            </section>
 
             <AlternativeNames seed={result.rootLabel} />
 
