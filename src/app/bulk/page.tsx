@@ -20,6 +20,9 @@ interface BulkResultItem {
     trademarkRisk: string;
     udrpRating: string;
     collisionDensityScore: number;
+    annualRenewalUsd: number;
+    holdAction: 'CORE HOLD' | 'LIQUIDATE / LTO' | 'DROP CANDIDATE';
+    holdReason: string;
 }
 
 interface BulkRow {
@@ -42,18 +45,82 @@ const LIQUIDITY_BADGE: Record<string, string> = {
     'Niche / Illiquid': 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
 };
 
+const HOLD_ACTION_BADGE: Record<BulkResultItem['holdAction'], string> = {
+    'CORE HOLD': 'bg-emerald-950/80 text-emerald-300 border border-emerald-500/40',
+    'LIQUIDATE / LTO': 'bg-amber-950/80 text-amber-300 border border-amber-500/40',
+    'DROP CANDIDATE': 'bg-rose-950/80 text-rose-300 border border-rose-500/40',
+};
+
+const SAMPLE_PORTFOLIOS = [
+    {
+        label: 'AI & Tech Venture Mix',
+        domains: ['cloudscale.ai', 'harvest.ai', 'smartpay.com', 'voodoo.io', 'prompt.com', 'myfastbot123.xyz'],
+    },
+    {
+        label: 'Blue-Chip & Short Club',
+        domains: ['voice.com', 'ai.com', 'cobalt.com', 'feast.com', 'sky.com', '20.com'],
+    },
+];
+
+function estimateAnnualRenewalUsd(tld: string): number {
+    const clean = tld.toLowerCase().replace(/^\./, '');
+    if (clean === 'com') return 12;
+    if (clean === 'ai') return 75; // $150 per 2-year mandatory cycle
+    if (clean === 'io') return 45;
+    if (clean === 'co') return 28;
+    if (clean === 'dev' || clean === 'app') return 16;
+    if (clean === 'xyz' || clean === 'net' || clean === 'org') return 13;
+    return 22;
+}
+
+function classifyHoldAction(params: {
+    midUsd: number;
+    liquidationFloor: number;
+    liquidityRating: string;
+    trademarkRisk: string;
+    annualRenewalUsd: number;
+}): { holdAction: BulkResultItem['holdAction']; holdReason: string } {
+    const { midUsd, liquidationFloor, liquidityRating, trademarkRisk, annualRenewalUsd } = params;
+    if (trademarkRisk === 'severe') {
+        return {
+            holdAction: 'DROP CANDIDATE',
+            holdReason: 'Severe UDRP trademark conflict neutralizes end-user resale value',
+        };
+    }
+    const threeYearCarry = annualRenewalUsd * 3;
+    if (liquidityRating === 'Ultra-Liquid' || liquidityRating === 'High Liquidity' || midUsd >= 2500) {
+        return {
+            holdAction: 'CORE HOLD',
+            holdReason: 'High equity-to-carrying-cost ratio; list with 24m Lease-to-Own',
+        };
+    }
+    if (liquidationFloor >= threeYearCarry * 1.5 && midUsd >= 400) {
+        return {
+            holdAction: 'LIQUIDATE / LTO',
+            holdReason: 'Positive expected value; price aggressively at BIN or wholesale',
+        };
+    }
+    return {
+        holdAction: 'DROP CANDIDATE',
+        holdReason: `3-yr renewal drag ($${threeYearCarry}) erodes low wholesale liquidity floor`,
+    };
+}
+
 export default function BulkPage() {
     const [text, setText] = useState('');
     const [rows, setRows] = useState<BulkRow[]>([]);
     const [loading, setLoading] = useState(false);
     const [notice, setNotice] = useState<string | null>(null);
 
-    async function handleSubmit() {
-        const domains = text
-            .split(/[\n,]/)
+    async function handleSubmit(overrideList?: string[]) {
+        const domains = (overrideList ?? text.split(/[\n,]/))
             .map((d) => d.trim())
             .filter(Boolean);
         if (domains.length === 0) return;
+
+        if (overrideList) {
+            setText(overrideList.join('\n'));
+        }
 
         setLoading(true);
         setNotice(null);
@@ -73,29 +140,48 @@ export default function BulkPage() {
                 setNotice(`Only the first ${data.maxBatch} domains were evaluated. Sign up for higher limits.`);
             }
             setRows(
-                data.results.map((r: any) => ({
-                    domain: r.domain,
-                    result: r.result
-                        ? {
-                              domain: r.result.domain,
-                              tld: r.result.tld,
-                              midUsd: r.result.midUsd,
-                              lowUsd: r.result.lowUsd,
-                              highUsd: r.result.highUsd,
-                              confidence: r.result.confidence,
-                              confidenceScore: r.result.confidenceScore ?? 75,
-                              linguisticScore: r.result.linguisticScore,
-                              liquidityRating: r.result.liquidity?.rating ?? 'Moderate Liquidity',
-                              liquidationFloor: r.result.channelPricing?.liquidationFloor ?? Math.round(r.result.midUsd * 0.25),
-                              recommendedBinPrice: r.result.channelPricing?.recommendedBinPrice ?? r.result.midUsd,
-                              leaseMonthly24: r.result.channelPricing?.leaseToOwn?.months24?.monthlyUsd ?? Math.round((r.result.midUsd * 1.15) / 24),
-                              trademarkRisk: r.result.trademark?.riskLevel ?? 'low',
-                              udrpRating: r.result.trademark?.udrpRating ?? 'Minimal Risk',
-                              collisionDensityScore: r.result.alternativeTlds?.collisionDensityScore ?? 50,
-                          }
-                        : undefined,
-                    error: r.error,
-                })),
+                data.results.map((r: any) => {
+                    if (!r.result) {
+                        return { domain: r.domain, error: r.error };
+                    }
+                    const tld = r.result.tld || 'com';
+                    const midUsd = r.result.midUsd;
+                    const liquidationFloor = r.result.channelPricing?.liquidationFloor ?? Math.round(midUsd * 0.25);
+                    const liquidityRating = r.result.liquidity?.rating ?? 'Moderate Liquidity';
+                    const trademarkRisk = r.result.trademark?.riskLevel ?? 'low';
+                    const annualRenewalUsd = estimateAnnualRenewalUsd(tld);
+                    const { holdAction, holdReason } = classifyHoldAction({
+                        midUsd,
+                        liquidationFloor,
+                        liquidityRating,
+                        trademarkRisk,
+                        annualRenewalUsd,
+                    });
+
+                    return {
+                        domain: r.domain,
+                        result: {
+                            domain: r.result.domain,
+                            tld,
+                            midUsd,
+                            lowUsd: r.result.lowUsd,
+                            highUsd: r.result.highUsd,
+                            confidence: r.result.confidence,
+                            confidenceScore: r.result.confidenceScore ?? 75,
+                            linguisticScore: r.result.linguisticScore,
+                            liquidityRating,
+                            liquidationFloor,
+                            recommendedBinPrice: r.result.channelPricing?.recommendedBinPrice ?? midUsd,
+                            leaseMonthly24: r.result.channelPricing?.leaseToOwn?.months24?.monthlyUsd ?? Math.round((midUsd * 1.15) / 24),
+                            trademarkRisk,
+                            udrpRating: r.result.trademark?.udrpRating ?? 'Minimal Risk',
+                            collisionDensityScore: r.result.alternativeTlds?.collisionDensityScore ?? 50,
+                            annualRenewalUsd,
+                            holdAction,
+                            holdReason,
+                        },
+                    };
+                }),
             );
         } finally {
             setLoading(false);
@@ -107,6 +193,11 @@ export default function BulkPage() {
     const totalLiquidation = validResults.reduce((sum, r) => sum + r.liquidationFloor, 0);
     const totalBin = validResults.reduce((sum, r) => sum + r.recommendedBinPrice, 0);
     const totalMonthlyLease = validResults.reduce((sum, r) => sum + r.leaseMonthly24, 0);
+    const totalAnnualRenewal = validResults.reduce((sum, r) => sum + r.annualRenewalUsd, 0);
+
+    const coreHoldCount = validResults.filter((r) => r.holdAction === 'CORE HOLD').length;
+    const dropCandidateDomains = validResults.filter((r) => r.holdAction === 'DROP CANDIDATE');
+    const annualSavingsIfDropped = dropCandidateDomains.reduce((sum, r) => sum + r.annualRenewalUsd, 0);
 
     const avgLinguisticScore = validResults.length > 0
         ? Math.round(validResults.reduce((sum, r) => sum + r.linguisticScore, 0) / validResults.length)
@@ -119,138 +210,245 @@ export default function BulkPage() {
         const headers = [
             'Domain',
             'TLD',
-            'Linguistic Score',
+            'Hold vs Drop Audit',
             'Mid FMV USD',
-            'Low USD',
-            'High USD',
             'Liquidation Floor USD',
             'Recommended BIN USD',
             '24mo Lease Monthly USD',
-            'Confidence Rating',
-            'Confidence Score',
+            'Est Annual Renewal USD',
+            'Linguistic Score',
             'Liquidity Rating',
             'Trademark Risk',
-            'UDRP Rating',
-            'Collision Density %',
+            'Audit Rationale',
         ];
 
         const csvRows = validResults.map((r) => [
             `"${r.domain}"`,
             `"${r.tld}"`,
-            r.linguisticScore,
+            `"${r.holdAction}"`,
             r.midUsd,
-            r.lowUsd,
-            r.highUsd,
             r.liquidationFloor,
             r.recommendedBinPrice,
             r.leaseMonthly24,
-            `"${r.confidence}"`,
-            r.confidenceScore,
+            r.annualRenewalUsd,
+            r.linguisticScore,
             `"${r.liquidityRating}"`,
             `"${r.trademarkRisk}"`,
-            `"${r.udrpRating}"`,
-            r.collisionDensityScore,
+            `"${r.holdReason}"`,
         ]);
 
         const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...csvRows.map((e) => e.join(','))].join('\n');
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement('a');
         link.setAttribute('href', encodedUri);
-        link.setAttribute('download', `domainvoodoo-portfolio-valuation-${new Date().toISOString().split('T')[0]}.csv`);
+        link.setAttribute('download', `domainvoodoo-portfolio-audit-${new Date().toISOString().split('T')[0]}.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     }
 
+    function handleExportAsc350Html() {
+        if (validResults.length === 0) return;
+        const dateStr = new Date().toISOString().split('T')[0];
+        const rowsHtml = validResults
+            .map(
+                (r) => `
+        <tr>
+          <td><a href="https://prstuvw.xyz/valuation/${encodeURIComponent(r.domain)}" target="_blank" rel="noopener"><strong>${r.domain}</strong></a></td>
+          <td>$${r.midUsd.toLocaleString()}</td>
+          <td>$${r.liquidationFloor.toLocaleString()}</td>
+          <td>$${r.annualRenewalUsd}/yr</td>
+          <td>${r.liquidityRating}</td>
+          <td><strong>${r.holdAction}</strong></td>
+        </tr>`
+            )
+            .join('');
+
+        const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ASC 350 / IFRS 3 Digital Asset Portfolio Schedule (${dateStr})</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; color: #0f172a; max-width: 960px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
+    h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+    .meta { color: #64748b; font-size: 0.875rem; margin-bottom: 1.5rem; }
+    .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .box { border: 1px solid #cbd5e1; border-radius: 0.5rem; padding: 1rem; background: #f8fafc; }
+    .box-label { font-size: 0.7rem; text-transform: uppercase; color: #64748b; font-weight: 700; }
+    .box-val { font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top: 0.25rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    th, td { border-bottom: 1px solid #e2e8f0; padding: 0.75rem 0.5rem; text-align: left; }
+    th { background: #f1f5f9; font-size: 0.75rem; text-transform: uppercase; color: #475569; }
+    .footer { margin-top: 2.5rem; font-size: 0.8rem; color: #64748b; border-top: 1px solid #cbd5e1; padding-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Intangible Digital Asset Portfolio Valuation Schedule (ASC 350 / IFRS 3)</h1>
+  <div class="meta">Generated on ${dateStr} by <a href="https://prstuvw.xyz" target="_blank" rel="noopener">DomainVoodoo Consensus Valuation Matrix (CVM-4)</a> • ${validResults.length} Evaluated Assets</div>
+  <div class="summary">
+    <div class="box"><div class="box-label">Total Fair Market Value</div><div class="box-val">$${totalMid.toLocaleString()}</div></div>
+    <div class="box"><div class="box-label">90-Day Liquidation Floor</div><div class="box-val">$${totalLiquidation.toLocaleString()}</div></div>
+    <div class="box"><div class="box-label">Annual Renewal Carry</div><div class="box-val">$${totalAnnualRenewal.toLocaleString()}/yr</div></div>
+    <div class="box"><div class="box-label">Core Hold Assets</div><div class="box-val">${coreHoldCount} / ${validResults.length}</div></div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Domain Asset</th>
+        <th>Fair Market Value (FMV)</th>
+        <th>90-Day Wholesale Floor</th>
+        <th>Est. Renewal</th>
+        <th>Liquidity Tier</th>
+        <th>Audit Recommendation</th>
+      </tr>
+    </thead>
+    <tbody>${rowsHtml}</tbody>
+  </table>
+  <div class="footer">
+    Methodology Reference: <a href="https://prstuvw.xyz/aeo" target="_blank" rel="noopener">DomainVoodoo Quantitative Research Desk (CVM-4 Standard)</a>. Individual appraisal certificates accessible at https://prstuvw.xyz/valuation/[domain].
+  </div>
+</body>
+</html>`;
+
+        const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `asc350-portfolio-valuation-${dateStr}.html`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
     return (
         <div className="mx-auto max-w-5xl space-y-8">
-            <div className="text-center">
-                <span className="text-xs bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300 border border-brand-200 dark:border-brand-800 px-3 py-1 rounded-full font-semibold uppercase tracking-wider">
-                    Phase 4 Portfolio Engine
+            <div className="text-center space-y-3">
+                <span className="text-xs bg-brand-950 text-brand-300 border border-brand-800 px-3 py-1 rounded-full font-mono font-bold uppercase tracking-wider">
+                    Institutional Portfolio &amp; Renewal Auditor
                 </span>
-                <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Bulk Portfolio Valuation</h1>
-                <p className="mt-2 text-slate-500 max-w-xl mx-auto">
-                    Appraise entire domain portfolios in seconds. Includes multi-channel pricing, liquidation floors, charm BINs, and trademark screening.
+                <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
+                    Bulk Portfolio Valuation &amp; Keep-vs-Drop Audit
+                </h1>
+                <p className="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto">
+                    Appraise up to 200 domains simultaneously. Calculates Total Fair Market Value, 90-day cash liquidation collateral floors, annual renewal carrying drag, and ASC 350 balance-sheet schedules.
                 </p>
+            </div>
+
+            {/* Preset Samples */}
+            <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
+                <span className="text-slate-500 font-mono text-[11px]">1-Click Demo Portfolios:</span>
+                {SAMPLE_PORTFOLIOS.map((s) => (
+                    <button
+                        key={s.label}
+                        type="button"
+                        onClick={() => handleSubmit(s.domains)}
+                        className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-brand-500/50 font-mono text-xs transition-all"
+                    >
+                        ⚡ {s.label}
+                    </button>
+                ))}
             </div>
 
             <div className="card space-y-4 p-6">
                 <textarea
                     className="input h-36 font-mono text-sm leading-relaxed"
-                    placeholder={'cloudflow.io\npayflow.com\nnexusai.tech\nexamplebrand.co'}
+                    placeholder={'cloudscale.ai\nsmartpay.com\nprompt.com\nvoodoo.io'}
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                 />
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <p className="text-xs text-slate-400">
-                        Paste up to 200 domains (one per line, space, or comma-separated).
+                        Paste up to 200 domains (one per line or comma-separated). Includes automated Keep-vs-Drop renewal drag scoring.
                     </p>
-                    <button type="button" className="btn-primary !px-5 !py-2 text-sm font-semibold" onClick={handleSubmit} disabled={loading}>
-                        {loading ? 'Evaluating Portfolio…' : 'Appraise Entire Portfolio →'}
+                    <button
+                        type="button"
+                        className="btn-primary !px-5 !py-2.5 text-sm font-bold"
+                        onClick={() => handleSubmit()}
+                        disabled={loading}
+                    >
+                        {loading ? 'Auditing Portfolio…' : 'Run Portfolio & Renewal Audit →'}
                     </button>
                 </div>
-                {notice && <p className="text-xs text-amber-600 bg-amber-50 dark:bg-amber-950/40 p-2.5 rounded border border-amber-200 dark:border-amber-800">{notice}</p>}
+                {notice && <p className="text-xs text-amber-400 bg-amber-950/40 p-2.5 rounded border border-amber-800">{notice}</p>}
             </div>
 
             {validResults.length > 0 && (
                 <div className="space-y-6">
                     {/* Executive Portfolio Dashboard */}
-                    <div className="card p-6">
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4 mb-5">
+                    <div className="card p-6 space-y-5">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800 pb-4">
                             <div>
-                                <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-                                    Portfolio Financial Summary ({validResults.length} domains)
+                                <h2 className="text-lg font-bold text-white">
+                                    Consolidated Portfolio Audit ({validResults.length} Assets)
                                 </h2>
-                                <p className="text-xs text-slate-500">
-                                    Consolidated financial analytics across secondary market sales channels.
+                                <p className="text-xs text-slate-400">
+                                    Multi-channel valuation, wholesale LTV collateral floor, and annual renewal carrying cost analysis.
                                 </p>
                             </div>
-                            <button
-                                type="button"
-                                onClick={handleExportCsv}
-                                className="btn-secondary !py-1.5 !px-3 text-xs font-semibold flex items-center gap-1.5 self-start sm:self-auto"
-                            >
-                                <span>📥 Export CSV</span>
-                            </button>
+                            <div className="flex flex-wrap items-center gap-2">
+                                <button
+                                    type="button"
+                                    onClick={handleExportAsc350Html}
+                                    className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono font-bold transition-all shadow-md"
+                                >
+                                    📄 Export ASC 350 Balance Sheet (HTML)
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={handleExportCsv}
+                                    className="btn-secondary !py-2 !px-3.5 text-xs font-mono font-semibold"
+                                >
+                                    📥 Export CSV
+                                </button>
+                            </div>
                         </div>
 
                         {/* 4 Main Value Channels */}
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
-                                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Total Fair Market Value</span>
-                                <p className="text-2xl font-black text-brand-600 dark:text-brand-400 mt-1">{formatUsd(totalMid)}</p>
-                                <span className="text-[11px] text-slate-400 block mt-1">Secondary market baseline</span>
+                            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 block">Total Fair Market Value</span>
+                                <p className="text-2xl font-black font-mono text-emerald-400 mt-1">{formatUsd(totalMid)}</p>
+                                <span className="text-[11px] text-slate-400 block mt-1">End-user retail FMV</span>
                             </div>
 
-                            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
-                                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Liquidation Cash Floor</span>
-                                <p className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-1">{formatUsd(totalLiquidation)}</p>
-                                <span className="text-[11px] text-slate-400 block mt-1">Immediate 48h auction exit</span>
+                            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 block">90-Day Liquidation Floor</span>
+                                <p className="text-2xl font-bold font-mono text-white mt-1">{formatUsd(totalLiquidation)}</p>
+                                <span className="text-[11px] text-slate-400 block mt-1">Immediate wholesale cash exit</span>
                             </div>
 
-                            <div className="p-4 rounded-xl bg-brand-50/30 dark:bg-brand-950/20 border border-brand-200 dark:border-brand-900/40">
-                                <span className="text-[10px] font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 block">Retail Listed Catalog (BIN)</span>
-                                <p className="text-2xl font-black text-brand-600 dark:text-brand-400 mt-1">{formatUsd(totalBin)}</p>
-                                <span className="text-[11px] text-slate-400 block mt-1">Recommended Dan/Afternic BIN</span>
+                            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
+                                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 block">Annual Renewal Carry</span>
+                                <p className="text-2xl font-bold font-mono text-amber-300 mt-1">{formatUsdExact(totalAnnualRenewal)}/yr</p>
+                                <span className="text-[11px] text-slate-400 block mt-1">
+                                    {dropCandidateDomains.length > 0
+                                        ? `Save $${annualSavingsIfDropped}/yr by dropping ${dropCandidateDomains.length}`
+                                        : 'Optimal carrying efficiency'}
+                                </span>
                             </div>
 
-                            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800">
-                                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Financed Monthly Cash Flow</span>
-                                <p className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-1">{formatUsdExact(totalMonthlyLease)}/mo</p>
-                                <span className="text-[11px] text-slate-400 block mt-1">Projected 24mo lease payments</span>
+                            <div className="p-4 rounded-xl bg-brand-950/30 border border-brand-800/60">
+                                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-brand-300 block">Financed LTO Cash Flow</span>
+                                <p className="text-2xl font-black font-mono text-brand-300 mt-1">{formatUsdExact(totalMonthlyLease)}/mo</p>
+                                <span className="text-[11px] text-slate-400 block mt-1">24-month LTO portfolio yield</span>
                             </div>
                         </div>
 
-                        {/* Secondary Stats */}
-                        <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs text-slate-500">
-                            <div>
-                                Average Linguistic Score: <strong className="text-slate-800 dark:text-slate-200">{avgLinguisticScore}/100</strong>
+                        {/* Keep vs Drop Summary Strip */}
+                        <div className="pt-2 grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs font-mono">
+                            <div className="rounded-lg bg-emerald-950/30 border border-emerald-800/50 p-3 text-emerald-300">
+                                🟢 Core Hold: <strong>{coreHoldCount} domains</strong>
                             </div>
-                            <div>
-                                Clean Trademark Clearance: <strong className="text-emerald-600 dark:text-emerald-400">{cleanTrademarkCount} / {validResults.length}</strong>
+                            <div className="rounded-lg bg-amber-950/30 border border-amber-800/50 p-3 text-amber-300">
+                                🟡 Liquidate / LTO: <strong>{validResults.filter((r) => r.holdAction === 'LIQUIDATE / LTO').length} domains</strong>
                             </div>
-                            <div>
-                                High Liquidity Assets: <strong className="text-slate-800 dark:text-slate-200">{validResults.filter((r) => r.liquidityRating === 'High Liquidity' || r.liquidityRating === 'Ultra-Liquid').length}</strong>
+                            <div className="rounded-lg bg-rose-950/30 border border-rose-800/50 p-3 text-rose-300">
+                                🔴 Drop Candidates: <strong>{dropCandidateDomains.length} domains</strong>
+                            </div>
+                            <div className="rounded-lg bg-slate-950/70 border border-slate-800 p-3 text-slate-300">
+                                🛡️ Clean UDRP: <strong>{cleanTrademarkCount} / {validResults.length}</strong> ({avgLinguisticScore}/100 Ling)
                             </div>
                         </div>
                     </div>
@@ -258,59 +456,73 @@ export default function BulkPage() {
                     {/* Detailed Portfolio Table */}
                     <div className="card p-6 overflow-hidden">
                         <div className="mb-4 flex items-center justify-between">
-                            <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">Evaluated Domains</h3>
-                            <span className="text-xs text-slate-400">{validResults.length} records</span>
+                            <h3 className="font-bold text-base text-white">Itemized Keep-vs-Drop Ledger</h3>
+                            <span className="text-xs font-mono text-slate-400">{validResults.length} evaluated assets</span>
                         </div>
 
                         <div className="overflow-x-auto">
-                            <table className="w-full text-left text-sm">
-                                <thead className="text-slate-400 border-b border-slate-200 dark:border-slate-800 text-xs uppercase tracking-wider">
+                            <table className="w-full text-left text-xs sm:text-sm">
+                                <thead className="text-slate-400 border-b border-slate-800 text-xs font-mono uppercase tracking-wider">
                                     <tr>
                                         <th className="pb-3 pr-4">Domain</th>
+                                        <th className="pb-3 pr-4">Audit Verdict</th>
                                         <th className="pb-3 pr-4">Fair Market Value</th>
-                                        <th className="pb-3 pr-4">Liquidation Floor</th>
-                                        <th className="pb-3 pr-4">Retail BIN</th>
-                                        <th className="pb-3 pr-4">Lease (24m)</th>
+                                        <th className="pb-3 pr-4">Wholesale Floor</th>
+                                        <th className="pb-3 pr-4">Renewal / Yr</th>
                                         <th className="pb-3 pr-4">Liquidity</th>
-                                        <th className="pb-3 pr-4">UDRP Risk</th>
-                                        <th className="pb-3 text-right">Action</th>
+                                        <th className="pb-3 pr-4">UDRP</th>
+                                        <th className="pb-3 text-right">Tools</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                                <tbody className="divide-y divide-slate-800/70">
                                     {rows.map((r) => (
-                                        <tr key={r.domain} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/30 transition-colors">
-                                            <td className="py-3 pr-4 font-semibold text-slate-900 dark:text-slate-100">
-                                                <Link href={`/valuation/${encodeURIComponent(r.domain)}`} className="hover:text-brand-600 hover:underline">
+                                        <tr key={r.domain} className="hover:bg-slate-900/40 transition-colors">
+                                            <td className="py-3.5 pr-4 font-mono font-bold text-white">
+                                                <Link href={`/valuation/${encodeURIComponent(r.domain)}`} className="hover:text-brand-300 hover:underline">
                                                     {r.domain}
                                                 </Link>
                                             </td>
                                             {r.result ? (
                                                 <>
-                                                    <td className="py-3 pr-4 font-bold text-brand-600 dark:text-brand-400">{formatUsd(r.result.midUsd)}</td>
-                                                    <td className="py-3 pr-4 text-slate-500 font-medium">{formatUsd(r.result.liquidationFloor)}</td>
-                                                    <td className="py-3 pr-4 font-semibold text-slate-800 dark:text-slate-200">{formatUsd(r.result.recommendedBinPrice)}</td>
-                                                    <td className="py-3 pr-4 text-slate-500 text-xs">{formatUsdExact(r.result.leaseMonthly24)}/mo</td>
-                                                    <td className="py-3 pr-4">
-                                                        <span className={`text-[11px] px-2 py-0.5 rounded font-medium ${LIQUIDITY_BADGE[r.result.liquidityRating] || 'bg-slate-100 text-slate-700'}`}>
+                                                    <td className="py-3.5 pr-4">
+                                                        <span
+                                                            title={r.result.holdReason}
+                                                            className={`inline-block text-[10px] font-mono font-bold px-2.5 py-1 rounded-full ${HOLD_ACTION_BADGE[r.result.holdAction]}`}
+                                                        >
+                                                            {r.result.holdAction}
+                                                        </span>
+                                                    </td>
+                                                    <td className="py-3.5 pr-4 font-mono font-bold text-emerald-400">{formatUsd(r.result.midUsd)}</td>
+                                                    <td className="py-3.5 pr-4 font-mono text-slate-300">{formatUsd(r.result.liquidationFloor)}</td>
+                                                    <td className="py-3.5 pr-4 font-mono text-slate-400">${r.result.annualRenewalUsd}/yr</td>
+                                                    <td className="py-3.5 pr-4">
+                                                        <span className={`text-[11px] px-2 py-0.5 rounded font-medium ${LIQUIDITY_BADGE[r.result.liquidityRating] || 'bg-slate-800 text-slate-300'}`}>
                                                             {r.result.liquidityRating}
                                                         </span>
                                                     </td>
-                                                    <td className="py-3 pr-4">
-                                                        <span className={`text-[11px] px-2 py-0.5 rounded font-medium ${RISK_BADGE[r.result.trademarkRisk] || 'bg-slate-100 text-slate-700'}`}>
+                                                    <td className="py-3.5 pr-4">
+                                                        <span className={`text-[11px] px-2 py-0.5 rounded font-medium ${RISK_BADGE[r.result.trademarkRisk] || 'bg-slate-800 text-slate-300'}`}>
                                                             {r.result.udrpRating}
                                                         </span>
                                                     </td>
-                                                    <td className="py-3 text-right">
+                                                    <td className="py-3.5 text-right whitespace-nowrap space-x-2 font-mono text-xs">
                                                         <Link
                                                             href={`/valuation/${encodeURIComponent(r.domain)}`}
-                                                            className="text-xs font-semibold text-brand-600 hover:underline"
+                                                            className="text-brand-400 hover:underline font-semibold"
                                                         >
-                                                            Report →
+                                                            Report
+                                                        </Link>
+                                                        <span className="text-slate-700">|</span>
+                                                        <Link
+                                                            href={`/lander/${encodeURIComponent(r.domain)}`}
+                                                            className="text-amber-400 hover:underline"
+                                                        >
+                                                            0% Lander
                                                         </Link>
                                                     </td>
                                                 </>
                                             ) : (
-                                                <td colSpan={7} className="py-3 text-xs text-red-500 font-medium">{r.error ?? 'Valuation error'}</td>
+                                                <td colSpan={7} className="py-3.5 text-xs text-red-400 font-mono">{r.error ?? 'Valuation error'}</td>
                                             )}
                                         </tr>
                                     ))}

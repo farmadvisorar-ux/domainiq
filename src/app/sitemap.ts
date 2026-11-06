@@ -3,6 +3,7 @@ import { getAllArticles } from '@/data/articles';
 import { getAllTlds } from '@/data/tlds';
 import { DOMAIN_SALE_RECORDS } from '@/data/records';
 import { getAllComparisons } from '@/data/comparisons';
+import { getAllClubs } from '@/data/clubs';
 import { getPool } from '@/lib/db';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -10,6 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const articles = getAllArticles();
     const tlds = getAllTlds();
     const comparisons = getAllComparisons();
+    const clubs = getAllClubs();
 
     let dbAppraisedDomains: string[] = [];
     if (process.env.DATABASE_URL) {
@@ -176,6 +178,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.95,
         },
         {
+            url: `${baseUrl}/clubs`,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 0.95,
+        },
+        {
             url: `${baseUrl}/articles`,
             lastModified: new Date(),
             changeFrequency: 'daily',
@@ -312,6 +320,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.9,
     }));
 
+    const clubRoutes: MetadataRoute.Sitemap = clubs.map((club) => ({
+        url: `${baseUrl}/clubs/${club.slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.9,
+    }));
+
     const valuationRoutes: MetadataRoute.Sitemap = benchmarkDomains.map((dom) => ({
         url: `${baseUrl}/valuation/${encodeURIComponent(dom)}`,
         lastModified: new Date(),
@@ -326,5 +341,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
     }));
 
-    return [...staticRoutes, ...articleRoutes, ...tldRoutes, ...comparisonRoutes, ...valuationRoutes, ...landerRoutes];
+    return [...staticRoutes, ...articleRoutes, ...tldRoutes, ...comparisonRoutes, ...clubRoutes, ...valuationRoutes, ...landerRoutes];
 }

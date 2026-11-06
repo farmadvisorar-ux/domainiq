@@ -66,9 +66,10 @@ export default function Footer() {
                     <ul className="space-y-2 text-slate-400">
                         <li><Link href="/" className="hover:text-brand-400 transition-colors">Instant Domain Valuation</Link></li>
                         <li><Link href="/records" className="hover:text-brand-400 transition-colors text-yellow-300 font-semibold">🏆 Top 100 Domain Sales in History</Link></li>
+                        <li><Link href="/clubs" className="hover:text-brand-400 transition-colors text-amber-300 font-semibold">🏛️ Character Clubs (LL.com, LLL.com)</Link></li>
                         <li><Link href="/tld" className="hover:text-brand-400 transition-colors text-cyan-300">🌐 TLD Valuation Guides (.ai, .com, .io)</Link></li>
                         <li><Link href="/compare" className="hover:text-brand-400 transition-colors">Head-to-Head Comparer</Link></li>
-                        <li><Link href="/bulk" className="hover:text-brand-400 transition-colors">Bulk Portfolio Appraisal</Link></li>
+                        <li><Link href="/bulk" className="hover:text-brand-400 transition-colors">Bulk Portfolio &amp; ASC 350 Auditor</Link></li>
                         <li><Link href="/drops" className="hover:text-brand-400 transition-colors">Expiring Drop Radar</Link></li>
                         <li><Link href="/extension" className="hover:text-brand-400 transition-colors">Chrome &amp; Edge Extension</Link></li>
                         <li><Link href="/deal-room" className="hover:text-brand-400 transition-colors text-emerald-300 font-semibold">🤝 Domain Deal Room &amp; Fees</Link></li>

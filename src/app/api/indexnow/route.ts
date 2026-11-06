@@ -3,6 +3,7 @@ import { getAllArticles } from '@/data/articles';
 import { getAllTlds } from '@/data/tlds';
 import { DOMAIN_SALE_RECORDS } from '@/data/records';
 import { getAllComparisons } from '@/data/comparisons';
+import { getAllClubs } from '@/data/clubs';
 
 const INDEXNOW_KEY = 'e8a7c2937f3448b1a8d11629d891b94e';
 const HOST = 'prstuvw.xyz';
@@ -18,6 +19,7 @@ export async function POST(req: NextRequest) {
             const articles = getAllArticles().map((a) => `${baseUrl}/articles/${a.slug}`);
             const tlds = getAllTlds().map((t) => `${baseUrl}/tld/${t.extension}`);
             const comparisons = getAllComparisons().map((c) => `${baseUrl}/compare/${c.slug}`);
+            const clubs = getAllClubs().map((cl) => `${baseUrl}/clubs/${cl.slug}`);
             const topSales = DOMAIN_SALE_RECORDS.slice(0, 50).map(
                 (r) => `${baseUrl}/valuation/${encodeURIComponent(r.domain.toLowerCase())}`
             );
@@ -25,12 +27,15 @@ export async function POST(req: NextRequest) {
             urlList = [
                 baseUrl,
                 `${baseUrl}/records`,
+                `${baseUrl}/clubs`,
                 `${baseUrl}/articles`,
                 `${baseUrl}/aeo`,
                 `${baseUrl}/glossary`,
                 `${baseUrl}/domain-worth-calculator`,
                 `${baseUrl}/compare`,
+                `${baseUrl}/bulk`,
                 `${baseUrl}/deal-room`,
+                ...clubs,
                 ...comparisons,
                 ...articles,
                 ...tlds,
