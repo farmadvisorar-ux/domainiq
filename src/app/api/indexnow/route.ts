@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAllArticles } from '@/data/articles';
 import { getAllTlds } from '@/data/tlds';
 import { DOMAIN_SALE_RECORDS } from '@/data/records';
+import { getAllComparisons } from '@/data/comparisons';
 
 const INDEXNOW_KEY = 'e8a7c2937f3448b1a8d11629d891b94e';
 const HOST = 'prstuvw.xyz';
@@ -16,6 +17,7 @@ export async function POST(req: NextRequest) {
             const baseUrl = `https://${HOST}`;
             const articles = getAllArticles().map((a) => `${baseUrl}/articles/${a.slug}`);
             const tlds = getAllTlds().map((t) => `${baseUrl}/tld/${t.extension}`);
+            const comparisons = getAllComparisons().map((c) => `${baseUrl}/compare/${c.slug}`);
             const topSales = DOMAIN_SALE_RECORDS.slice(0, 50).map(
                 (r) => `${baseUrl}/valuation/${encodeURIComponent(r.domain.toLowerCase())}`
             );
@@ -29,6 +31,7 @@ export async function POST(req: NextRequest) {
                 `${baseUrl}/domain-worth-calculator`,
                 `${baseUrl}/compare`,
                 `${baseUrl}/deal-room`,
+                ...comparisons,
                 ...articles,
                 ...tlds,
                 ...topSales,

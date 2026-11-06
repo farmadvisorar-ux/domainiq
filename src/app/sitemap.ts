@@ -2,11 +2,32 @@ import { MetadataRoute } from 'next';
 import { getAllArticles } from '@/data/articles';
 import { getAllTlds } from '@/data/tlds';
 import { DOMAIN_SALE_RECORDS } from '@/data/records';
+import { getAllComparisons } from '@/data/comparisons';
+import { getPool } from '@/lib/db';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://prstuvw.xyz';
     const articles = getAllArticles();
     const tlds = getAllTlds();
+    const comparisons = getAllComparisons();
+
+    let dbAppraisedDomains: string[] = [];
+    if (process.env.DATABASE_URL) {
+        try {
+            const dbQuery = getPool().query(
+                'SELECT DISTINCT LOWER(domain) AS domain FROM valuations WHERE domain IS NOT NULL LIMIT 500'
+            );
+            const timer = new Promise<never>((_, reject) =>
+                setTimeout(() => reject(new Error('sitemap db timeout')), 1200)
+            );
+            const { rows } = await Promise.race([dbQuery, timer]);
+            dbAppraisedDomains = rows
+                .map((r: { domain?: string }) => (r.domain || '').trim().toLowerCase())
+                .filter((d: string) => d.includes('.') && d.length >= 4);
+        } catch {
+            // Safe fallback to static benchmark list if DB is unreachable
+        }
+    }
 
     // Comprehensive programmatic valuation URLs: Top 100 historical sales + sovereign flagships + market comps
     const benchmarkDomains = Array.from(
@@ -137,6 +158,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             'xx.com',
             'yy.com',
             'zz.com',
+            ...dbAppraisedDomains,
         ])
     );
 
@@ -283,6 +305,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.9,
     }));
 
+    const comparisonRoutes: MetadataRoute.Sitemap = comparisons.map((comp) => ({
+        url: `${baseUrl}/compare/${comp.slug}`,
+        lastModified: new Date(comp.updatedDate),
+        changeFrequency: 'weekly',
+        priority: 0.9,
+    }));
+
     const valuationRoutes: MetadataRoute.Sitemap = benchmarkDomains.map((dom) => ({
         url: `${baseUrl}/valuation/${encodeURIComponent(dom)}`,
         lastModified: new Date(),
@@ -290,5 +319,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.85,
     }));
 
-    return [...staticRoutes, ...articleRoutes, ...tldRoutes, ...valuationRoutes];
+    const landerRoutes: MetadataRoute.Sitemap = benchmarkDomains.slice(0, 60).map((dom) => ({
+        url: `${baseUrl}/lander/${encodeURIComponent(dom)}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.8,
+    }));
+
+    return [...staticRoutes, ...articleRoutes, ...tldRoutes, ...comparisonRoutes, ...valuationRoutes, ...landerRoutes];
 }

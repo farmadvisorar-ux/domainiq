@@ -451,6 +451,12 @@ export default async function ValuationPage({ params }: Props) {
                         📄 Certificate
                     </Link>
                     <Link
+                        href={`/lander/${encodeURIComponent(result.domain)}`}
+                        className="btn-secondary border-amber-500/40 text-amber-300 hover:bg-amber-950/50 hover:border-amber-400"
+                    >
+                        🚀 Free For-Sale Lander
+                    </Link>
+                    <Link
                         href={`/deal-room?domain=${encodeURIComponent(result.domain)}&price=${Math.round(result.midUsd)}`}
                         className="btn-secondary border-emerald-500/40 text-emerald-300 hover:bg-emerald-950/50 hover:border-emerald-400"
                     >

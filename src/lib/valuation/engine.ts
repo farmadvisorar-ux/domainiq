@@ -984,7 +984,40 @@ function computeLiquidity(params: {
     };
 }
 
+const INDEXNOW_KEY = 'e8a7c2937f3448b1a8d11629d891b94e';
+const INDEXNOW_HOST = 'prstuvw.xyz';
+
+async function pingIndexNowForDomain(domain: string): Promise<void> {
+    if (process.env.NODE_ENV === 'test') return;
+    try {
+        const encoded = encodeURIComponent(domain.toLowerCase());
+        const payload = {
+            host: INDEXNOW_HOST,
+            key: INDEXNOW_KEY,
+            keyLocation: `https://${INDEXNOW_HOST}/${INDEXNOW_KEY}.txt`,
+            urlList: [
+                `https://${INDEXNOW_HOST}/valuation/${encoded}`,
+                `https://${INDEXNOW_HOST}/lander/${encoded}`,
+            ],
+        };
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 1500);
+        await fetch('https://api.indexnow.org/indexnow', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            body: JSON.stringify(payload),
+            signal: controller.signal,
+        });
+        clearTimeout(timer);
+    } catch {
+        // Ignore background IndexNow network errors
+    }
+}
+
 export async function recordValuation(result: ValuationResult): Promise<void> {
+    // Non-blocking IndexNow ping to immediately index newly appraised domains
+    void pingIndexNowForDomain(result.domain);
+
     try {
         await getPool().query(
             `INSERT INTO valuations (domain, score, low_usd, mid_usd, high_usd, confidence, breakdown_json)

@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { formatUsd } from '@/lib/format';
+import { COMPARISONS } from '@/data/comparisons';
 
 interface Row {
     domain: string;
@@ -204,6 +205,52 @@ function CompareInner() {
                     </div>
                 </div>
             )}
+
+            {/* Institutional Head-to-Head Comparison Guides (SEO Hub) */}
+            <section className="card p-6 sm:p-8 space-y-5">
+                <div className="space-y-1">
+                    <span className="text-xs font-mono font-bold text-brand-400 uppercase tracking-wider">
+                        Econometric Showdowns &amp; Benchmarks
+                    </span>
+                    <h2 className="text-xl sm:text-2xl font-black text-white">
+                        Institutional Comparison Guides (2026)
+                    </h2>
+                    <p className="text-xs sm:text-sm text-slate-400">
+                        Deep-dive head-to-head research comparing TLD multipliers, appraisal algorithms, and marketplace escrow commissions.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {COMPARISONS.map((comp) => (
+                        <Link
+                            key={comp.slug}
+                            href={`/compare/${comp.slug}`}
+                            className="group rounded-xl border border-slate-800 bg-slate-950/70 p-5 hover:border-brand-500/60 hover:bg-slate-900/80 transition-all space-y-2.5 flex flex-col justify-between"
+                        >
+                            <div className="space-y-2">
+                                <div className="flex items-center justify-between gap-2">
+                                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-brand-950 text-brand-300 border border-brand-800">
+                                        {comp.category}
+                                    </span>
+                                    <span className="text-[10px] font-mono text-emerald-400">
+                                        {comp.badge}
+                                    </span>
+                                </div>
+                                <h3 className="text-base font-bold text-white group-hover:text-brand-300 transition-colors leading-snug">
+                                    {comp.title}
+                                </h3>
+                                <p className="text-xs text-slate-400 line-clamp-2">
+                                    {comp.metaDescription}
+                                </p>
+                            </div>
+                            <div className="pt-2 flex items-center justify-between text-xs font-mono text-brand-400 group-hover:text-brand-300">
+                                <span>Read Full Comparison</span>
+                                <span>→</span>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+            </section>
         </div>
     );
 }
