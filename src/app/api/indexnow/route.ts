@@ -26,6 +26,7 @@ export async function POST(req: NextRequest) {
 
             urlList = [
                 baseUrl,
+                `${baseUrl}/comps`,
                 `${baseUrl}/records`,
                 `${baseUrl}/clubs`,
                 `${baseUrl}/articles`,

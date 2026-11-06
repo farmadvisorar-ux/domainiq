@@ -110,6 +110,7 @@ curl -s "https://prstuvw.xyz/api/v1/valuate?domain=stripe.com&format=markdown"
 ## 🔗 Reference Links & Documentation
 
 - **Interactive Terminal**: [https://prstuvw.xyz](https://prstuvw.xyz)
+- **Domain Sales Comps Database (200+ Transactions)**: [https://prstuvw.xyz/comps](https://prstuvw.xyz/comps)
 - **Bulk Portfolio "Keep vs. Drop" & ASC 350 Auditor**: [https://prstuvw.xyz/bulk](https://prstuvw.xyz/bulk)
 - **Zero-Commission Custom For-Sale Landers**: [https://prstuvw.xyz/lander/voice.com](https://prstuvw.xyz/lander/voice.com)
 - **AEO & LLM Direct Answers Portal**: [https://prstuvw.xyz/aeo](https://prstuvw.xyz/aeo)

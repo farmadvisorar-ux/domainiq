@@ -34,6 +34,8 @@ const TOOLS_LINKS: NavLink[] = [
 ];
 
 const INTEL_LINKS: NavLink[] = [
+    { href: '/comps', label: 'Domain Sales Comps Database', icon: '📊', badge: 'New', badgeColor: 'bg-cyan-950 text-cyan-300 border-cyan-800' },
+    { href: '/clubs', label: 'Character Clubs (LL, LLL, NN)', icon: '🏛️', badge: 'Clubs', badgeColor: 'bg-amber-950 text-amber-300 border-amber-800' },
     { href: '/records', label: 'Top 100 Historical Sales', icon: '🏆', badge: 'Hall of Fame', badgeColor: 'bg-amber-950 text-amber-300 border-amber-800' },
     { href: '/tld', label: 'TLD Valuation Directory', icon: '🌐' },
     { href: '/articles', label: 'Research Articles & Whitepapers', icon: '📚' },

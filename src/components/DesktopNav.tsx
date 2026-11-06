@@ -72,6 +72,22 @@ const TOOLS_ITEMS: NavItem[] = [
 
 const INTELLIGENCE_ITEMS: NavItem[] = [
     {
+        href: '/comps',
+        label: 'Domain Comps & Sales Database',
+        desc: 'Searchable historical transactions & median analytics',
+        icon: '📊',
+        badge: 'New',
+        badgeColor: 'bg-cyan-950 text-cyan-300 border-cyan-800',
+    },
+    {
+        href: '/clubs',
+        label: 'Character Clubs (LL, LLL, NN)',
+        desc: 'Fixed-supply liquid domain asset leaderboards',
+        icon: '🏛️',
+        badge: 'Asset Clubs',
+        badgeColor: 'bg-amber-950 text-amber-300 border-amber-800',
+    },
+    {
         href: '/records',
         label: 'Top 100 Historical Sales',
         desc: 'All-time verified domain sales hall of fame',
