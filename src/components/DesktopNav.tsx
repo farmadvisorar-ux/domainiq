@@ -443,6 +443,7 @@ export default function DesktopNav({ showDashboard }: DesktopNavProps) {
             {showDashboard && (
                 <Link
                     href="/dashboard"
+                    rel="nofollow"
                     className={`flex items-center gap-1 px-3 py-2 rounded-xl transition-all duration-200 ${
                         pathname === '/dashboard'
                             ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-800/80 font-bold'

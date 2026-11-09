@@ -121,6 +121,7 @@ export default function MobileNavMenu({ session }: MobileNavMenuProps) {
                                 <div className="flex items-center gap-2 shrink-0">
                                     <Link
                                         href="/dashboard"
+                                        rel="nofollow"
                                         onClick={() => setOpen(false)}
                                         className="btn-primary !py-1.5 !px-3 text-xs font-semibold"
                                     >

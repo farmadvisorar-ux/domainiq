@@ -75,7 +75,7 @@ export default function Footer() {
                         <li><Link href="/extension" className="hover:text-brand-400 transition-colors">Chrome &amp; Edge Extension</Link></li>
                         <li><Link href="/deal-room" className="hover:text-brand-400 transition-colors text-emerald-300 font-semibold">🤝 Domain Deal Room &amp; Fees</Link></li>
                         <li><Link href="/api-docs" className="hover:text-brand-400 transition-colors">Developer REST API v1</Link></li>
-                        <li><Link href="/dashboard" className="hover:text-brand-400 transition-colors">Portfolio Watchlist &amp; Alerts</Link></li>
+                        <li><Link href="/dashboard" rel="nofollow" className="hover:text-brand-400 transition-colors">Portfolio Watchlist &amp; Alerts</Link></li>
                     </ul>
                 </div>
 
@@ -143,7 +143,7 @@ export default function Footer() {
                     Terms of Service
                 </Link>
                 <span className="text-slate-700">•</span>
-                <Link href="/admin" className="text-slate-400 hover:text-orange-300 font-mono transition-colors">
+                <Link href="/admin" rel="nofollow" className="text-slate-400 hover:text-orange-300 font-mono transition-colors">
                     Admin Terminal
                 </Link>
                 </div>

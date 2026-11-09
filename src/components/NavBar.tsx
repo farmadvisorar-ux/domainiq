@@ -72,12 +72,14 @@ export default async function NavBar() {
                             <>
                                 <Link
                                     href="/login"
+                                    rel="nofollow"
                                     className="btn-secondary !px-3 !py-1.5 text-xs font-semibold whitespace-nowrap"
                                 >
                                     Sign in
                                 </Link>
                                 <Link
                                     href="/signup"
+                                    rel="nofollow"
                                     className="btn-primary !px-3.5 !py-1.5 text-xs font-semibold whitespace-nowrap shadow-brand-500/20"
                                 >
                                     Sign up free
@@ -90,6 +92,7 @@ export default async function NavBar() {
                     {!session && (
                         <Link
                             href="/login"
+                            rel="nofollow"
                             className="sm:hidden text-xs font-bold text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800"
                         >
                             Sign In

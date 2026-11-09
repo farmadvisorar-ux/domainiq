@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { performValuation } from '@/lib/valuation-request';
 import { evaluateDomain } from '@/lib/valuation/engine';
 import { normalizeDomain } from '@/lib/domain';
@@ -15,11 +16,11 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const rawDomain = decodeURIComponent(params.domain || '');
     const domain = normalizeDomain(rawDomain);
-    const canonicalUrl = `https://prstuvw.xyz/lander/${encodeURIComponent(domain)}`;
+    const canonicalUrl = `https://prstuvw.xyz/valuation/${encodeURIComponent(domain)}`;
     const badgeImageUrl = `https://prstuvw.xyz/api/badge/${encodeURIComponent(domain)}?style=card`;
 
     return {
-        title: `${domain} — Available for Acquisition or Lease-to-Own | DomainVoodoo Verified`,
+        title: `${domain} — Available for Acquisition or Lease-to-Own`,
         description: `Acquire or lease ${domain} with 0% broker markup via Escrow.com. Backed by an independent CVM-4 algorithmic fair market appraisal, trademark clearance, and CAC audit.`,
         alternates: {
             canonical: canonicalUrl,
@@ -50,6 +51,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function DomainLanderPage({ params }: Props) {
     const rawInput = decodeURIComponent(params.domain || '').trim();
     const domain = normalizeDomain(rawInput);
+
+    if (params.domain !== domain) {
+        redirect(`/lander/${encodeURIComponent(domain)}`);
+    }
 
     let result: import('@/lib/valuation/engine').ValuationResult | undefined;
     try {

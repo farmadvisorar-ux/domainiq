@@ -4,6 +4,25 @@ const nextConfig = {
     experimental: {
         serverComponentsExternalPackages: ['pg'],
     },
+    async redirects() {
+        return [
+            {
+                source: '/valuation',
+                destination: '/',
+                permanent: true,
+            },
+            {
+                source: '/lander',
+                destination: '/',
+                permanent: true,
+            },
+            {
+                source: '/certificate',
+                destination: '/',
+                permanent: true,
+            },
+        ];
+    },
     async headers() {
         return [
             {

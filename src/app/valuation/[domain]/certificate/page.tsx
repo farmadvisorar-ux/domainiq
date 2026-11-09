@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { performValuation } from '@/lib/valuation-request';
+import { normalizeDomain } from '@/lib/domain';
 import { formatUsd, formatUsdExact } from '@/lib/format';
 import PrintCertificateButton from '@/components/PrintCertificateButton';
 
@@ -11,10 +12,18 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const domain = decodeURIComponent(params.domain);
+    const rawDomain = decodeURIComponent(params.domain);
+    const domain = normalizeDomain(rawDomain);
     return {
-        title: `Official Appraisal Certificate for ${domain} — DomainVoodoo`,
+        title: `Official Appraisal Certificate for ${domain}`,
         description: `Official printable valuation certificate and due diligence brief for ${domain}, issued by DomainVoodoo.`,
+        alternates: {
+            canonical: `https://prstuvw.xyz/valuation/${encodeURIComponent(domain)}`,
+        },
+        robots: {
+            index: false,
+            follow: true,
+        },
     };
 }
 

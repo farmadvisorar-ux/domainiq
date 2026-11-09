@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { performValuation } from '@/lib/valuation-request';
 import { evaluateDomain } from '@/lib/valuation/engine';
 import { normalizeDomain } from '@/lib/domain';
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const canonicalUrl = `https://prstuvw.xyz/valuation/${encodeURIComponent(domain)}`;
     const badgeImageUrl = `https://prstuvw.xyz/api/badge/${encodeURIComponent(domain)}?style=card`;
     return {
-        title: `${domain} Valuation & Free Appraisal Report (2026) | DomainVoodoo`,
+        title: `${domain} Valuation & Free Appraisal Report (2026)`,
         description: `Free, instant algorithmic domain appraisal for ${domain}. Calculated with 14.8M+ verified sales comps, capitalized search CAC, and multi-channel liquidity pricing.`,
         alternates: {
             canonical: canonicalUrl,
@@ -172,6 +173,10 @@ const BENCHMARK_SHOWCASE = [
 export default async function ValuationPage({ params }: Props) {
     const rawInput = decodeURIComponent(params.domain || '').trim();
     const domain = normalizeDomain(rawInput);
+
+    if (params.domain !== domain) {
+        redirect(`/valuation/${encodeURIComponent(domain)}`);
+    }
 
     let result: import('@/lib/valuation/engine').ValuationResult | undefined;
     let error: string | undefined;

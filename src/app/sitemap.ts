@@ -340,12 +340,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.85,
     }));
 
-    const landerRoutes: MetadataRoute.Sitemap = benchmarkDomains.slice(0, 60).map((dom) => ({
-        url: `${baseUrl}/lander/${encodeURIComponent(dom)}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 0.8,
-    }));
-
-    return [...staticRoutes, ...articleRoutes, ...tldRoutes, ...comparisonRoutes, ...clubRoutes, ...valuationRoutes, ...landerRoutes];
+    return [...staticRoutes, ...articleRoutes, ...tldRoutes, ...comparisonRoutes, ...clubRoutes, ...valuationRoutes];
 }
