@@ -23,7 +23,10 @@ export const metadata: Metadata = {
         apple: [{ url: '/favicon.svg' }],
     },
     verification: {
-        google: 'q4OP3WIz5UHhRuKd--ygEACvrk1lUbcQtRS9kRsww7k',
+        google: [
+            'q4OP3WIz5UHhRuKd--ygEACvrk1lUbcQtRS9kRsww7k',
+            '7T0567NGdY-uylDmewvRCILlrxvfW-0tIMIYFby4Ya0',
+        ],
     },
     robots: {
         index: true,
